@@ -1,4 +1,4 @@
-import { Categoria } from './categoria';
+//import { Categoria } from './categoria';
 
 export class ObjetoAprendizaje {
   id: number;
@@ -8,7 +8,7 @@ export class ObjetoAprendizaje {
   fechaActualizacion: string;
   propietario: string;
   estado: boolean;
-  categoria: Categoria;
+  categoria: string;
   visitas: number;
 
 }

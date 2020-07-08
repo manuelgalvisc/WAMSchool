@@ -13,6 +13,11 @@ import javax.persistence.Table;
 @Table(name = "ROLES")
 public class Role implements Serializable,Cloneable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -806968091897809021L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "R_ID")

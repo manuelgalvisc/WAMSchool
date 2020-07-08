@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { ObjetoAprendizajeComponent } from './objeto-aprendizaje/objeto-aprendizaje.component';
 import { RouterModule , Routes } from '@angular/router';
@@ -19,13 +20,18 @@ const routes: Routes =[
 
 
 
+import { ModalLoginComponent } from './modal-login/modal-login.component';
+import { RegistarUsuarioComponent } from './registar-usuario/registar-usuario.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
     ObjetoAprendizajeComponent,
-    HomeComponent
+    HomeComponent,
+    ModalLoginComponent,
+    RegistarUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,10 @@ const routes: Routes =[
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    FormsModule,
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
