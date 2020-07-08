@@ -5,39 +5,35 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider} from "angularx-social-login";
 import { HeaderComponent } from './header/header.component';
+import { ObjetoAprendizajeComponent } from './objeto-aprendizaje/objeto-aprendizaje.component';
+import { RouterModule , Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
-let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("961220959171-mqlnn5ukods9v4e82rr7uuhc8g2krhoj.apps.googleusercontent.com")
-  },
-]);
+const routes: Routes =[
+  {path: 'crearOA', component: ObjetoAprendizajeComponent}
 
-export function provideConfig() {
-  return config;
-}
+];
+
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    ObjetoAprendizajeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SocialLoginModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

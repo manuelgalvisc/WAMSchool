@@ -1,0 +1,28 @@
+<form action="">
+
+
+<div class="form-group">
+  <label for="usr">Nombre:</label>
+  <input type="text" class="form-control" id="nameOA" name="nameOA">
+</div>
+
+<div class="form-group">
+  <label for="comment">Descripcion:</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment">Elige una categoria</label>
+  <select class="browser-default custom-select">
+    <option selected>Seleccione</option>
+    <option value="1">Ingenieria</option>
+    <option value="2">Geologia</option>
+    <option value="3">Biologia</option>
+  </select>
+</div>
+
+
+<button type="button" class="btn btn-success" (click)="crearOA()">Crear OA</button>
+<button type="button" class="btn btn-danger">Cancelar</button>
+
+</form>
