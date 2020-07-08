@@ -14,14 +14,15 @@ export class LoginComponent implements OnInit {
 
   private user: SocialUser;
   loggedIn: boolean;
-  private usuario : User;
+  private usuario: User;
 
   constructor(private authService: AuthService,private userService: UserService) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
+      this.loggedIn = (user == null);
+      console.log(this.loggedIn);
       this.signIn();
     });
   }
@@ -50,5 +51,6 @@ export class LoginComponent implements OnInit {
 
   signOut(): void {
     this.authService.signOut();
+    this.loggedIn = false;
   }
 }
