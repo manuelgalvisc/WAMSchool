@@ -1,6 +1,4 @@
 <div class="container">
-    <button class="btn btn-danger" (click)="signOut()">Sign out</button> 
-    <button class="btn btn-google text-uppercase" type="submit" (click)="signInWithGoogle()">
-        <i class="fab fa-google mr-2"></i> Sign in with Google
-    </button>
+    <button *ngIf="loggedIn" class="btn btn-danger" (click)="signOut()">Sign out</button>
+    <button class="btn btn-light" type="submit" (click)="signInWithGoogle()">Sign in</button>
 </div>

@@ -11,13 +11,13 @@ import { User } from '../model/user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   private user: SocialUser;
-  private loggedIn: boolean;
+  loggedIn: boolean;
   private usuario : User;
 
   constructor(private authService: AuthService,private userService: UserService) { }
- 
+
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       this.usuario.email = this.user.email;
       this.usuario.urlImagen = this.user.photoUrl;
 
-       //enviamos la autenticacion al backend y esperamos 
+       //enviamos la autenticacion al backend y esperamos
        this.userService.login(this.usuario).subscribe(
          response =>{
           console.log(response);
