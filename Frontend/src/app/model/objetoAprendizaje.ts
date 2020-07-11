@@ -1,5 +1,6 @@
 import { Categoria } from './categoria';
 import { User } from './user';
+import { Seccion } from './seccion';
 
 export class ObjetoAprendizaje {
   id: number;
@@ -11,4 +12,5 @@ export class ObjetoAprendizaje {
   estadoOA: string;
   categorias: Categoria[];
   visitas: number;
+  secciones: Seccion[];
 }

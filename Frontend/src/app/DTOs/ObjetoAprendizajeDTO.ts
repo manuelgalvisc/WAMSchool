@@ -1,4 +1,5 @@
 import { Categoria } from '../model/categoria';
+import { Seccion } from '../model/seccion';
 
 export class ObjetoAprendizajeDTO{
     nombreCompletoPropietario: string;
@@ -10,4 +11,5 @@ export class ObjetoAprendizajeDTO{
     estadoOA : string;
     categorias : Categoria[]
     visitas : number;
+    secciones: Seccion[];
 }

@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 //componentes
 import { AppComponent } from './app.component';
@@ -25,6 +27,8 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PoliticasComponent } from './politicas/politicas.component';
+import { SeccionComponent } from './seccion/seccion.component';
+import { EditarObjetoAprendizajeComponent } from './editar-objeto-aprendizaje/editar-objeto-aprendizaje.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,6 +36,8 @@ const routes: Routes =[
   {path: 'home', component: HomeComponent},
   {path: 'registrar_usuario', component: RegistarUsuarioComponent},
   {path: 'politicas', component: PoliticasComponent},
+  {path: 'editarOA', component: EditarObjetoAprendizajeComponent},
+  {path: 'crearSeccion', component: SeccionComponent},
 ];
 
 @NgModule({
@@ -45,6 +51,8 @@ const routes: Routes =[
     RegistarUsuarioComponent,
     FooterComponent,
     PoliticasComponent,
+    SeccionComponent,
+    EditarObjetoAprendizajeComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -53,6 +61,7 @@ const routes: Routes =[
     HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     CategoriaService,

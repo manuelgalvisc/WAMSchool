@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 import { ObjetoAprendizajeService } from '../services/objeto-aprendizaje.service';
 import Swal from 'sweetalert2';
+import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -22,13 +24,14 @@ export class ObjetoAprendizajeComponent implements OnInit{
   public objetoAprendizaje: ObjetoAprendizaje = new ObjetoAprendizaje();
   usuario: User = new User();
   iscategoriasseleccionadas: boolean;
+  editarOA: boolean;
 
   categorias: Categoria[];
   categoriasSeleccionadas: Categoria[];
 
   constructor(private categoriaService: CategoriaService,
-              private activatedRoute: ActivatedRoute,
-              private objetoAprendizajeService: ObjetoAprendizajeService ) {}
+              private objetoAprendizajeService: ObjetoAprendizajeService,
+              private dataService: DataService) {}
 
 
 
@@ -89,6 +92,9 @@ export class ObjetoAprendizajeComponent implements OnInit{
       json =>{
         if ( json.data.idOA != null){
           Swal.fire('Nuevo Objeto-Apendizaje', `Objeto ${json.data.tituloOA} creado con exito !`, 'success');
+          this.editarOA = true;
+          this.dataService.objetoAprendizajeDTO = json.data;
+
         }
 
       }

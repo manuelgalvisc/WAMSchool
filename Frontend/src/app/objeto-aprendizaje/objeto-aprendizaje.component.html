@@ -31,9 +31,13 @@
   </div>
 </div>
 
+
+
 <div class="lineamiento">
-  <button type="button" class="btn btn-success m-2" (click)="crearOA()">Crear OA</button>
+  <button *ngIf="!editarOA" type="button" class="btn btn-success m-2" (click)="crearOA()">Crear OA</button>
   <button type="button" class="btn btn-danger m-2" routerLink="/home">Cancelar</button>
+  <button *ngIf="editarOA" type="button" class="btn btn-success m-2" routerLink="/editarOA">Continuar Construyendo</button>
+
 </div>
 
 
