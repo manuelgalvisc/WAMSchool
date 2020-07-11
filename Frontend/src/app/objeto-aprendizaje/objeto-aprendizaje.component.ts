@@ -56,6 +56,19 @@ export class ObjetoAprendizajeComponent implements OnInit{
   onItemSelect(item: any) {
     this.categoriasSeleccionadas.push(item);
   }
+  onSelectAll(items: Categoria[]){
+    this.categoriasSeleccionadas = items;
+  }
+
+  onItemDeSelect(item: Categoria){
+    for( let i = 0; i < this.categoriasSeleccionadas.length; i++ ){
+      if(this.categoriasSeleccionadas[i].nombre === item.nombre){
+        this.categoriasSeleccionadas.splice(i);
+      }
+    }
+
+
+  }
 
 
   crearOA(){

@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
   categorias: Categoria[];
+  borrarCategoria: number;
   // busqueda por categorias
   categoriasFiltro: Categoria[];
   //page
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   numeroPagina: number = 0;
   primeraPaginacion: boolean = true;
   listaPaginas: Array<number> = [];
-  busquedaPorCategorias : boolean = false;
+  busquedaPorCategorias: boolean = false;
   ////
   focus: boolean;
   listaObjetoAprendizajeDTO: ObjetoAprendizajeDTO[] = [];
@@ -70,14 +71,14 @@ export class HomeComponent implements OnInit {
       textField: 'nombre',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
+      itemsShowLimit: 5,
       allowSearchFilter: true
     };
   }
 
   /**
    * Este método solo se usa cuando hay pag y es mayor a una pagina de lo contrario no
-   * @param pagina 
+   * @param pagina
    */
   public traerPaginacion(pagina: number): void {
     this.numeroPagina = pagina - 1;
@@ -152,8 +153,21 @@ export class HomeComponent implements OnInit {
     return this.listaObjetoAprendizajeDTO.length > 0;
   }
 
-  onItemSelect(item: any) {
+  onItemSelect(item: Categoria) {
     this.categoriasFiltro.push(item);
+  }
+  onSelectAll(items: Categoria[]){
+    this.categoriasFiltro = items;
+  }
+
+  onItemDeSelect(item: Categoria){
+    for( let i = 0; i < this.categoriasFiltro.length; i++ ){
+      if(this.categoriasFiltro[i].nombre === item.nombre){
+        this.categoriasFiltro.splice(i);
+      }
+    }
+
+
   }
 
   valorSearch(){
@@ -162,7 +176,8 @@ export class HomeComponent implements OnInit {
   }
 
   listarCategorias(){
-    //se desactiva la pag por defecto 
+    console.error(this.categoriasFiltro);
+    //se desactiva la pag por defecto
     this.primeraPaginacion =  false;
     //se activa la busqueda por categorias
     this.busquedaPorCategorias = true;
@@ -187,7 +202,7 @@ export class HomeComponent implements OnInit {
         }
       );
     }
-    
+
   }
 
 
