@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -60,6 +61,9 @@ public class ObjetoAprendizaje implements Serializable,Cloneable{
 
 	@Column(name = "OA_VISITAS")
 	private Integer visitas;
+	
+	@OneToMany(mappedBy = "objetoAprendizaje", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Seccion> secciones;
 	
 	public Long getId() {
 		return id;
@@ -132,6 +136,15 @@ public class ObjetoAprendizaje implements Serializable,Cloneable{
 
 	public void setVisitas(Integer visitas) {
 		this.visitas = visitas;
+	}
+	
+
+	public List<Seccion> getSecciones() {
+		return secciones;
+	}
+
+	public void setSecciones(List<Seccion> secciones) {
+		this.secciones = secciones;
 	}
 
 	@Override
