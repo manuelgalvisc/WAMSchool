@@ -7,9 +7,9 @@ public interface LoginServices {
 
 	public void agregarRole(Role role);
 	
-	public Boolean existeUsuario(String email);
+	public Usuario autenticarUsuario(String email);
 	
-	public Usuario agregarUsuario(Usuario user);
+	public Usuario registrarUsuario(Usuario user);
 	
 	public Role extraerRole(String name);
 }
