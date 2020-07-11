@@ -1,13 +1,19 @@
-<form action="">
+<form class="form-group">
 
 <div class="form-group">
-  <label for="usr">Titulo:</label>
-  <input type="text" class="form-control" [(ngModel)]="objetoAprendizaje.tituloOA"  id="nameOA" name="nameOA" [ngModelOptions]="{standalone: true}">
+  <label for="titulo">Titulo:</label>
+  <input type="text" class="form-control" [(ngModel)]="objetoAprendizaje.tituloOA"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel">
+  <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+    <div *ngIf="titulo.errors.required">El titulo es requerido</div>
+  </div>
 </div>
 
 <div class="form-group">
-  <label for="comment">Descripcion:</label>
-  <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}"></textarea>
+  <label for="descripcion">Descripcion:</label>
+  <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
+  <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+    <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
+  </div>
 </div>
 
 <div class="form-group">
@@ -20,6 +26,9 @@
     (onDeSelect)="onItemDeSelect($event)"
   >
   </ng-multiselect-dropdown>
+  <div class="alert alert-danger"*ngIf="iscategoriasseleccionadas" >
+    <div> Debe ingresar una categoria </div>
+  </div>
 </div>
 
 <div class="lineamiento">

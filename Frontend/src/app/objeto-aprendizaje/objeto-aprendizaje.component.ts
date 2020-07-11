@@ -21,6 +21,7 @@ export class ObjetoAprendizajeComponent implements OnInit{
   dropdownSettings: IDropdownSettings;
   public objetoAprendizaje: ObjetoAprendizaje = new ObjetoAprendizaje();
   usuario: User = new User();
+  iscategoriasseleccionadas: boolean;
 
   categorias: Categoria[];
   categoriasSeleccionadas: Categoria[];
@@ -55,9 +56,12 @@ export class ObjetoAprendizajeComponent implements OnInit{
   }
   onItemSelect(item: any) {
     this.categoriasSeleccionadas.push(item);
+    this.iscategoriasseleccionadas = false;
   }
   onSelectAll(items: Categoria[]){
     this.categoriasSeleccionadas = items;
+    this.iscategoriasseleccionadas = false;
+
   }
 
   onItemDeSelect(item: Categoria){
@@ -72,6 +76,9 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
 
   crearOA(){
+    if(this.categoriasSeleccionadas.length === 0){
+      this.iscategoriasseleccionadas = true;
+    }else{
     const estadoOA = 'INACTIVO';
     this.usuario.email = 'haig@nopo.com';
     this.objetoAprendizaje.propietario = this.usuario;
@@ -86,5 +93,6 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
       }
     );
+    }
   }
 }
