@@ -1,5 +1,6 @@
 package com.wamschool.backend.model;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -42,7 +43,7 @@ public class Usuario implements Serializable,Cloneable{
 	private String password;
 	
 	@Column(name = "U_FECHANACIMIENTO")
-	private String fechaNacimiento;
+	private Date fechaNacimiento;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
@@ -90,13 +91,6 @@ public class Usuario implements Serializable,Cloneable{
 		this.password = password;
 	}
 
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
 
 	public List<Role> getRoles() {
 		return roles;
@@ -104,6 +98,14 @@ public class Usuario implements Serializable,Cloneable{
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	
