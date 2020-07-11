@@ -78,5 +78,12 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 	public Categoria extraerCategoria(String nombre) {
 		return catRepo.findBynombre(nombre);
 	}
+
+	@Override
+	public List<Categoria> listarCategorias() {
+		List<Categoria> categorias = null;
+		categorias = (List<Categoria>) catRepo.findAll();
+		return categorias;
+	}
 	
 }

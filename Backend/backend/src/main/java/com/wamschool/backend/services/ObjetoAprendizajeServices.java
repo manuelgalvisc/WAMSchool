@@ -21,4 +21,6 @@ public interface ObjetoAprendizajeServices {
 	public List<ObjetoAprendizaje> listarPorAproximacionText(String text);
 	
 	public Categoria extraerCategoria(String nombre);
+	
+	public List<Categoria> listarCategorias();
 }

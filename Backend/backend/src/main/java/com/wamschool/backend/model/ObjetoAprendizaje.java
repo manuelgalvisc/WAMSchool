@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -35,7 +36,7 @@ public class ObjetoAprendizaje implements Serializable,Cloneable{
 	@Column(name = "OA_TITULO")
 	private String tituloOA;
 	
-	@Column(name = "OA_DESCRIPCION")
+	@Column(name = "OA_DESCRIPCION" ,columnDefinition = "text")
 	private String descripcion;
 	
 	@Column(name = "OA_FECHACREACION")
@@ -44,7 +45,8 @@ public class ObjetoAprendizaje implements Serializable,Cloneable{
 	@Column(name = "OA_FECHAACTUALIZACION")
 	private Date fechaActualizacion;
 	
-	@Column(name = "OA_PROPIETARIO")
+	@ManyToOne
+	@JoinColumn(name = "OA_PROPIETARIO_id")
 	private Usuario propietario;
 	
 	@Column(name = "OA_ESTADO")

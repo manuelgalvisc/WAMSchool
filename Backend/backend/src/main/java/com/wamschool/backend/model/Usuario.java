@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.UniqueConstraint;
@@ -51,6 +52,9 @@ public class Usuario implements Serializable,Cloneable{
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
 
+	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ObjetoAprendizaje> objetosAprendizaje;
+	
 	public Long getId() {
 		return id;
 	}
@@ -106,6 +110,14 @@ public class Usuario implements Serializable,Cloneable{
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public List<ObjetoAprendizaje> getObjetosAprendizaje() {
+		return objetosAprendizaje;
+	}
+
+	public void setObjetosAprendizaje(List<ObjetoAprendizaje> objetosAprendizaje) {
+		this.objetosAprendizaje = objetosAprendizaje;
 	}
 
 	
