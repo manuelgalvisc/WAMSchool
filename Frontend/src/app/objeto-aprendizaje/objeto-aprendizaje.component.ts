@@ -4,6 +4,9 @@ import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
 import { ObjetoAprendizaje } from '../model/objetoAprendizaje';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from '../model/user';
+import { ObjetoAprendizajeService } from '../services/objeto-aprendizaje.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -17,19 +20,24 @@ export class ObjetoAprendizajeComponent implements OnInit{
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
   public objetoAprendizaje: ObjetoAprendizaje = new ObjetoAprendizaje();
+  usuario: User = new User();
+
+  categorias: Categoria[];
+  categoriasSeleccionadas: Categoria[];
 
   constructor(private categoriaService: CategoriaService,
-              private activatedRoute: ActivatedRoute) {}
-  categorias: Categoria[];
+              private activatedRoute: ActivatedRoute,
+              private objetoAprendizajeService: ObjetoAprendizajeService ) {}
+
+
 
 
   ngOnInit() {
-
+    this.categoriasSeleccionadas = [];
     this.categoriaService.getCategorias().subscribe(
 
      json => {
         this.categorias = json.data;
-        console.log(json.data);
       }
 
     )
@@ -46,13 +54,24 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
   }
   onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
+    this.categoriasSeleccionadas.push(item);
   }
 
+
   crearOA(){
-    console.log(this.objetoAprendizaje);
+    const estadoOA = 'INACTIVO';
+    this.usuario.email = 'haig@nopo.com';
+    this.objetoAprendizaje.propietario = this.usuario;
+    this.objetoAprendizaje.categorias = this.categoriasSeleccionadas;
+    this.objetoAprendizaje.visitas = 0;
+    this.objetoAprendizaje.estadoOA = estadoOA;
+    this.objetoAprendizajeService.create(this.objetoAprendizaje).subscribe(
+      json =>{
+        if ( json.data.idOA != null){
+          Swal.fire('Nuevo Objeto-Apendizaje', `Objeto ${json.data.tituloOA} creado con exito !`, 'success');
+        }
+
+      }
+    );
   }
 }

@@ -27,10 +27,12 @@
                     [(ngModel)]="selectedItems"
                     [settings]="dropdownSettings"
                     (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)"
                   >
                   </ng-multiselect-dropdown>
                 </div>
+            </div>
+            <div class="conainer my-2">
+              <button type="submit"><i class="fa fa-search"></i></button>
             </div>
         </div>
         <div class="fondo col-9 ml-0">

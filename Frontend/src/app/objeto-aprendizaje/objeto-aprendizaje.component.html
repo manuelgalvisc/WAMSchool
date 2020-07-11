@@ -2,12 +2,12 @@
 
 <div class="form-group">
   <label for="usr">Titulo:</label>
-  <input type="text" class="form-control"  [(ngModel)]="objetoAprendizaje.tituloOA"  id="nameOA" name="nameOA">
+  <input type="text" class="form-control" [(ngModel)]="objetoAprendizaje.tituloOA"  id="nameOA" name="nameOA" [ngModelOptions]="{standalone: true}">
 </div>
 
 <div class="form-group">
   <label for="comment">Descripcion:</label>
-  <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" ></textarea>
+  <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}"></textarea>
 </div>
 
 <div class="form-group">
@@ -17,7 +17,6 @@
     [(ngModel)]="selectedItems"
     [settings]="dropdownSettings"
     (onSelect)="onItemSelect($event)"
-    (onSelectAll)="onSelectAll($event)"
   >
   </ng-multiselect-dropdown>
 </div>

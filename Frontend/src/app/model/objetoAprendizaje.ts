@@ -8,7 +8,7 @@ export class ObjetoAprendizaje {
   fechaCreacion: string;
   fechaActualizacion: string;
   propietario: User;
-  estado: boolean;
-  categoria: Categoria[];
+  estadoOA: string;
+  categorias: Categoria[];
   visitas: number;
 }

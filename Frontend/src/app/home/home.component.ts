@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
   categorias: Categoria[];
+  // busqueda por categorias
+  categoriasFiltro: Categoria[];
   //page
   pagina: number = 0;
   numeroPagina: number = 0;
@@ -30,11 +32,12 @@ export class HomeComponent implements OnInit {
   //search
   textConsulta : string = "";
   constructor(private consultasService: ConsultasService,
-    private categoriaService: CategoriaService) { }
+              private categoriaService: CategoriaService
+              ) { }
 
   ngOnInit(): void {
     this.focus = false;
-
+    this.categoriasFiltro = [];
     this.consultasService.listasOApag(this.numeroPagina).subscribe(
       json => {
         if (json.data == null && json.page == null) {
@@ -125,15 +128,16 @@ export class HomeComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
+    this.categoriasFiltro.push(item);
   }
 
   valorSearch(){
     alert(this.textConsulta);
     console.log(this.textConsulta);
+  }
+
+  listarCategorias(){
+    this.consultasService.filtrarPorCategorias(this.categoriasFiltro).subscribe();
   }
 
 }
