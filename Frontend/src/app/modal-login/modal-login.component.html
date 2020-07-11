@@ -1,0 +1,47 @@
+<div class="abrir-modal animation fadein" *ngIf="modalService.modal">
+  <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-light">{{ titulo }}</h5>
+          <button (click)="cerrarModal()" type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row p-3 mb-2">
+              <div class="col-sm">
+                <input type="email" class="form-control" [(ngModel)]="user.email" placeholder="Correo" name="email" required email #email="ngModel">
+                <div>
+                  <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <div *ngIf="email.errors.required">El email es requerido</div>
+                    <div *ngIf="email.errors.email">El email debe tener un formato válido</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row p-3 mb-2">
+              <div class="col-sm">
+                <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="Contraseña" name="password" required #password="ngModel">
+                <div class="alert alert-danger" *ngIf="password.dirty || password.touched">
+                  <div *ngIf="password.errors.required">El password es requerido</div>
+                </div>
+              </div>
+            </div>
+            <div class="row p-3 mb-2">
+              <div class="col-sm" style="text-align: center;">
+                <button type="button" class="btn btn-primary" data-dismiss="modal m-3">Ingresar</button>
+                <button (click)="cerrarModal()" type="button" class="btn btn-danger m-3" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-dark">
+          <p class="text-light">No tienes cuenta registrate</p>
+          <button type="button" class="btn btn-light m-3" data-dismiss="modal">Registrarse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

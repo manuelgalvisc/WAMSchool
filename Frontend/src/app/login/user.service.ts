@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { User } from '../model/user';
+import { User } from './user'
 
 @Injectable({
     providedIn: 'root'
@@ -9,14 +9,13 @@ import { User } from '../model/user';
 
   export class UserService {
 
-    private _User: User;
-    //private _token: string;
-  
+    private User: User;
+
     constructor(private http: HttpClient) { }
-  
-  
+
+
     public login(usuario:User):Observable<any>{
-      
+
       const url = 'http://localhost:9000/login/signin';
 
       const httpOptions = {
@@ -25,9 +24,6 @@ import { User } from '../model/user';
         })
       };
 
-      console.log(usuario);
-      console.log(JSON.stringify(usuario));
       return this.http.post<any>(url,JSON.stringify(usuario),httpOptions);
     }
   }
-  
