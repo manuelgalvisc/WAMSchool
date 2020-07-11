@@ -12,9 +12,12 @@ import { ObjetoAprendizajeComponent } from './objeto-aprendizaje/objeto-aprendiz
 import { HomeComponent } from './home/home.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
 import { RegistarUsuarioComponent } from './registar-usuario/registar-usuario.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const routes: Routes =[
-  {path: 'crearOA', component: ObjetoAprendizajeComponent}
+  {path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path: 'crearOA', component: ObjetoAprendizajeComponent},
+  {path: 'home', component: HomeComponent}
 
 ];
 
@@ -29,11 +32,13 @@ const routes: Routes =[
     RegistarUsuarioComponent,
   ],
   imports: [
+    NgMultiSelectDropDownModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
+
   ],
   providers: [ ],
 

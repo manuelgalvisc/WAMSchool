@@ -22,9 +22,11 @@
     "angularx-social-login": "^2.3.1",
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
+    "ng-multiselect-dropdown": "^0.2.10",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
+    "sweetalert2": "^9.15.3",
+    "tslib": "^1.13.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

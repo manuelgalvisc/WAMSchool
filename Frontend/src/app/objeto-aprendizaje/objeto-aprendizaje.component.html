@@ -12,13 +12,15 @@
 </div>
 
 <div class="form-group">
-  <label for="comment">Elige una categoria</label>
-  <select class="browser-default custom-select">
-    <option selected>Seleccione</option>
-    <option value="1">Ingenieria</option>
-    <option value="2">Geologia</option>
-    <option value="3">Biologia</option>
-  </select>
+    <ng-multiselect-dropdown
+    [placeholder]="'Selecciona una categoria'"
+    [data]="categorias"
+    [(ngModel)]="selectedItems"
+    [settings]="dropdownSettings"
+    (onSelect)="onItemSelect($event)"
+    (onSelectAll)="onSelectAll($event)"
+  >
+  </ng-multiselect-dropdown>
 </div>
 
 
