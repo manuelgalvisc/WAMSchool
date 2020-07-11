@@ -15,8 +15,8 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  getCategorias(): Observable<Categoria[]>{
-    return this.http.get<Categoria[]>(this.urlEndPoint).pipe(
+  getCategorias(): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint).pipe(
       catchError( e =>{
         console.error(e.error.mensaje);
         Swal.fire('error al cargar las categorias', e.error.mensaje, 'error');

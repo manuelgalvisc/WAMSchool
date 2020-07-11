@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
 import { RegistarUsuarioComponent } from './registar-usuario/registar-usuario.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { CategoriaService } from './services/categoria.service';
+import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service'
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,7 +42,10 @@ const routes: Routes =[
     FormsModule,
 
   ],
-  providers: [ ],
+  providers: [
+    CategoriaService,
+    ObjetoAprendizajeService
+  ],
 
   bootstrap: [AppComponent]
 })
