@@ -18,7 +18,7 @@ export class ObjetoAprendizajeService {
   // servicio encargado de crear un objeto de aprendizaje en la base de datos
   create(objetoAprendizaje: ObjetoAprendizaje): Observable<any>{
 
-    this.urlEndPoint = 'http://localhost:9000/api/listarOAcategorias';
+    this.urlEndPoint = 'http://localhost:9000/api/crearOA';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'

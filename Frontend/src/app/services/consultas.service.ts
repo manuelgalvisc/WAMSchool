@@ -34,6 +34,7 @@ import Swal from 'sweetalert2';
       }
 
       public filtrarPorCategorias(categoria: Categoria[]):Observable<any>{
+
         const url = 'http://localhost:9000/api/filtrarPorCategorias';
         const httpOptions = {
           headers: new HttpHeaders({
@@ -45,6 +46,7 @@ import Swal from 'sweetalert2';
             console.error(e.error.mensaje);
             Swal.fire('error al crear el Objeto de Aprendizaje', e.error.mensaje, 'error');
             return throwError(e);
+
           }
 
           )

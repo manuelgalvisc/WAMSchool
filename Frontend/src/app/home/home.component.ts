@@ -5,6 +5,7 @@ import { ConsultasService } from '../services/consultas.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-home',
