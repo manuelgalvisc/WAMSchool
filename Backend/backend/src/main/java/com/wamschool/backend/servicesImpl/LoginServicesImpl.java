@@ -27,14 +27,19 @@ public class LoginServicesImpl implements LoginServices {
 
 	@Override
 	@Transactional
-	public Usuario agregarUsuario(Usuario user) {
-		return usuRepo.save(user);
+	public Usuario registrarUsuario(Usuario user) {
+		
+		if(!usuRepo.existsUsuarioByEmail(user.getEmail())) {
+			return usuRepo.save(user);
+		}
+		
+		return null; 
 	}
 
 	@Override
 	@Transactional
-	public Boolean existeUsuario(String email) {
-		return usuRepo.existsUsuarioByEmail(email);
+	public Usuario autenticarUsuario(String email) {
+		return usuRepo.findByEmail(email);
 	}
 
 	@Override

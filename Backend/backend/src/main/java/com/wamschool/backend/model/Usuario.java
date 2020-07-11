@@ -19,6 +19,11 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "USUARIOS")
 public class Usuario implements Serializable,Cloneable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1152198757387441037L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "U_ID")
@@ -33,11 +38,11 @@ public class Usuario implements Serializable,Cloneable{
 	@Column(name = "U_EMAIL", unique = true)
 	private String email;
 	
-	@Column(name = "U_IDGOOGLE")
-	private String idGoogle;
+	@Column(name = "U_PASSWORD")
+	private String password;
 	
-	@Column(name = "U_URLIMAG")
-	private String urlImagen;
+	@Column(name = "U_FECHANACIMIENTO")
+	private String fechaNacimiento;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
@@ -45,12 +50,12 @@ public class Usuario implements Serializable,Cloneable{
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
 
-	public List<Role> getRoles() {
-		return roles;
+	public Long getId() {
+		return id;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -77,29 +82,31 @@ public class Usuario implements Serializable,Cloneable{
 		this.email = email;
 	}
 
-	public String getIdGoogle() {
-		return idGoogle;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setIdGoogle(String idGoogle) {
-		this.idGoogle = idGoogle;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Long getId() {
-		return id;
+	public List<Role> getRoles() {
+		return roles;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
+
+	
 	
     
 	

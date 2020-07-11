@@ -7,5 +7,7 @@ import com.wamschool.backend.model.Usuario;
 public interface IUsuario extends CrudRepository<Usuario,Long> {
 	
 	Boolean existsUsuarioByEmail(String email);
+	
+	Usuario findByEmail(String email);
 
 }
