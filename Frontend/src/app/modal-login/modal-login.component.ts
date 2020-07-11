@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ModalService } from './modal-service';
-import { User } from '../login/user';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-modal-login',
