@@ -1,14 +1,13 @@
 <form action="">
 
-
 <div class="form-group">
-  <label for="usr">Nombre:</label>
-  <input type="text" class="form-control" id="nameOA" name="nameOA">
+  <label for="usr">Titulo:</label>
+  <input type="text" class="form-control"  [(ngModel)]="objetoAprendizaje.tituloOA"  id="nameOA" name="nameOA">
 </div>
 
 <div class="form-group">
   <label for="comment">Descripcion:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" ></textarea>
 </div>
 
 <div class="form-group">

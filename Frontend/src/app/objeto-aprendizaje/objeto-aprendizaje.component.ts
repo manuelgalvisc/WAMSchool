@@ -2,6 +2,8 @@ import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
+import { ObjetoAprendizaje } from '../model/objetoAprendizaje';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { Categoria } from '../model/categoria';
   templateUrl: './objeto-aprendizaje.component.html',
   styleUrls: ['./objeto-aprendizaje.component.css']
 })
-export class ObjetoAprendizajeComponent implements OnInit, AfterViewInit{
+export class ObjetoAprendizajeComponent implements OnInit{
 
 
 
@@ -18,30 +20,23 @@ export class ObjetoAprendizajeComponent implements OnInit, AfterViewInit{
   dropdownList = [];
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
+  public objetoAprendizaje: ObjetoAprendizaje = new ObjetoAprendizaje();
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(private categoriaService: CategoriaService,
+              private activatedRoute: ActivatedRoute) {}
   categorias: Categoria[];
 
-  ngAfterViewInit(): void {
 
-
-
-
-    /*
-    this.dropdownList = [
-      { id: 1, nombre: 'Mumbai' },
-      { id: 2, nombre: 'Bangaluru' },
-      { id: 3, nombre: 'Pune' },
-      { id: 4, nombre: 'Navsari' },
-      { id: 5, nombre: 'New Delhi' }
-    ];*/
-
-  }
 
   ngOnInit() {
 
     this.categoriaService.getCategorias().subscribe(
-      categorias => this.categorias = categorias
+
+     json => {
+        this.categorias = json.data;
+        console.log(json.data);
+      }
+
     )
     // configuraciones para el desplegable de categorias
     this.dropdownSettings ={
@@ -63,14 +58,12 @@ export class ObjetoAprendizajeComponent implements OnInit, AfterViewInit{
   }
 
   crearOA(){
+    console.log(this.objetoAprendizaje);
 
   }
 
-  }
 
-
-
-
+}
 
 
 
