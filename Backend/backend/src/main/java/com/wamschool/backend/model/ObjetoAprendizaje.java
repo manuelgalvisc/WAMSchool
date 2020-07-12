@@ -29,7 +29,7 @@ public class ObjetoAprendizaje implements Serializable,Cloneable{
 	private static final long serialVersionUID = -3343654501921212893L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "OA_ID")
 	private Long id;
 	

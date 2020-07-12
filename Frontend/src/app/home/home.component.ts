@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  focus : boolean;
   constructor() { }
 
   ngOnInit(): void {
+    this.focus = false;
+  }
+
+  mostrarText():void{
+    this.focus = true;
   }
 
 }

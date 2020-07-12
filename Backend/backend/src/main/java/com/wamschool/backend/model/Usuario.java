@@ -27,7 +27,7 @@ public class Usuario implements Serializable,Cloneable{
 	private static final long serialVersionUID = -1152198757387441037L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "U_ID")
 	private Long id;
 	

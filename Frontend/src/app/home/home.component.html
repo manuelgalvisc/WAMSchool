@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 mr-0">
+            <div class="container p-3 my-3 mr-0 bg-primary text-white text-center rounded">
+                <h4>Filtros OA</h4>  
+            </div>
+            <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Buscar" (keyup) = "mostrarText()" (mousemove) = "focus = false">
+            </div>
+            <div *ngIf="focus" class="text-justify text-primary"><p>Ingrese palabras clave que esten relacionadas 
+                con la descripción del OA o su titulo</p></div>
+            <div class="container my-3">
+                <!--categorias-->
+            </div>
+        </div>
+        <div class="fondo col-9 ml-0">
+            <div class="container p-3 my-3 ml-0 bg-light text-black text-center rounded">
+                <h4>Búsqueda OA</h4>
+            </div>
+        </div>
+    </div>
+</div>
