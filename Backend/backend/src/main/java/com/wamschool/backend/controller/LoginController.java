@@ -86,7 +86,7 @@ public class LoginController {
 				//el email ya se encuentra registrado en la DB 
 				response.put("data",null);
 				response.put("mensaje","El email ya se encuentra registrado");
-				return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+				return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}catch(DataAccessException e) {
 			response.put("data",null);

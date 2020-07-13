@@ -1,7 +1,7 @@
 export class User {
     nombre: string;
     apellido: string;
-    fechaNacimiento: string;
+    fechaNacimiento: Date = null;
     email: string;
     password: string;
   }

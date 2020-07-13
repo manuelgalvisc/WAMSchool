@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../modal-login/modal-service';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +7,9 @@ import { ModalService } from '../modal-login/modal-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  banderaLogin: boolean = false;
-
   constructor(private _modalService: ModalService) { }
 
   ngOnInit() {
-
   }
 
   login(){
