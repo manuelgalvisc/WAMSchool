@@ -19,7 +19,7 @@ public class Role implements Serializable,Cloneable{
 	private static final long serialVersionUID = -806968091897809021L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "R_ID")
 	private Long  id;
 	

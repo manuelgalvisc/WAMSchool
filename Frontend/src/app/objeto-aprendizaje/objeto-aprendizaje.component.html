@@ -1,24 +1,25 @@
 <form action="">
 
-
 <div class="form-group">
-  <label for="usr">Nombre:</label>
-  <input type="text" class="form-control" id="nameOA" name="nameOA">
+  <label for="usr">Titulo:</label>
+  <input type="text" class="form-control"  [(ngModel)]="objetoAprendizaje.tituloOA"  id="nameOA" name="nameOA">
 </div>
 
 <div class="form-group">
   <label for="comment">Descripcion:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" ></textarea>
 </div>
 
 <div class="form-group">
-  <label for="comment">Elige una categoria</label>
-  <select class="browser-default custom-select">
-    <option selected>Seleccione</option>
-    <option value="1">Ingenieria</option>
-    <option value="2">Geologia</option>
-    <option value="3">Biologia</option>
-  </select>
+    <ng-multiselect-dropdown
+    [placeholder]="'Selecciona una categoria'"
+    [data]="categorias"
+    [(ngModel)]="selectedItems"
+    [settings]="dropdownSettings"
+    (onSelect)="onItemSelect($event)"
+    (onSelectAll)="onSelectAll($event)"
+  >
+  </ng-multiselect-dropdown>
 </div>
 
 

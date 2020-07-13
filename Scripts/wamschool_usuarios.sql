@@ -21,6 +21,7 @@
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (2,'Gomez','manuel@games.com','2000-01-02 00:00:00','Manuel','1234'),(3,'Adolf','haig@nopo.com','2000-01-02 00:00:00','Gustavo','1234'),(4,'White','hein@meta.com','2000-01-02 00:00:00','Walter','1234');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -33,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-11 17:06:49
+-- Dump completed on 2020-07-13  0:57:00

@@ -1,8 +1,11 @@
 package com.wamschool.backend.servicesImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,8 +59,9 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 	@Override
 	@Transactional(readOnly = true)
 	public List<ObjetoAprendizaje> listarTodosOA() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ObjetoAprendizaje> listaOA = new ArrayList<ObjetoAprendizaje>();
+		listaOA = objRepo.findAll();
+		return listaOA;
 	}
 
 	@Override
@@ -75,8 +79,25 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Categoria extraerCategoria(String nombre) {
 		return catRepo.findBynombre(nombre);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Categoria> listarCategorias() {
+		List<Categoria> categorias = null;
+		categorias = (List<Categoria>) catRepo.findAll();
+		return categorias;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<ObjetoAprendizaje> paginaListaOA(Pageable pageable) {
+		Page<ObjetoAprendizaje> pageOA =  null;
+		pageOA = objRepo.findAll(pageable);
+		return pageOA;
 	}
 	
 }

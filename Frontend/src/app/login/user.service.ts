@@ -25,6 +25,6 @@ import { User } from '../model/user';
         })
       };
 
-      return this.http.post<any>(url,JSON.stringify(usuario),httpOptions);
+      return this.http.post<any>(url,JSON.stringify(usuario), httpOptions);
     }
   }
