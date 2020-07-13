@@ -16,23 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `usuarios`
+-- Dumping data for table `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `U_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `U_APELLIDO` varchar(255) DEFAULT NULL,
-  `U_EMAIL` varchar(255) DEFAULT NULL,
-  `U_FECHANACIMIENTO` datetime DEFAULT NULL,
-  `U_NAME` varchar(255) DEFAULT NULL,
-  `U_PASSWORD` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`U_ID`),
-  UNIQUE KEY `UK_uiu890j8tgsa11xlqm1loc7y` (`U_EMAIL`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (2,'Gomez','manuel@games.com','2000-01-02 00:00:00','Manuel','1234'),(3,'Adolf','haig@nopo.com','2000-01-02 00:00:00','Gustavo','1234'),(4,'White','hein@meta.com','2000-01-02 00:00:00','Walter','1234');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -43,4 +34,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13  0:30:21
+-- Dump completed on 2020-07-13  0:57:00

@@ -16,25 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `objeto_aprendizaje`
+-- Dumping data for table `objeto_aprendizaje`
 --
 
-DROP TABLE IF EXISTS `objeto_aprendizaje`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `objeto_aprendizaje` (
-  `OA_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `OA_DESCRIPCION` text,
-  `OA_ESTADO` int(11) DEFAULT NULL,
-  `OA_FECHAACTUALIZACION` datetime DEFAULT NULL,
-  `OA_FECHACREACION` datetime DEFAULT NULL,
-  `OA_TITULO` varchar(255) DEFAULT NULL,
-  `OA_VISITAS` int(11) DEFAULT NULL,
-  `OA_PROPIETARIO_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`OA_ID`),
-  KEY `FKojoycg0f4suvnkxgua0nudjmy` (`OA_PROPIETARIO_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `objeto_aprendizaje` WRITE;
+/*!40000 ALTER TABLE `objeto_aprendizaje` DISABLE KEYS */;
+INSERT INTO `objeto_aprendizaje` VALUES (1,'amara tenía 26 años, dos hijos y vivía en las afueras de una gran ciudad con ellos. Se había divorciado hacía 2 años del padre de las niñas. Ella había conocido, el último verano, a un hombre del pueblo. Se llamaba Juan Carlos. ÉL tenía 32 años. Se conocieron mientras ella realizaba unas compras en el almacén donde Juan Carlos solía comprar. Era una mañana calurosa cuando se conocieron. Había llovido toda la noche y los caminos se habían inundado. Por eso llegó Tamara al pueblo: para comprar leña porque la que tenía se había mojado por la inundación. Lo suyo fue amor a primera vista. Se enamoraron y luego de cuatro años se casaron. A menudo suelo ir a visitarlos. Ellos ya llevan 23 años juntos. Son muy felices en su hogar a las afueras de aquella gran ciudad.',0,'2020-07-12 20:37:13','2020-07-12 20:37:13','El primero OA prueba',0,2),(2,'amara tenía 26 años, dos hijos y vivía en las afueras de una gran ciudad con ellos. Se había divorciado hacía 2 años del padre de las niñas. Ella había conocido, el último verano, a un hombre del pueblo. Se llamaba Juan Carlos. ÉL tenía 32 años. Se conocieron mientras ella realizaba unas compras en el almacén donde Juan Carlos solía comprar. Era una mañana calurosa cuando se conocieron. Había llovido toda la noche y los caminos se habían inundado. Por eso llegó Tamara al pueblo: para comprar leña porque la que tenía se había mojado por la inundación. Lo suyo fue amor a primera vista. Se enamoraron y luego de cuatro años se casaron. A menudo suelo ir a visitarlos. Ellos ya llevan 23 años juntos. Son muy felices en su hogar a las afueras de aquella gran ciudad.',0,'2020-07-12 23:44:22','2020-07-12 23:44:22','El segundo OA prueba',0,2),(3,'amara tenía 26 años, dos hijos y vivía en las afueras de una gran ciudad con ellos. Se había divorciado hacía 2 años del padre de las niñas. Ella había conocido, el último verano, a un hombre del pueblo. Se llamaba Juan Carlos. ÉL tenía 32 años. Se conocieron mientras ella realizaba unas compras en el almacén donde Juan Carlos solía comprar. Era una mañana calurosa cuando se conocieron. Había llovido toda la noche y los caminos se habían inundado. Por eso llegó Tamara al pueblo: para comprar leña porque la que tenía se había mojado por la inundación. Lo suyo fue amor a primera vista. Se enamoraron y luego de cuatro años se casaron. A menudo suelo ir a visitarlos. Ellos ya llevan 23 años juntos. Son muy felices en su hogar a las afueras de aquella gran ciudad.',0,'2020-07-12 23:50:37','2020-07-12 23:50:37','El segundo OA prueba',0,3),(4,'amara tenía 26 años, dos hijos y vivía en las afueras de una gran ciudad con ellos. Se había divorciado hacía 2 años del padre de las niñas. Ella había conocido, el último verano, a un hombre del pueblo. Se llamaba Juan Carlos. ÉL tenía 32 años. Se conocieron mientras ella realizaba unas compras en el almacén donde Juan Carlos solía comprar. Era una mañana calurosa cuando se conocieron. Había llovido toda la noche y los caminos se habían inundado. Por eso llegó Tamara al pueblo: para comprar leña porque la que tenía se había mojado por la inundación. Lo suyo fue amor a primera vista. Se enamoraron y luego de cuatro años se casaron. A menudo suelo ir a visitarlos. Ellos ya llevan 23 años juntos. Son muy felices en su hogar a las afueras de aquella gran ciudad.',1,'2020-07-12 23:52:05','2020-07-12 23:52:05','El primer OA prueba',0,3),(5,'amara tenía 26 años, dos hijos y vivía en las afueras de una gran ciudad con ellos. Se había divorciado hacía 2 años del padre de las niñas. Ella había conocido, el último verano, a un hombre del pueblo. Se llamaba Juan Carlos. ÉL tenía 32 años. Se conocieron mientras ella realizaba unas compras en el almacén donde Juan Carlos solía comprar. Era una mañana calurosa cuando se conocieron. Había llovido toda la noche y los caminos se habían inundado. Por eso llegó Tamara al pueblo: para comprar leña porque la que tenía se había mojado por la inundación. Lo suyo fue amor a primera vista. Se enamoraron y luego de cuatro años se casaron. A menudo suelo ir a visitarlos. Ellos ya llevan 23 años juntos. Son muy felices en su hogar a las afueras de aquella gran ciudad.',1,'2020-07-12 23:54:33','2020-07-12 23:54:33','El primer OA prueba',0,4),(6,'amara tenía 26 años, dos hijos y vivía en las afueras de una gran ciudad con ellos. Se había divorciado hacía 2 años del padre de las niñas. Ella había conocido, el último verano, a un hombre del pueblo. Se llamaba Juan Carlos. ÉL tenía 32 años. Se conocieron mientras ella realizaba unas compras en el almacén donde Juan Carlos solía comprar. Era una mañana calurosa cuando se conocieron. Había llovido toda la noche y los caminos se habían inundado. Por eso llegó Tamara al pueblo: para comprar leña porque la que tenía se había mojado por la inundación. Lo suyo fue amor a primera vista. Se enamoraron y luego de cuatro años se casaron. A menudo suelo ir a visitarlos. Ellos ya llevan 23 años juntos. Son muy felices en su hogar a las afueras de aquella gran ciudad.',1,'2020-07-12 23:55:32','2020-07-12 23:55:32','El segundo OA prueba',0,4);
+/*!40000 ALTER TABLE `objeto_aprendizaje` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -45,4 +34,4 @@ CREATE TABLE `objeto_aprendizaje` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13  0:30:21
+-- Dump completed on 2020-07-13  0:57:00

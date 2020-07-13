@@ -16,19 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `oa_categoria`
+-- Dumping data for table `oa_categoria`
 --
 
-DROP TABLE IF EXISTS `oa_categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oa_categoria` (
-  `oa_id` bigint(20) NOT NULL,
-  `categoria_id` bigint(20) NOT NULL,
-  UNIQUE KEY `UKjrn90epdikeasjpnur7vyej43` (`oa_id`,`categoria_id`),
-  KEY `FKrrm5buangqic5nx2021vl90bo` (`categoria_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `oa_categoria` WRITE;
+/*!40000 ALTER TABLE `oa_categoria` DISABLE KEYS */;
+INSERT INTO `oa_categoria` VALUES (1,1),(2,1),(3,2),(4,2),(5,2),(6,2);
+/*!40000 ALTER TABLE `oa_categoria` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -39,4 +34,4 @@ CREATE TABLE `oa_categoria` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13  0:30:21
+-- Dump completed on 2020-07-13  0:57:00
