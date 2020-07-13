@@ -55,10 +55,4 @@ export class ObjetoAprendizajeComponent implements OnInit{
   crearOA(){
     console.log(this.objetoAprendizaje);
   }
-
-
 }
-
-
-
-
