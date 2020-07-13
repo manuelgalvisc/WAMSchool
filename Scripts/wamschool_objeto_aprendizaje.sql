@@ -16,13 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `objeto_aprendizaje`
+-- Table structure for table `objeto_aprendizaje`
 --
 
-LOCK TABLES `objeto_aprendizaje` WRITE;
-/*!40000 ALTER TABLE `objeto_aprendizaje` DISABLE KEYS */;
-/*!40000 ALTER TABLE `objeto_aprendizaje` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `objeto_aprendizaje`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `objeto_aprendizaje` (
+  `OA_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OA_DESCRIPCION` text,
+  `OA_ESTADO` int(11) DEFAULT NULL,
+  `OA_FECHAACTUALIZACION` datetime DEFAULT NULL,
+  `OA_FECHACREACION` datetime DEFAULT NULL,
+  `OA_TITULO` varchar(255) DEFAULT NULL,
+  `OA_VISITAS` int(11) DEFAULT NULL,
+  `OA_PROPIETARIO_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`OA_ID`),
+  KEY `FKojoycg0f4suvnkxgua0nudjmy` (`OA_PROPIETARIO_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -33,4 +45,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-11 17:06:49
+-- Dump completed on 2020-07-13  0:30:21

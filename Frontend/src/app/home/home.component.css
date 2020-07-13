@@ -1,6 +1,10 @@
 .fondo{
     background-color: #D1F6B3;
 }
+
+.celdaOscurita{
+    background-color: #ECEDEB;
+}
 .has-search .form-control {
     padding-left: 2.375rem;
 }

@@ -13,10 +13,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ObjetoAprendizajeComponent implements OnInit{
 
-
-
-
-
   dropdownList = [];
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
@@ -25,7 +21,6 @@ export class ObjetoAprendizajeComponent implements OnInit{
   constructor(private categoriaService: CategoriaService,
               private activatedRoute: ActivatedRoute) {}
   categorias: Categoria[];
-
 
 
   ngOnInit() {
@@ -59,7 +54,6 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
   crearOA(){
     console.log(this.objetoAprendizaje);
-
   }
 
 
