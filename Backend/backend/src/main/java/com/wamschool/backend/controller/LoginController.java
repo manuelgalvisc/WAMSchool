@@ -48,9 +48,11 @@ public class LoginController {
 			if(usuario != null && usuario.getEmail() != null && usuario.getPassword() != null) {
 				Usuario user = servicio.autenticarUsuario(usuario.getEmail());
 				if(user != null) {
-					response.put("data","token");
-					response.put("mensaje","Se ha autenticado el usuario");
-					return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+					if(usuario.getPassword().equals(user.getPassword())) {
+						response.put("data","token");
+						response.put("mensaje","Se ha autenticado el usuario");
+						return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+					}
 				}
 			}
 
@@ -62,7 +64,7 @@ public class LoginController {
 		//creamos el json token 
 		response.put("data",null);
 		response.put("mensaje","No se ha podido autenticar el usuario o no existe");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CONFLICT);
 	}
 	
 	@PostMapping("/registrarUsuario")
@@ -70,34 +72,43 @@ public class LoginController {
 		
 		Map<String, Object> response = new HashMap<>();
 		try {			
-			Usuario user = servicio.registrarUsuario(usuario);
-			if(user != null) {
-				
-				//le agregamos el rol de usuario
-				Role role = servicio.extraerRole(Roles.ROLE_USER.toString());
-				if(role != null) {
-					List<Role> roles = new ArrayList<Role>();
-					roles.add(role);
-					usuario.setRoles(roles);
-					user.setRoles(roles);	
-					servicio.registrarUsuario(user);
+			if(usuario != null && usuario.getEmail() != null) {
+				if(!servicio.containsEmailUser(usuario.getEmail())) {
+					
+					Usuario user = servicio.registrarUsuario(usuario);
+					if(user != null) {
+						
+						//le agregamos el rol de usuario
+						Role role = servicio.extraerRole(Roles.ROLE_USER.toString());
+						if(role != null) {
+							List<Role> roles = new ArrayList<Role>();
+							roles.add(role);
+							usuario.setRoles(roles);
+							user.setRoles(roles);	
+							servicio.registrarUsuario(user);
+							//creamos el json token 
+							response.put("data","token");
+							response.put("mensaje","Se ha registrado el usuario Exitosamente!");
+							return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+						}
+					}
+				}else {
+					//el email ya se encuentra registrado en la DB 
+					response.put("data",null);
+					response.put("mensaje","El email ya se encuentra registrado");
+					return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 				}
-			}else {
-				//el email ya se encuentra registrado en la DB 
-				response.put("data",null);
-				response.put("mensaje","El email ya se encuentra registrado");
-				return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+				
 			}
+					
 		}catch(DataAccessException e) {
 			response.put("data",null);
 			response.put("mensaje","Error en la DB");
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		//creamos el json token 
-		response.put("data","token");
-		response.put("mensaje","Se ha registrado el usuario Exitosamente!");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			response.put("data","token");
+			response.put("mensaje","Problemas con los datos enviados");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CONFLICT);
 	}
 	
 }

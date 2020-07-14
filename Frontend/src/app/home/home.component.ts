@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   numeroPagina: number = 0;
   primeraPaginacion: boolean = true;
   listaPaginas: Array<number> = [];
+  busquedaPorCategorias : boolean = false;
   ////
   focus: boolean;
   listaObjetoAprendizajeDTO: ObjetoAprendizajeDTO[] = [];
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit {
           this.pagina = json.page.numeroPagina;
           this.listarPagina();
           console.log(json.data);
+          console.log(json.page);
         }
       }
     );
@@ -73,8 +75,14 @@ export class HomeComponent implements OnInit {
     };
   }
 
+  /**
+   * Este método solo se usa cuando hay pag y es mayor a una pagina de lo contrario no
+   * @param pagina 
+   */
   public traerPaginacion(pagina: number): void {
     this.numeroPagina = pagina - 1;
+    this.listaObjetoAprendizajeDTO = [];
+    this.limpiarLista();
     if (this.primeraPaginacion) {
       console.log(this.numeroPagina);
       this.consultasService.listasOApag(this.numeroPagina).subscribe(
@@ -84,9 +92,25 @@ export class HomeComponent implements OnInit {
             this.listaObjetoAprendizajeDTO = json.data;
             this.numeroPagina = json.page.numeroPaginas;
             this.pagina = json.page.numeroPagina;
-            this.limpiarLista();
             this.listarPagina();
             console.log(json.data);
+            console.log(json.page);
+          }
+        }
+      );
+    }else if(this.busquedaPorCategorias){
+      console.log(this.numeroPagina);
+      this.consultasService.filtrarPorCategorias(this.categoriasFiltro,this.numeroPagina).subscribe(
+        json => {
+          if (json.data == null && json.page == null) {
+            console.log(json.mensaje);
+          } else {
+            this.listaObjetoAprendizajeDTO = json.data;
+            this.numeroPagina = json.page.numeroPaginas;
+            this.pagina = json.page.numeroPagina;
+            this.listarPagina();
+            console.log(json.data);
+            console.log(json.page);
           }
         }
       );
@@ -138,7 +162,33 @@ export class HomeComponent implements OnInit {
   }
 
   listarCategorias(){
-    this.consultasService.filtrarPorCategorias(this.categoriasFiltro).subscribe();
+    //se desactiva la pag por defecto 
+    this.primeraPaginacion =  false;
+    //se activa la busqueda por categorias
+    this.busquedaPorCategorias = true;
+    //se renueva a la pag 1
+    this.pagina = 0;
+    this.numeroPagina = 0;
+    this.listaObjetoAprendizajeDTO = [];
+    this.limpiarLista();
+    if(this.listarCategorias.length > 0){
+      this.consultasService.filtrarPorCategorias(this.categoriasFiltro,this.pagina).subscribe(
+        json => {
+          if (json.data == null && json.page == null) {
+            console.log(json.mensaje);
+          } else {
+            this.listaObjetoAprendizajeDTO = json.data;
+            this.numeroPagina = json.page.numeroPaginas;
+            this.pagina = json.page.numeroPagina;
+            this.listarPagina();
+            console.log(json.data);
+            console.log(json.page);
+          }
+        }
+      );
+    }
+    
   }
+
 
 }

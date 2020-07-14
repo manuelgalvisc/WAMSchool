@@ -66,9 +66,10 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias,Pageable pageable) {
+		Page<ObjetoAprendizaje> pagina = null;
+		pagina = objRepo.findAllByCategoriasIn(categorias, pageable);
+		return pagina;
 	}
 
 	@Override

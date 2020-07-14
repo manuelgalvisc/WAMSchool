@@ -33,15 +33,20 @@ import Swal from 'sweetalert2';
         return this.http.get<any>(url,{params});
       }
 
-      public filtrarPorCategorias(categoria: Categoria[]):Observable<any>{
+      public filtrarPorCategorias(categoria: Categoria[],pagina:number):Observable<any>{
 
-        const url = 'http://localhost:9000/api/filtrarPorCategorias';
+        const url = 'http://localhost:9000/api/listarOAcategorias';
+        let paramsO = new HttpParams();
+        paramsO = paramsO.append('pagina',pagina.toString());
+
         const httpOptions = {
           headers: new HttpHeaders({
             'Content-Type':  'application/json'
-          })
+          }),
+          params : paramsO
         };
-        return this.http.post<any>(url, categoria, httpOptions).pipe(
+        
+        return this.http.post<any>(url, categoria,httpOptions).pipe(
           catchError( e => {
             console.error(e.error.mensaje);
             Swal.fire('error al crear el Objeto de Aprendizaje', e.error.mensaje, 'error');

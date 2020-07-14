@@ -20,7 +20,7 @@ public interface ObjetoAprendizajeServices {
 	
 	public List<ObjetoAprendizaje> listarTodosOA();
 	
-	public List<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias);
+	public Page<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias,Pageable pageable);
 	
 	public List<ObjetoAprendizaje> listarPorAproximacionText(String text);
 	

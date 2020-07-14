@@ -28,12 +28,7 @@ public class LoginServicesImpl implements LoginServices {
 	@Override
 	@Transactional
 	public Usuario registrarUsuario(Usuario user) {
-		
-		if(!usuRepo.existsUsuarioByEmail(user.getEmail())) {
-			return usuRepo.save(user);
-		}
-		
-		return null; 
+		return usuRepo.save(user);
 	}
 
 	@Override
@@ -47,6 +42,11 @@ public class LoginServicesImpl implements LoginServices {
 	public Role extraerRole(String name) {
 		
 		return roleRepo.findByName(name);
+	}
+
+	@Override
+	public Boolean containsEmailUser(String email) {
+		return usuRepo.existsUsuarioByEmail(email);
 	}
 
 	
