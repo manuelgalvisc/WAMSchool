@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wamschool.backend.dto.ObjetoAprendizajeDTO;
@@ -81,7 +80,7 @@ public class ObjetoAprendizajeController {
 		} 
 		response.put("data",null);
 		response.put("mensaje","Se presento un error creando el OA");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/listarCategorias")
@@ -106,7 +105,7 @@ public class ObjetoAprendizajeController {
 		}
 		response.put("data",null);
 		response.put("mensaje","Se presento un error accediendo a las categorias");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
 	} 
 	
 	@GetMapping("/listarOA")
@@ -135,7 +134,7 @@ public class ObjetoAprendizajeController {
 		}
 		response.put("data",null);
 		response.put("mensaje","Se presento un error recuperando los OA");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/listarOApag")
@@ -175,7 +174,7 @@ public class ObjetoAprendizajeController {
 		response.put("data",null);
 		response.put("page",null);
 		response.put("mensaje","Se presento un error recuperando los OA");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/listarOAcategorias")
@@ -213,7 +212,48 @@ public class ObjetoAprendizajeController {
 		response.put("data",null);
 		response.put("page",null);
 		response.put("mensaje","Se presento un error recuperando los OA");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/listarOAtexto")
+	public ResponseEntity<?> listarOAtexto(@RequestParam String texto, @RequestParam int pagina){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			if(!texto.equals("")) {
+				
+				Pageable pageable = PageRequest.of(pagina,5);
+				Page<ObjetoAprendizaje> paginas = null;
+				paginas = service.listarPorAproximacionText(texto, pageable);
+				List<ObjetoAprendizaje> listaOA = paginas.getContent();
+				PageDTO pageDTO = new PageDTO();
+				pageDTO.setNumeroPagina(pagina);
+				pageDTO.setNumeroPaginas(paginas.getTotalPages());
+				
+				if(listaOA != null && !listaOA.isEmpty()) {
+					List<ObjetoAprendizajeDTO> listaOADTO = new ArrayList< ObjetoAprendizajeDTO>();
+					for(ObjetoAprendizaje ob : listaOA) {
+						listaOADTO.add(transformarADTO(ob));
+					}
+					response.put("data",listaOADTO);
+					response.put("page",pageDTO);
+					response.put("mensaje","Lista OA por categorias");
+					return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+				}
+			}
+			
+		}catch(DataAccessException ex) {
+			response.put("data",null);
+			response.put("page",null);
+			response.put("mensaje","Se presento un error recuperando los OA");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data",null);
+		response.put("page",null);
+		response.put("mensaje","Se presento un error recuperando los OA");
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
 	}
 	/////////////////////////////////////////////////////////////
 	

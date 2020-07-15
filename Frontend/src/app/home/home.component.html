@@ -8,7 +8,7 @@
                 <form class="form-inline">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                        <a class="page-link" (click) = "valorSearch()"><i class="fa fa-search form-control-feedback"></i></a>
+                        <a class="page-link" (click) = "listarPorTexto()"><i class="fa fa-search form-control-feedback"></i></a>
                     </div>
                     <input [(ngModel)] = "textConsulta" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Buscar" (keyup)="mostrarText()"
                     (mousemove)="focus = false">

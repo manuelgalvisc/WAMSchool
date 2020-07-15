@@ -22,7 +22,7 @@ public interface ObjetoAprendizajeServices {
 	
 	public Page<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias,Pageable pageable);
 	
-	public List<ObjetoAprendizaje> listarPorAproximacionText(String text);
+	public Page<ObjetoAprendizaje> listarPorAproximacionText(String text,Pageable pageable);
 	
 	public Categoria extraerCategoria(String nombre);
 	

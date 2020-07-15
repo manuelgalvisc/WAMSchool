@@ -6,6 +6,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
 import { stringify } from 'querystring';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   primeraPaginacion: boolean = true;
   listaPaginas: Array<number> = [];
   busquedaPorCategorias: boolean = false;
+  busquedaPorTexto : boolean = false;
   ////
   focus: boolean;
   listaObjetoAprendizajeDTO: ObjetoAprendizajeDTO[] = [];
@@ -115,6 +117,22 @@ export class HomeComponent implements OnInit {
           }
         }
       );
+    }else if(this.busquedaPorTexto){
+      console.log(this.numeroPagina);
+      this.consultasService.filtrarPorTexto(this.textConsulta,this.numeroPagina).subscribe(
+        json => {
+          if (json.data == null && json.page == null) {
+            console.log(json.mensaje);
+          } else {
+            this.listaObjetoAprendizajeDTO = json.data;
+            this.numeroPagina = json.page.numeroPaginas;
+            this.pagina = json.page.numeroPagina;
+            this.listarPagina();
+            console.log(json.data);
+            console.log(json.page);
+          }
+        }
+      );
     }
   }
 
@@ -170,23 +188,20 @@ export class HomeComponent implements OnInit {
 
   }
 
-  valorSearch(){
-    alert(this.textConsulta);
-    console.log(this.textConsulta);
-  }
-
   listarCategorias(){
-    console.error(this.categoriasFiltro);
+    console.log(this.categoriasFiltro);
     //se desactiva la pag por defecto
     this.primeraPaginacion =  false;
     //se activa la busqueda por categorias
     this.busquedaPorCategorias = true;
+    //se desactiva la busqueda por texto
+    this.busquedaPorTexto = false;
     //se renueva a la pag 1
     this.pagina = 0;
     this.numeroPagina = 0;
     this.listaObjetoAprendizajeDTO = [];
     this.limpiarLista();
-    if(this.listarCategorias.length > 0){
+    if(this.categoriasFiltro.length > 0){
       this.consultasService.filtrarPorCategorias(this.categoriasFiltro,this.pagina).subscribe(
         json => {
           if (json.data == null && json.page == null) {
@@ -203,6 +218,36 @@ export class HomeComponent implements OnInit {
       );
     }
 
+  }
+
+
+  listarPorTexto(){
+    this.busquedaPorTexto = true;
+    this.busquedaPorCategorias = false;
+    this.primeraPaginacion = false;
+    this.pagina = 0;
+    this.numeroPagina = 0;
+    this.listaObjetoAprendizajeDTO = [];
+    this.limpiarLista();
+    console.log(this.numeroPagina);
+    if(this.textConsulta.length > 0){
+      this.consultasService.filtrarPorTexto(this.textConsulta,this.numeroPagina).subscribe(
+        json => {
+          if (json.data == null && json.page == null) {
+            console.log(json.mensaje);
+          } else {
+            this.listaObjetoAprendizajeDTO = json.data;
+            this.numeroPagina = json.page.numeroPaginas;
+            this.pagina = json.page.numeroPagina;
+            this.listarPagina();
+            console.log(json.data);
+            console.log(json.page);
+          }
+        }
+      );
+    }else{
+      Swal.fire('Debe ingresar texto en buscador!!!', "",'error');
+    }
   }
 
 

@@ -17,4 +17,8 @@ public interface IObjetoAprendizaje extends JpaRepository<ObjetoAprendizaje,Long
 //modo 2 para hacer lo mismo	
 	@Query("Select oa from ObjetoAprendizaje oa join oa.categorias c where c in (:categorias)")
 	Page<ObjetoAprendizaje> buscarPorCategorias_2(List<Categoria> categorias,Pageable pageable);
+	
+	Page<ObjetoAprendizaje> findByTituloOAContainingIgnoreCaseOrDescripcionContainingIgnoreCase(String palabra,String palabrades, Pageable pageable);
+	
 }
+ 

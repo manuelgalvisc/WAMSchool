@@ -58,4 +58,28 @@ import Swal from 'sweetalert2';
         )
 
       }
+
+      public filtrarPorTexto(texto: string,pagina:number):Observable<any>{
+
+        const url = 'http://localhost:9000/api/listarOAtexto';
+        let paramsO = new HttpParams();
+        paramsO = paramsO.append('texto',texto);
+        paramsO = paramsO.append('pagina',pagina.toString());
+
+        const httpOptions = {
+          params : paramsO
+        };
+        
+        return this.http.get<any>(url,httpOptions).pipe(
+          catchError( e => {
+            console.error(e.error.mensaje);
+            Swal.fire('error al crear el Objeto de Aprendizaje', e.error.mensaje, 'error');
+            return throwError(e);
+
+          }
+
+          )
+        )
+
+      }
   }

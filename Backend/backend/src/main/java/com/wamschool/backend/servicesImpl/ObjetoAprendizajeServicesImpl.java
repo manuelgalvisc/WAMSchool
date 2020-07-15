@@ -74,9 +74,9 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ObjetoAprendizaje> listarPorAproximacionText(String text) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<ObjetoAprendizaje> listarPorAproximacionText(String text,Pageable pageable) {
+		Page<ObjetoAprendizaje> OAaproximados = objRepo.findByTituloOAContainingIgnoreCaseOrDescripcionContainingIgnoreCase(text,text, pageable);
+		return OAaproximados;
 	}
 
 	@Override
@@ -100,5 +100,6 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 		pageOA = objRepo.findAll(pageable);
 		return pageOA;
 	}
+	
 	
 }
