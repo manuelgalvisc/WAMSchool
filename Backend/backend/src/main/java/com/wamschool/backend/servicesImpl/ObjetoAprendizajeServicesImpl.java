@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wamschool.backend.model.Categoria;
 import com.wamschool.backend.model.ObjetoAprendizaje;
+import com.wamschool.backend.model.Seccion;
 import com.wamschool.backend.repository.ICategoria;
 import com.wamschool.backend.repository.IObjetoAprendizaje;
+import com.wamschool.backend.repository.ISeccion;
 import com.wamschool.backend.services.ObjetoAprendizajeServices;
 
 @Service
@@ -22,6 +24,8 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 	ICategoria catRepo;
 	@Autowired
 	IObjetoAprendizaje objRepo;
+	@Autowired
+	ISeccion repoSeccion;
 	
 	@Override
 	@Transactional
@@ -52,8 +56,7 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 	@Override
 	@Transactional(readOnly = true)
 	public ObjetoAprendizaje buscarObjetoAprendizaje(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return objRepo.findById(id).orElse(null);
 	}
 
 	@Override
@@ -99,6 +102,13 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 		Page<ObjetoAprendizaje> pageOA =  null;
 		pageOA = objRepo.findAll(pageable);
 		return pageOA;
+	}
+
+	@Override
+	public Seccion crearSeccion(Seccion seccion) {
+		Seccion se = null;
+		se = repoSeccion.save(seccion);
+		return se;
 	}
 	
 	

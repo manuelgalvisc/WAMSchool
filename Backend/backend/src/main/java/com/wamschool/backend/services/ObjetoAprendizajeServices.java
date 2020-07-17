@@ -2,6 +2,7 @@ package com.wamschool.backend.services;
 
 import com.wamschool.backend.model.Categoria;
 import com.wamschool.backend.model.ObjetoAprendizaje;
+import com.wamschool.backend.model.Seccion;
 
 import java.util.List;
 
@@ -29,4 +30,6 @@ public interface ObjetoAprendizajeServices {
 	public List<Categoria> listarCategorias();
 	
 	public Page<ObjetoAprendizaje> paginaListaOA(Pageable pageable);
+	
+	public Seccion crearSeccion(Seccion seccion);
 }
