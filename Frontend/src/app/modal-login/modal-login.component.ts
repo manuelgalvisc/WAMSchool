@@ -23,9 +23,16 @@ export class ModalLoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login(this.user).subscribe(json => {
-      Swal.fire('Bienvenido', json.mensaje, 'success');
-    })
+    if(this.user.email == null) {
+      Swal.fire('Email', 'Debe ingresar el email', 'error');
+    } else if(this.user.password == null) {
+      Swal.fire('Contraseña', 'Debe ingresar la contraseña', 'error');
+    } else {
+      this.userService.login(this.user).subscribe(json => {
+        Swal.fire('Bienvenido', json.mensaje, 'success');
+        this._modalService.cerrarModal();
+      })
+    }
   }
 
   cerrarModal() {
