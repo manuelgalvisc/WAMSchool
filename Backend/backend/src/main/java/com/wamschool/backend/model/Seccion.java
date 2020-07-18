@@ -24,7 +24,7 @@ public class Seccion implements Serializable, Cloneable{
 	@Id
 	private Long id;
 	
-	@Column(name = "s_nombre")
+	@Column(name = "s_nombre" ,unique =  true)
 	private String nombreSeccion;
 	
 	@Column(name = "s_descripcion", columnDefinition = "text")
