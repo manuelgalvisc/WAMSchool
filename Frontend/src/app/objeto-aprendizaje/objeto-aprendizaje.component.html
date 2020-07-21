@@ -1,15 +1,15 @@
 <form class="form-group">
 
 <div class="form-group">
-  <label for="titulo">Titulo:</label>
-  <input type="text" class="form-control" [(ngModel)]="objetoAprendizaje.tituloOA"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel">
+  <label for="titulo">Título:</label>
+  <input type="text" class="form-control" [(ngModel)]="objetoAprendizaje.tituloOA"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
   <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
     <div *ngIf="titulo.errors.required">El titulo es requerido</div>
   </div>
 </div>
 
 <div class="form-group">
-  <label for="descripcion">Descripcion:</label>
+  <label for="descripcion">Descripción:</label>
   <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
   <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
     <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
@@ -24,6 +24,7 @@
     [settings]="dropdownSettings"
     (onSelect)="onItemSelect($event)"
     (onDeSelect)="onItemDeSelect($event)"
+    (onSelectAll)="onSelectAll($event)"
   >
   </ng-multiselect-dropdown>
   <div class="alert alert-danger"*ngIf="iscategoriasseleccionadas" >
@@ -36,8 +37,6 @@
 <div class="lineamiento">
   <button *ngIf="!editarOA" type="button" class="btn btn-success m-2" (click)="crearOA()">Crear OA</button>
   <button type="button" class="btn btn-danger m-2" routerLink="/home">Cancelar</button>
-  <button *ngIf="editarOA" type="button" class="btn btn-success m-2" routerLink="/editarOA">Continuar Construyendo</button>
-
 </div>
 
 

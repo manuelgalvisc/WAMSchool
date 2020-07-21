@@ -1,6 +1,6 @@
 <form class="form-group">
   <div class="form-group">
-    <label for="titulo">Titulo:</label>
+    <label for="titulo">Título:</label>
     <input type="text" class="form-control" [(ngModel)]="objetoAprendizajeDTO.tituloOA" id="titulo" name="titulo"
       [ngModelOptions]="{standalone: true}" required #titulo="ngModel">
     <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">

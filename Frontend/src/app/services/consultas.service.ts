@@ -45,11 +45,11 @@ import Swal from 'sweetalert2';
           }),
           params : paramsO
         };
-        
+
         return this.http.post<any>(url, categoria,httpOptions).pipe(
           catchError( e => {
             console.error(e.error.mensaje);
-            Swal.fire('error al crear el Objeto de Aprendizaje', e.error.mensaje, 'error');
+            Swal.fire('error al filtrar por categoria', e.error.mensaje, 'error');
             return throwError(e);
 
           }
@@ -69,11 +69,11 @@ import Swal from 'sweetalert2';
         const httpOptions = {
           params : paramsO
         };
-        
+
         return this.http.get<any>(url,httpOptions).pipe(
           catchError( e => {
             console.error(e.error.mensaje);
-            Swal.fire('error al crear el Objeto de Aprendizaje', e.error.mensaje, 'error');
+            Swal.fire('error al filtrar por texto', e.error.mensaje, 'error');
             return throwError(e);
 
           }

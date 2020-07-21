@@ -9,6 +9,7 @@ import { ObjetoAprendizajeService } from '../services/objeto-aprendizaje.service
 import Swal from 'sweetalert2';
 import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
 import { DataService } from '../services/data.service';
+import { isUndefined } from 'util';
 
 
 @Component({
@@ -31,12 +32,15 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
   constructor(private categoriaService: CategoriaService,
               private objetoAprendizajeService: ObjetoAprendizajeService,
-              private dataService: DataService) {}
+              private dataService: DataService,
+              private router: Router) {}
 
 
 
 
   ngOnInit() {
+    this.objetoAprendizaje.tituloOA = '';
+    this.objetoAprendizaje.descripcion = '';
     this.categoriasSeleccionadas = [];
     this.categoriaService.getCategorias().subscribe(
 
@@ -79,7 +83,11 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
 
   crearOA(){
-    if(this.categoriasSeleccionadas.length === 0){
+
+    if (this.objetoAprendizaje.tituloOA.length === 0
+      || this.objetoAprendizaje.descripcion.length === 0){
+        Swal.fire('Error al crear objeto ',`CAMPOS VACIOS!!`, 'error');
+    }else if (this.categoriasSeleccionadas.length === 0){
       this.iscategoriasseleccionadas = true;
     }else{
     const estadoOA = 'INACTIVO';
@@ -89,11 +97,11 @@ export class ObjetoAprendizajeComponent implements OnInit{
     this.objetoAprendizaje.visitas = 0;
     this.objetoAprendizaje.estadoOA = estadoOA;
     this.objetoAprendizajeService.create(this.objetoAprendizaje).subscribe(
-      json =>{
+      json => {
         if ( json.data.idOA != null){
-          Swal.fire('Nuevo Objeto-Apendizaje', `Objeto ${json.data.tituloOA} creado con exito !`, 'success');
-          this.editarOA = true;
+          Swal.fire('Nuevo Objeto-Aprendizaje', `Objeto ${json.data.tituloOA} creado con exito !`, 'success');
           this.dataService.objetoAprendizajeDTO = json.data;
+          this.router.navigate(['/editarOA']);
 
         }
 

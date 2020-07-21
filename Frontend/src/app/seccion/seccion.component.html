@@ -1,6 +1,6 @@
   <div class="form-group">
     <label for="titulo">Titulo:</label>
-    <input type="text" class="form-control" [(ngModel)]="seccion.nombreSeccion"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel">
+    <input type="text" class="form-control" [(ngModel)]="seccion.nombreSeccion"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
     <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
       <div *ngIf="titulo.errors.required">El nombre es requerido</div>
     </div>
@@ -16,7 +16,6 @@
 
   <div class="lineamiento">
     <button  type="button" class="btn btn-success m-2" (click)="crearSeccion()">Crear Seccion</button>
-    <button type="button" class="btn btn-danger m-2" routerLink="/home">Cancelar</button>
-     <!--<button  type="button" class="btn btn-success m-2" routerLink="/editarOA">Continuar Construyendo</button>--->
+    <button type="button" class="btn btn-danger m-2" routerLink="/editarOA">Cancelar</button>
 
   </div>
