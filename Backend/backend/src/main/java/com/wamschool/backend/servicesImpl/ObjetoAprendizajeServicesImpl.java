@@ -42,8 +42,7 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 	@Override
 	@Transactional
 	public ObjetoAprendizaje actualizarObjetoAprendizaje(ObjetoAprendizaje oa) {
-		// TODO Auto-generated method stub
-		return null;
+		return objRepo.saveAndFlush(oa);
 	}
 
 	@Override
@@ -109,6 +108,12 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 		Seccion se = null;
 		se = repoSeccion.save(seccion);
 		return se;
+	}
+
+	@Override
+	public List<Seccion> listarSeccionesPorOA(Long idOA) {
+		
+		return repoSeccion.listarSeccionesPorIdOA(idOA);
 	}
 	
 	

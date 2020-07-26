@@ -32,4 +32,6 @@ public interface ObjetoAprendizajeServices {
 	public Page<ObjetoAprendizaje> paginaListaOA(Pageable pageable);
 	
 	public Seccion crearSeccion(Seccion seccion);
+	
+	public List<Seccion> listarSeccionesPorOA(Long idOA);
 }

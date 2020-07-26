@@ -281,16 +281,47 @@ public class ObjetoAprendizajeController {
 			}
 		} catch (DataAccessException ex) {
 			response.put("data", null);
-			response.put("mensaje", "Se presento un error creando el OA");
+			response.put("mensaje", "Se presento un error creando la seccion");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getCause();
 		}
 		response.put("data", null);
-		response.put("mensaje", "Se presento un error creando el OA");
+		response.put("mensaje", "Se presento un error creando la seccion");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/listarSeccionesOA")
+	public ResponseEntity<?> listarSecciones(@RequestParam Long idOA) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			if(idOA != null) {
+				List<Seccion> secciones = service.listarSeccionesPorOA(idOA);
+				if(secciones != null && !secciones.isEmpty()) {
+					List<SeccionDTO> listaSeccionEnviar = new ArrayList<>();
+						secciones.forEach((p)->{
+						listaSeccionEnviar.add(transformarSeccionADTO(p));
+					});
+					response.put("data", listaSeccionEnviar);
+					response.put("mensaje", "Se ha listado satisfactoriamente las secciones para este o");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				}
+			}
+			
+		} catch (DataAccessException ex) {
+			response.put("data", null);
+			response.put("mensaje", "Se presento un error listando las secciones para el OA");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error listando las secciones para el OA");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
+	
 
 	/////////////////////////////////////////////////////////////
 

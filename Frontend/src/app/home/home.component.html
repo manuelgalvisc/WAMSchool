@@ -6,98 +6,113 @@
             </div>
             <nav class="navbar navbar-light bg-light">
                 <form class="form-inline">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                        <a class="page-link" (click) = "listarPorTexto()"><i class="fa fa-search form-control-feedback"></i></a>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <a class="page-link" (click)="listarPorTexto()"><i
+                                    class="fa fa-search form-control-feedback"></i></a>
+                        </div>
+                        <input [(ngModel)]="textConsulta" [ngModelOptions]="{standalone: true}" type="text"
+                            class="form-control" placeholder="Buscar" (keyup)="mostrarText()"
+                            (mousemove)="focus = false">
                     </div>
-                    <input [(ngModel)] = "textConsulta" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Buscar" (keyup)="mostrarText()"
-                    (mousemove)="focus = false">
-                  </div>
                 </form>
-              </nav>
+            </nav>
             <div *ngIf="focus" class="text-justify text-primary">
                 <p>Ingrese palabras clave que esten relacionadas
                     con la descripción del OA o su titulo</p>
             </div>
             <div class="container my-3">
                 <div class="form-group">
-                    <ng-multiselect-dropdown
-                    [placeholder]="'Selecciona una categoria'"
-                    [data]="categorias"
-                    [(ngModel)]="selectedItems"
-                    [settings]="dropdownSettings"
-                    (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)"
-                    (onDeSelect)="onItemDeSelect($event)"
-                  >
-                  </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown [placeholder]="'Selecciona una categoria'" [data]="categorias"
+                        [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)">
+                    </ng-multiselect-dropdown>
                 </div>
             </div>
             <div class="conainer my-2">
-              <button (click) = "listarCategorias()"><i class="fa fa-search"></i></button>
+                <button (click)="listarCategorias()"><i class="fa fa-search"></i></button>
             </div>
         </div>
         <div class="fondo col-9 ml-0">
             <div class="container p-3 my-3 ml-0 bg-light text-black text-center rounded">
                 <h4>Búsqueda OA</h4>
             </div>
-            <div *ngIf="mostrarTabla()" class="container bg-light text-back">
-                <!--Table-->
-                <table class="table table-striped w-auto">
-                    <!--Table head-->
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Titulo</th>
-                            <th>Propietario</th>
-                            <th>Email Propietario</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <!--Table head-->
+            <div *ngIf="mostrarTabla()" class="row bg-light text-back">
+                <div class="mx-auto">
+                    <!--Table-->
+                    <table class="table table-striped w-auto">
+                        <!--Table head-->
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Titulo</th>
+                                <th>Categorias</th>
+                                <th>N° Visitas</th>
+                                <th>Última Actualización</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <!--Table head-->
 
-                    <!--Table body-->
-                    <tbody class="py-3">
-                        <tr *ngFor = "let oa of listaObjetoAprendizajeDTO; index as i; let odd = odd" class="my-1"
-                        [ngClass] = "{'celdaOscurita':!odd,'bg-light':odd}">
-                            <th scope="row">{{i + 1}}</th>
-                            <td>{{oa.tituloOA}}</td>
-                            <td>{{oa.nombreCompletoPropietario}}</td>
-                            <td>{{oa.emailPropiertario}}</td>
-                            <td>
-                                <button type="button" class="btn btn-default">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default">
-                                    <i class="fas fa-running"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <!--Table body-->
-                </table>
+                        <!--Table body-->
+                        <tbody class="py-3">
+                            <tr *ngFor="let oa of listaObjetoAprendizajeDTO; index as i; let odd = odd" class="my-1"
+                                [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
+                                <th scope="row">{{i + 1}}</th>
+                                <td class="text-center">{{oa.tituloOA}}</td>
+                                <td class="text-center">
+                                    <span *ngFor="let cat of oa.categorias; index as c;">
+                                        <p>{{cat.nombre}}</p>
+                                    </span>
+                                </td>
+                                <td class="text-center">{{oa.visitas}}</td>
+                                <td class="text-center">{{oa.fechaActualizacion | date}}</td>
+                                <td>
+                                    <button type=" button" class="btn btn-default" (click) = "mostrarModal(oa)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-default" (click) = "editarOA(oa)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-default">
+                                        <i class="fas fa-running"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
                 <!--Table-->
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li *ngIf = "numeroPagina > 1" class="page-item"><a class="page-link" (click) = "traerPaginacion(1)"><i class="fas fa-angle-double-left"></i></a></li>
-                  <li [ngClass] = "{'disabled':pagina == 0}" *ngIf = "numeroPagina > 1" class="page-item"><a class="page-link" (click) = "disminuirPagina()"><i class="fas fa-chevron-left"></i></a></li>
-                  <li *ngFor = "let i of listaPaginas; size as count; j as index"  [ngClass] = "{'disabled':pagina == i - 1}" class="page-item">
-                      <a class="page-link" (click) = "traerPaginacion(i)">{{i}}</a>
-                  </li>
-                  <li [ngClass] = "{'disabled':pagina == numeroPagina - 1}" *ngIf = "numeroPagina > 1" class="page-item"><a class="page-link" (click) = "aumentarPagina()"><i class="fas fa-chevron-right"></i></a></li>
-                  <li *ngIf = "numeroPagina > 1" class="page-item"><a class="page-link" (click) = "ultimaPagina()"><i class="fas fa-angle-double-right"></i></a></li>
-                </ul>
-              </nav>
+            <div class="container mt-3">
+                <div class="row">
+                    <div class="mx-auto">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li *ngIf="numeroPagina > 1" class="page-item"><a class="page-link" (click)="traerPaginacion(1)"><i
+                                            class="fas fa-angle-double-left"></i></a></li>
+                                <li [ngClass]="{'disabled':pagina == 0}" *ngIf="numeroPagina > 1" class="page-item"><a
+                                        class="page-link" (click)="disminuirPagina()"><i class="fas fa-chevron-left"></i></a></li>
+                                <li *ngFor="let i of listaPaginas; size as count; j as index"
+                                    [ngClass]="{'disabled':pagina == i - 1}" class="page-item">
+                                    <a class="page-link" (click)="traerPaginacion(i)">{{i}}</a>
+                                </li>
+                                <li [ngClass]="{'disabled':pagina == numeroPagina - 1}" *ngIf="numeroPagina > 1" class="page-item">
+                                    <a class="page-link" (click)="aumentarPagina()"><i class="fas fa-chevron-right"></i></a></li>
+                                <li *ngIf="numeroPagina > 1" class="page-item"><a class="page-link" (click)="ultimaPagina()"><i
+                                            class="fas fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

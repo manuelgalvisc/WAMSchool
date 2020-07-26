@@ -8,7 +8,8 @@ import { DatePipe } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { QuillModule } from 'ngx-quill';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //componentes
 import { AppComponent } from './app.component';
@@ -19,16 +20,17 @@ import { HomeComponent } from './home/home.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
 import { RegistarUsuarioComponent } from './registar-usuario/registar-usuario.component';
 import { FooterComponent } from './footer/footer.component'
-
+import { EditorTextoComponent } from './editor-texto/editor-texto.component';
+import { PoliticasComponent } from './politicas/politicas.component';
+import { SeccionComponent } from './seccion/seccion.component';
+import { EditarObjetoAprendizajeComponent } from './editar-objeto-aprendizaje/editar-objeto-aprendizaje.component';
+import { ModalOaComponent } from './modal-oa/modal-oa.component';
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
 import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
-import { PoliticasComponent } from './politicas/politicas.component';
-import { SeccionComponent } from './seccion/seccion.component';
-import { EditarObjetoAprendizajeComponent } from './editar-objeto-aprendizaje/editar-objeto-aprendizaje.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -53,6 +55,8 @@ const routes: Routes =[
     PoliticasComponent,
     SeccionComponent,
     EditarObjetoAprendizajeComponent,
+    EditorTextoComponent,
+    ModalOaComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -61,7 +65,12 @@ const routes: Routes =[
     HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    QuillModule.forRoot()
+  ],
+  entryComponents:[
+    ModalOaComponent
   ],
   providers: [
     CategoriaService,
@@ -69,9 +78,10 @@ const routes: Routes =[
     ConsultasService,
     ModalService,
     UserService,
-    DatePipe,
+    DatePipe
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent
+  ]
 })
 export class AppModule { }

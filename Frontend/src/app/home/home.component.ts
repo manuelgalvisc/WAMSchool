@@ -5,8 +5,14 @@ import { ConsultasService } from '../services/consultas.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
+import { Seccion } from '../model/seccion';
 import { stringify } from 'querystring';
 import Swal from 'sweetalert2';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalOaComponent } from '../modal-oa/modal-oa.component';
+import { DataService } from '../services/data.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SeccionDTO } from '../DTOs/SeccionDTO';
 
 @Component({
   selector: 'app-home',
@@ -37,8 +43,12 @@ export class HomeComponent implements OnInit {
   //search
   textConsulta : string = "";
   constructor(private consultasService: ConsultasService,
-              private categoriaService: CategoriaService
-              ) { }
+              private categoriaService: CategoriaService,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private router: Router
+              ) { 
+              }
 
   ngOnInit(): void {
     this.focus = false;
@@ -54,6 +64,7 @@ export class HomeComponent implements OnInit {
           this.listarPagina();
           console.log(json.data);
           console.log(json.page);
+        // this.cargarSeccionesOa();
         }
       }
     );
@@ -78,6 +89,7 @@ export class HomeComponent implements OnInit {
     };
   }
 
+
   /**
    * Este método solo se usa cuando hay pag y es mayor a una pagina de lo contrario no
    * @param pagina
@@ -98,6 +110,7 @@ export class HomeComponent implements OnInit {
             this.listarPagina();
             console.log(json.data);
             console.log(json.page);
+           // this.cargarSeccionesOa();
           }
         }
       );
@@ -250,5 +263,45 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  mostrarModal(oaInput : ObjetoAprendizajeDTO) {
+    var sec : Array<Seccion> = this.traerListaSecciones(oaInput.idOA);
+    oaInput.secciones =  sec;
+    const modalRef = this.modalService.open(ModalOaComponent);
+    modalRef.componentInstance.oa = oaInput;
+  }
+
+  editarOA(oa : ObjetoAprendizajeDTO){
+    let sec : Array<Seccion> = this.traerListaSecciones(oa.idOA);
+    oa.secciones = sec;
+    this.dataService.objetoAprendizajeDTO = oa;
+    this.router.navigate(['/editarOA']);
+  }
+
+  traerListaSecciones(idOA : number): Array<Seccion> {
+    var listaSecciones : Array<SeccionDTO> = [];
+    var listaSeccionesFinal : Array<Seccion> = [];
+    this.consultasService.listarSeccionesOA(idOA).subscribe(
+      json =>{
+        if(json.data != null){
+          listaSecciones = json.data;
+          listaSecciones.map((y) => {
+            listaSeccionesFinal.push(this.convertirSeccionDTOASeccion(y));
+          }
+          )
+        }
+      }
+    )
+    return listaSeccionesFinal;
+  }
+
+  convertirSeccionDTOASeccion(dto : SeccionDTO):Seccion{
+    let seccion :Seccion  = new Seccion();
+      seccion.id = dto.idSeccion;
+      seccion.nombreSeccion = dto.nombreSeccion;
+      seccion.descripcion = dto.descripcion;
+      seccion.posInOA = dto.posInOA;
+      seccion.objetoAprendizaje = dto.idOA;
+    return seccion;
+  }
 
 }

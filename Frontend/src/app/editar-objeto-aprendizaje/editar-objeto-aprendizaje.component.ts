@@ -33,7 +33,9 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
 
   ngOnInit(): void {
     this.objetoAprendizajeDTO = this.dataService.objetoAprendizajeDTO;
-    this.objetoAprendizajeDTO.secciones = [{id: 1, nombreSeccion: 'seccion 1', descripcion: 'dasda', posInOA: 1, objetoAprendizaje: 1}, {id: 1, nombreSeccion: 'seccion2', descripcion: 'dasda', posInOA: 1, objetoAprendizaje: 1}];
+    this.objetoAprendizajeDTO.secciones = this.dataService.traerListaSecciones(this.dataService.objetoAprendizajeDTO.idOA);
+    this.objetoAprendizajeDTO.secciones = this.dataService.objetoAprendizajeDTO.secciones === undefined ? []:this.dataService.objetoAprendizajeDTO.secciones;
+  //  this.objetoAprendizajeDTO.secciones = [{id: 1, nombreSeccion: 'seccion 1', descripcion: 'dasda', posInOA: 1, objetoAprendizaje: 1}, {id: 1, nombreSeccion: 'seccion2', descripcion: 'dasda', posInOA: 1, objetoAprendizaje: 1}];
     this.categoriasSeleccionadas = this.dataService.objetoAprendizajeDTO.categorias;
     this.categoriaService.getCategorias().subscribe(
 
@@ -72,10 +74,7 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
         this.categoriasSeleccionadas.splice(i);
       }
     }
-
-
   }
-
 
 
 
