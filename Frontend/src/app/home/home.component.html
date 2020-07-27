@@ -39,9 +39,9 @@
             </div>
             <div *ngIf="mostrarTabla()" class="row bg-light text-back">
                 <div class="mx-auto">
-                    <!--Table-->
+
                     <table class="table table-striped w-auto">
-                        <!--Table head-->
+
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -54,9 +54,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <!--Table head-->
 
-                        <!--Table body-->
                         <tbody class="py-3">
                             <tr *ngFor="let oa of listaObjetoAprendizajeDTO; index as i; let odd = odd" class="my-1"
                                 [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
@@ -86,10 +84,10 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <!--Table body-->
+
                     </table>
                 </div>
-                <!--Table-->
+
             </div>
             <div class="container mt-3">
                 <div class="row">

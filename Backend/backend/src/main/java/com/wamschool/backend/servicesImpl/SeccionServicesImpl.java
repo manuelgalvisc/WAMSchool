@@ -29,4 +29,10 @@ public class SeccionServicesImpl implements SeccionServices {
 		return repoSeccion.listarSeccionesPorIdOA(idOA);
 	}
 
+	@Override
+	public Seccion buscarPorId(Long idSeccion) {
+		
+		return repoSeccion.findById(idSeccion).orElse(null);
+	}
+
 }
