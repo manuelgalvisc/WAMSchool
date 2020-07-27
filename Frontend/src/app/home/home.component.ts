@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
 
   //search
   textConsulta : string = "";
+
   constructor(private consultasService: ConsultasService,
               private categoriaService: CategoriaService,
               private modalService: NgbModal,
@@ -231,7 +232,6 @@ export class HomeComponent implements OnInit {
         }
       );
     }
-
   }
 
 

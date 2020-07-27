@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,7 @@ public class LoginController {
 	@Autowired
 	LoginServices servicio;
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/crearRole")
 	public void crearRoles(Long tipo) {
 		
@@ -49,7 +51,7 @@ public class LoginController {
 				Usuario user = servicio.autenticarUsuario(usuario.getEmail());
 				if(user != null) {
 					if(usuario.getPassword().equals(user.getPassword())) {
-						response.put("data","token");
+						response.put("data", user);
 						response.put("mensaje","Se ha autenticado el usuario");
 						return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
 					}
