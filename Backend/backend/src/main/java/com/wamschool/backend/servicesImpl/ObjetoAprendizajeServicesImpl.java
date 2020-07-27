@@ -103,18 +103,7 @@ public class ObjetoAprendizajeServicesImpl implements ObjetoAprendizajeServices 
 		return pageOA;
 	}
 
-	@Override
-	public Seccion crearSeccion(Seccion seccion) {
-		Seccion se = null;
-		se = repoSeccion.save(seccion);
-		return se;
-	}
-
-	@Override
-	public List<Seccion> listarSeccionesPorOA(Long idOA) {
-		
-		return repoSeccion.listarSeccionesPorIdOA(idOA);
-	}
+	
 	
 	
 }

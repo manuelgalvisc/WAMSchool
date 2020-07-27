@@ -13,6 +13,7 @@ import { ModalOaComponent } from '../modal-oa/modal-oa.component';
 import { DataService } from '../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeccionDTO } from '../DTOs/SeccionDTO';
+import { SeccionService } from '../services/seccion.service';
 
 @Component({
   selector: 'app-home',
@@ -46,8 +47,8 @@ export class HomeComponent implements OnInit {
               private categoriaService: CategoriaService,
               private modalService: NgbModal,
               private dataService: DataService,
-              private router: Router
-              ) { 
+              private router: Router,
+              private seccionService: SeccionService) {
               }
 
   ngOnInit(): void {
@@ -280,7 +281,7 @@ export class HomeComponent implements OnInit {
   traerListaSecciones(idOA : number): Array<Seccion> {
     var listaSecciones : Array<SeccionDTO> = [];
     var listaSeccionesFinal : Array<Seccion> = [];
-    this.consultasService.listarSeccionesOA(idOA).subscribe(
+    this.seccionService.listarSeccionesOA(idOA).subscribe(
       json =>{
         if(json.data != null){
           listaSecciones = json.data;
