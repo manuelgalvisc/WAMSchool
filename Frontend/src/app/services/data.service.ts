@@ -3,6 +3,7 @@ import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
 import { SeccionDTO } from '../DTOs/SeccionDTO';
 import { Seccion } from '../model/seccion';
 import { ConsultasService } from '../services/consultas.service';
+import { SeccionService } from './seccion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,14 @@ import { ConsultasService } from '../services/consultas.service';
 export class DataService {
 
   objetoAprendizajeDTO: ObjetoAprendizajeDTO;
-  constructor(private consultasService: ConsultasService) {
-  
+  constructor(private seccionService: SeccionService) {
+
    }
 
-  traerListaSecciones(idOA : number): Array<Seccion> {
-    var listaSecciones : Array<SeccionDTO> = [];
+  traerListaSecciones(idOA: number): Array<Seccion> {
+    var listaSecciones: Array<SeccionDTO> = [];
     var listaSeccionesFinal : Array<Seccion> = [];
-    this.consultasService.listarSeccionesOA(idOA).subscribe(
+    this.seccionService.listarSeccionesOA(idOA).subscribe(
       json =>{
         if(json.data != null){
           listaSecciones = json.data;

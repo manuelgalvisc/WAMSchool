@@ -18,14 +18,14 @@ export class ConsultasService {
 
   public listasOA(): Observable<any> {
 
-    const url = 'http://localhost:9000/api/listarOA';
+    const url = 'http://localhost:9000/api/oa/listarOA';
 
     return this.http.get<any>(url);
   }
 
   public listasOApag(pagina: number): Observable<any> {
 
-    const url = 'http://localhost:9000/api/listarOApag';
+    const url = 'http://localhost:9000/api/oa/listarOApag';
 
     let params = new HttpParams();
     params = params.append('pagina', pagina.toString());
@@ -35,7 +35,7 @@ export class ConsultasService {
 
   public filtrarPorCategorias(categoria: Categoria[], pagina: number): Observable<any> {
 
-    const url = 'http://localhost:9000/api/listarOAcategorias';
+    const url = 'http://localhost:9000/api/oa/listarOAcategorias';
     let paramsO = new HttpParams();
     paramsO = paramsO.append('pagina', pagina.toString());
 
@@ -61,7 +61,7 @@ export class ConsultasService {
 
   public filtrarPorTexto(texto: string, pagina: number): Observable<any> {
 
-    const url = 'http://localhost:9000/api/listarOAtexto';
+    const url = 'http://localhost:9000/api/oa/listarOAtexto';
     let paramsO = new HttpParams();
     paramsO = paramsO.append('texto', texto);
     paramsO = paramsO.append('pagina', pagina.toString());
@@ -83,15 +83,5 @@ export class ConsultasService {
 
   }
 
-  public listarSeccionesOA(idOA: number): Observable<any> {
 
-    const url = 'http://localhost:9000/api/listarSeccionesOA';
-    let paramsO = new HttpParams();
-    paramsO = paramsO.append('idOA', idOA.toString());
-    const httpOptions = {
-      params: paramsO
-    };
-    return this.http.get<any>(url, httpOptions);
-      
-  }
 }

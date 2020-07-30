@@ -15,7 +15,7 @@ export class SeccionService {
   constructor(private http: HttpClient) { }
 
   public crearSeccion(seccion: Seccion, idOA: number): Observable<any>{
-    const url = 'http://localhost:9000/api/crearSeccion';
+    const url = 'http://localhost:9000/api/seccion/crearSeccion';
     let paramsO = new HttpParams();
     paramsO = paramsO.append('idOA', idOA.toString());
 
@@ -38,6 +38,18 @@ export class SeccionService {
       )
     );
 
+
+  }
+
+  public listarSeccionesOA(idOA: number): Observable<any> {
+
+    const url = 'http://localhost:9000/api/seccion/listarSeccionesOA';
+    let paramsO = new HttpParams();
+    paramsO = paramsO.append('idOA', idOA.toString());
+    const httpOptions = {
+      params: paramsO
+    };
+    return this.http.get<any>(url, httpOptions);
 
   }
 }
