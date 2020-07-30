@@ -3,6 +3,7 @@ import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
 import { ObjetoAprendizaje } from '../model/objetoAprendizaje';
 import { ConsultasService } from '../services/consultas.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { AuthenticationService } from '../services/authentication.service';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
 import { Seccion } from '../model/seccion';
@@ -42,12 +43,13 @@ export class HomeComponent implements OnInit {
 
   //search
   textConsulta : string = "";
+
   constructor(private consultasService: ConsultasService,
               private categoriaService: CategoriaService,
               private modalService: NgbModal,
               private dataService: DataService,
-              private router: Router
-              ) { 
+              private router: Router,
+              private auth: AuthenticationService) {
               }
 
   ngOnInit(): void {

@@ -29,10 +29,10 @@
                 </div>
               </div>
             </div>
-            <div class="row p-3 mb-2">
-              <div class="col-sm" style="text-align: center;">
-                <button type="button" class="btn btn-success" data-dismiss="modal m-3" (click)="login()">Ingresar</button>
-                <button (click)="cerrarModal()" type="button" class="btn btn-danger m-3" data-dismiss="modal">Cerrar</button>
+            <div class="row p-3">
+              <div class="mx-auto" style="text-align: center;">
+                <button type="button" class="btn btn-success m-3" data-dismiss="modal" (click)="login()">Ingresar</button>
+                <button (click)="auth.GoogleAuth()" class="btn btn-danger padding m-3">Google</button>
               </div>
             </div>
           </div>
