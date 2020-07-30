@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class CategoriaService {
-  private urlEndPoint = 'http://localhost:9000/api/listarCategorias';
+  private urlEndPoint = 'http://localhost:9000/api/oa/listarCategorias';
 
 
   constructor(private http: HttpClient) { }

@@ -3,6 +3,7 @@ import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
 import { ObjetoAprendizaje } from '../model/objetoAprendizaje';
 import { ConsultasService } from '../services/consultas.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { AuthenticationService } from '../services/authentication.service';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../model/categoria';
 import { Seccion } from '../model/seccion';
@@ -13,6 +14,7 @@ import { ModalOaComponent } from '../modal-oa/modal-oa.component';
 import { DataService } from '../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeccionDTO } from '../DTOs/SeccionDTO';
+import { SeccionService } from '../services/seccion.service';
 
 @Component({
   selector: 'app-home',
@@ -42,12 +44,17 @@ export class HomeComponent implements OnInit {
 
   //search
   textConsulta : string = "";
+
   constructor(private consultasService: ConsultasService,
               private categoriaService: CategoriaService,
               private modalService: NgbModal,
               private dataService: DataService,
-              private router: Router
-              ) { 
+              private router: Router,
+<<<<<<< HEAD
+              private auth: AuthenticationService) {
+=======
+              private seccionService: SeccionService) {
+>>>>>>> origin/Revisión
               }
 
   ngOnInit(): void {
@@ -280,7 +287,7 @@ export class HomeComponent implements OnInit {
   traerListaSecciones(idOA : number): Array<Seccion> {
     var listaSecciones : Array<SeccionDTO> = [];
     var listaSeccionesFinal : Array<Seccion> = [];
-    this.consultasService.listarSeccionesOA(idOA).subscribe(
+    this.seccionService.listarSeccionesOA(idOA).subscribe(
       json =>{
         if(json.data != null){
           listaSecciones = json.data;

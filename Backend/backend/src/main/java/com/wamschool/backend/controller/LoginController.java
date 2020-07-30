@@ -49,7 +49,7 @@ public class LoginController {
 				Usuario user = servicio.autenticarUsuario(usuario.getEmail());
 				if(user != null) {
 					if(usuario.getPassword().equals(user.getPassword())) {
-						response.put("data","token");
+						response.put("data", user);
 						response.put("mensaje","Se ha autenticado el usuario");
 						return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
 					}
