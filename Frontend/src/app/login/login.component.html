@@ -1,5 +1,4 @@
 <div class="container">
   <button *ngIf="!userService.inOut" class="btn btn-light padding" type="submit" (click)="login()">Login</button>
   <button *ngIf="userService.inOut" class="btn btn-danger padding" (click)="signOut()">Sign out</button>
-  <h1 *ngIf="auth.userData | async">{{ (auth.userData | async)?.nombre}}</h1>
 </div>
