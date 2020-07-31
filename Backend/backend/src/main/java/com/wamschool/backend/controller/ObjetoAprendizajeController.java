@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,7 @@ public class ObjetoAprendizajeController {
 	@Autowired
 	UtilidadesServicesImpl utilidades;
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearOA")
 	public ResponseEntity<?> crearOA(@RequestBody ObjetoAprendizaje oa) {
 		Map<String, Object> response = new HashMap<>();

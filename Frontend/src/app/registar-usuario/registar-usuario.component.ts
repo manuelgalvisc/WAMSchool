@@ -34,8 +34,6 @@ export class RegistarUsuarioComponent implements OnInit {
       this.politicas=true;
     } else if(this.user.nombre == undefined || this.user.apellido == undefined || this.user.email == undefined || this.user.fechaNacimiento == null || this.user.password == undefined) {
       Swal.fire('Debe ingresar los datos', 'Debe diligenciar todos los datos del formulario', 'error');
-    } else if(this.user.password.length < 6) {
-      Swal.fire('Contraseña', 'La contraseña debe tener mínimo 6 carácteres', 'error');
     } else if (this.user.password != this.spassword) {
       this.passwordValide=true;
     }else if (fecha > this.fechaActual) {

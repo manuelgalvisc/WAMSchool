@@ -28,9 +28,7 @@ export class ModalLoginComponent implements OnInit {
       Swal.fire('Email', 'Debe ingresar el email', 'error');
     } else if(this.user.password == null) {
       Swal.fire('Contraseña', 'Debe ingresar la contraseña', 'error');
-    } else if(this.user.password.length < 6) {
-      Swal.fire('Contraseña', 'La contraseña debe contener mínimo 6 cáracteres!', 'error');
-    }else {
+    } else {
       try {
         this.userService.login(this.user).subscribe(json => {
           Swal.fire('Bienvenido', json.mensaje, 'success');
