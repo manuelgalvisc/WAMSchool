@@ -5,7 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 
 import { UserService } from '../services/user.service';
-import { AuthenticationService } from '../services/authentication.service';
 
 import Swal from 'sweetalert2';
 
@@ -24,7 +23,6 @@ export class RegistarUsuarioComponent implements OnInit {
   fechaActual: Date = new Date();
 
   constructor(private userService: UserService,
-              public auth: AuthenticationService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -47,7 +45,6 @@ export class RegistarUsuarioComponent implements OnInit {
         Swal.fire('Registro con exito', json.mensaje, 'success');
         this.userService.inOut = true;
         this.router.navigate(['/']);
-        this.auth.SingnUp(this.user.email, this.user.password);
       });
     }
   }

@@ -5,7 +5,6 @@ import { User } from '../model/user';
 
 import { ModalService } from '../services/modal.service';
 import { UserService } from '../services/user.service';
-import { AuthenticationService } from '../services/authentication.service';
 
 import Swal from 'sweetalert2';
 
@@ -19,8 +18,7 @@ export class ModalLoginComponent implements OnInit {
   user: User = new User();
 
   constructor(private _modalService: ModalService,
-              private userService: UserService,
-              public auth: AuthenticationService) { }
+              private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -38,7 +36,6 @@ export class ModalLoginComponent implements OnInit {
           Swal.fire('Bienvenido', json.mensaje, 'success');
           this._modalService.cerrarModal();
           this.userService.inOut = true;
-          this.auth.SignIn(this.user.email, this.user.password);
         })
       } catch (err) {
         Swal.fire('Error al ingresar el usuario', err.error.mensaje, 'error');

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ModalService } from '../services/modal.service';
-import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -12,7 +11,6 @@ import { UserService } from '../services/user.service';
 export class LoginComponent implements OnInit {
 
   constructor(private _modalService: ModalService,
-              public auth: AuthenticationService,
               public userService: UserService) { }
 
   ngOnInit() {
@@ -23,7 +21,6 @@ export class LoginComponent implements OnInit {
   }
 
   signOut(): void {
-    this.auth.SignOut();
     this.userService.inOut = false;
   }
 

@@ -37,7 +37,6 @@ import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service'
 import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
-import { AuthenticationService } from './services/authentication.service';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -88,7 +87,6 @@ const routes: Routes =[
     ModalService,
     UserService,
     DatePipe,
-    AuthenticationService
   ],
 
   bootstrap: [AppComponent
