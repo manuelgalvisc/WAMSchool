@@ -19,7 +19,7 @@ export class CrearpaginaComponent implements OnInit {
 
   ngOnInit(): void {
     this.pagina = new Pagina();
-    this.pagina.titulo = "";
+    this.pagina.nombrePagina = "";
     this.pagina.tipo = 0;
     this.texto = ""
     this.mostrarContenido = false;
@@ -36,12 +36,12 @@ export class CrearpaginaComponent implements OnInit {
   }
 
   crearPagina() {
-    if (this.pagina.titulo.length > 0) {
-      this.pagina.contenido = this.texto;
-      this.paginaService.crearSeccion(this.pagina).subscribe(
+    if (this.pagina.nombrePagina.length > 0) {
+      this.pagina.contenidoPagina = this.texto;
+      this.paginaService.crearSeccion(this.pagina,1).subscribe(
         json => {
           if (json.data != null) {
-            Swal.fire('Nueva pagina ', ` ${json.data.nombreSeccion} creada con exito !`, 'success');
+            Swal.fire('Nueva pagina ', ` ${json.data.nombrePagina} creada con exito !`, 'success');
 
           }
         }

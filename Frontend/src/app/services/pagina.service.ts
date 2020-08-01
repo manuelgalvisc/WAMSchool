@@ -12,20 +12,23 @@ export class PaginaService {
 
   constructor(private http: HttpClient) { }
 
-  public crearSeccion(pagina: Pagina): Observable<any>{
-    const url = 'http://localhost:9000/api/seccion/crearSeccion'
+  public crearSeccion(pagina: Pagina,idSeccion:number): Observable<any>{
+    const url = 'http://localhost:9000/api/pagina/crearPagina'
+
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion',idSeccion.toString());
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
-      })
+      }),params : params0
     };
 
     return this.http.post<any>(url, pagina, httpOptions).pipe(
 
       catchError( e => {
         console.error(e.error.mensaje);
-        Swal.fire('error al crear la seccion', e.error.mensaje, 'error');
+        Swal.fire('error al crear la pagina', e.error.mensaje, 'error');
         return throwError(e);
 
       }

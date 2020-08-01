@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="form-group">
                 <label for="titulo">Titulo:</label>
-                <input type="text" class="form-control" [(ngModel)]="pagina.titulo" id="titulo" name="titulo"
+                <input type="text" class="form-control" [(ngModel)]="pagina.nombrePagina" id="titulo" name="titulo"
                     [ngModelOptions]="{standalone: true}" required #titulo="ngModel">
                 <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
                     <div *ngIf="titulo.errors.required">El nombre es requerido</div>

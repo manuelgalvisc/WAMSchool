@@ -3,9 +3,9 @@ import { Seccion } from './seccion';
 export class Pagina {
 
     id:number;
-    titulo : string;
+    nombrePagina : string;
     seccion : Seccion;
     tipo : number;
-    contenido:string;
+    contenidoPagina:string;
 
 }
