@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
   export class UserService {
 
     private User: User;
+    inOut: boolean = false;
 
     constructor(private http: HttpClient) { }
 
@@ -41,11 +42,6 @@ import Swal from 'sweetalert2';
           'Content-Type': 'application/json'
         })
       };
-
-      return this.http.post<any>(url,JSON.stringify(usuario), httpOptions).pipe(catchError(e => {
-        console.error(e.error.mensaje);
-        Swal.fire('Error al ingresar el usuario', e.error.mensaje, 'error');
-        return throwError(e);
-      }));
+      return this.http.post<any>(url,JSON.stringify(usuario), httpOptions);
     }
   }

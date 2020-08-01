@@ -40,7 +40,9 @@ public class Usuario implements Serializable,Cloneable{
 	@Column(name = "U_EMAIL", unique = true)
 	private String email;
 	
-	@Column(name = "U_PASSWORD")
+	private Boolean enabled;
+	
+	@Column(name = "U_PASSWORD", length = 60)
 	private String password;
 	
 	@Column(name = "U_FECHANACIMIENTO")
@@ -118,6 +120,14 @@ public class Usuario implements Serializable,Cloneable{
 
 	public void setObjetosAprendizaje(List<ObjetoAprendizaje> objetosAprendizaje) {
 		this.objetosAprendizaje = objetosAprendizaje;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	

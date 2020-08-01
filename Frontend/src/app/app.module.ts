@@ -4,12 +4,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { RouterModule , Routes } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+//environment
+import { environment } from '../environments/environment';
 
 //componentes
 import { AppComponent } from './app.component';
@@ -71,7 +77,9 @@ const routes: Routes =[
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   entryComponents:[
     ModalOaComponent

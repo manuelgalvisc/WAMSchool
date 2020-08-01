@@ -1,6 +1,9 @@
 package com.wamschool.backend.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.wamschool.backend.model.Pagina;
 
 public class SeccionDTO implements Serializable {
 	/**
@@ -12,6 +15,8 @@ public class SeccionDTO implements Serializable {
 	private String descripcion;
 	private Integer posInOA;
 	private Long idOA;
+	
+	
 	public Long getIdSeccion() {
 		return idSeccion;
 	}

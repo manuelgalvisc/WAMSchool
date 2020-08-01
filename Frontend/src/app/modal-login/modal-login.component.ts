@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ModalService } from '../services/modal.service';
 import { User } from '../model/user';
+
+import { ModalService } from '../services/modal.service';
 import { UserService } from '../services/user.service';
 
 import Swal from 'sweetalert2';
@@ -28,10 +29,15 @@ export class ModalLoginComponent implements OnInit {
     } else if(this.user.password == null) {
       Swal.fire('Contraseña', 'Debe ingresar la contraseña', 'error');
     } else {
-      this.userService.login(this.user).subscribe(json => {
-        Swal.fire('Bienvenido', json.mensaje, 'success');
-        this._modalService.cerrarModal();
-      })
+      try {
+        this.userService.login(this.user).subscribe(json => {
+          Swal.fire('Bienvenido', json.mensaje, 'success');
+          this._modalService.cerrarModal();
+          this.userService.inOut = true;
+        })
+      } catch (err) {
+        Swal.fire('Error al ingresar el usuario', err.error.mensaje, 'error');
+      }
     }
   }
 
