@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 @Component({
@@ -9,15 +9,19 @@ import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 export class EditorTextoComponent implements OnInit {
 
-  editorTexto : string = "";
-  constructor() { }
+  @Output() editorTexto : EventEmitter<string>;
+  texto: string = "";
+  constructor() { 
+    this.editorTexto = new EventEmitter<string>();
+  }
 
   ngOnInit(): void {
   }
 
   changedEditor(event : EditorChangeContent | EditorChangeSelection){
-    this.editorTexto = event['editor']['root']['innerHTML'];
-    console.log(this.editorTexto);
+    this.texto = event['editor']['root']['innerHTML'];
+    this.editorTexto.emit(this.texto);
+    //console.log(this.texto);
   }
 
 }

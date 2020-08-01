@@ -25,12 +25,15 @@ import { PoliticasComponent } from './politicas/politicas.component';
 import { SeccionComponent } from './seccion/seccion.component';
 import { EditarObjetoAprendizajeComponent } from './editar-objeto-aprendizaje/editar-objeto-aprendizaje.component';
 import { ModalOaComponent } from './modal-oa/modal-oa.component';
+import { CrearpaginaComponent } from './crearpagina/crearpagina.component';
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
 import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
+import { PaginaService } from './services/pagina.service';
+
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -56,7 +59,8 @@ const routes: Routes =[
     SeccionComponent,
     EditarObjetoAprendizajeComponent,
     EditorTextoComponent,
-    ModalOaComponent
+    ModalOaComponent,
+    CrearpaginaComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -78,7 +82,8 @@ const routes: Routes =[
     ConsultasService,
     ModalService,
     UserService,
-    DatePipe
+    DatePipe,
+    PaginaService
   ],
 
   bootstrap: [AppComponent
