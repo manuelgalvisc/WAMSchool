@@ -6,7 +6,7 @@ import { RouterModule , Routes } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-
+import {YouTubePlayerModule} from '@angular/youtube-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -32,6 +32,7 @@ import { SeccionComponent } from './seccion/seccion.component';
 import { EditarObjetoAprendizajeComponent } from './editar-objeto-aprendizaje/editar-objeto-aprendizaje.component';
 import { ModalOaComponent } from './modal-oa/modal-oa.component';
 import { CrearpaginaComponent } from './crearpagina/crearpagina.component';
+import { ModalenlacesvideosComponent } from './modalenlacesvideos/modalenlacesvideos.component';
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
@@ -39,6 +40,8 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
+import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
+
 
 
 const routes: Routes =[
@@ -66,7 +69,9 @@ const routes: Routes =[
     EditarObjetoAprendizajeComponent,
     EditorTextoComponent,
     ModalOaComponent,
-    CrearpaginaComponent
+    CrearpaginaComponent,
+    ModalenlacesvideosComponent,
+    ComponenteyoutubeComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -80,9 +85,11 @@ const routes: Routes =[
     QuillModule.forRoot(),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    YouTubePlayerModule,
   ],
   entryComponents:[
-    ModalOaComponent
+    ModalOaComponent,
+    ModalenlacesvideosComponent
   ],
   providers: [
     CategoriaService,

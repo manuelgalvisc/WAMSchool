@@ -18,15 +18,17 @@
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            
-            <button type="button" class="btn btn-danger btn-lg btn-block"><i class="fab fa-youtube"></i> Enlazar You Tube</button>
+            <button type="button" class="btn btn-danger btn-lg btn-block" (click)="mostrarModal()"><i class="fab fa-youtube"></i> Enlazar You Tube</button>
             <div *ngIf = "listaVideos.length === 0" class="text-center">
                 No hay videos agregados para esta pagina
             </div>
             <div *ngIf = "listaVideos.length > 0">
                 Videos Enlazados:
                 <ul class="list-group">
-                    <li *ngFor="let se of listaVideos; i as index" class="list-group-item"></li>
+                    <li *ngFor="let se of listaVideos; let c =  index;" class="list-group-item ">{{se.nombre + ' | Url = ' + se.url}}
+                        <button class="btn float-right" (click)="abrilModalYOUTUBE(se)"><i class="fas fa-file-video"></i></button>
+                        <button class="btn float-right" (click)="eliminarEnlace(c)"><i class="fas fa-trash-alt"></i></button>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Pagina } from '../model/pagina';
 import { PaginaService } from '../services/pagina.service';
 import Swal from 'sweetalert2';
+import { Enlace } from '../model/enlace';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalenlacesvideosComponent } from '../modalenlacesvideos/modalenlacesvideos.component';
+import { ComponenteyoutubeComponent } from '../componenteyoutube/componenteyoutube.component';
 
 @Component({
   selector: 'app-crearpagina',
@@ -13,9 +17,10 @@ export class CrearpaginaComponent implements OnInit {
   pagina: Pagina;
   texto: string;
   mostrarContenido: boolean;
-  listaVideos : Array<string>;
+  listaVideos : Array<Enlace>;
 
-  constructor(private paginaService: PaginaService) { }
+  constructor(private paginaService: PaginaService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.pagina = new Pagina();
@@ -23,7 +28,7 @@ export class CrearpaginaComponent implements OnInit {
     this.pagina.tipo = 0;
     this.texto = ""
     this.mostrarContenido = false;
-    this.listaVideos = new Array<string>();
+    this.listaVideos = new Array<Enlace>();
   }
 
   cargaContenido($event) {
@@ -35,9 +40,17 @@ export class CrearpaginaComponent implements OnInit {
     this.mostrarContenido = this.mostrarContenido === false ? true : false;
   }
 
+  mostrarModal() {
+    const modalRef = this.modalService.open(ModalenlacesvideosComponent);
+    modalRef.result.then((r)=>{
+      this.listaVideos.push(r);
+    });
+  }
+
   crearPagina() {
     if (this.pagina.nombrePagina.length > 0) {
       this.pagina.contenidoPagina = this.texto;
+      this.pagina.enlaces = this.listaVideos;
       this.paginaService.crearSeccion(this.pagina,1).subscribe(
         json => {
           if (json.data != null) {
@@ -47,8 +60,16 @@ export class CrearpaginaComponent implements OnInit {
         }
       );
     }
+  }
 
+  abrilModalYOUTUBE(enlace:Enlace){
+    const modalRef = this.modalService.open(ComponenteyoutubeComponent);
+    modalRef.componentInstance.enlace = enlace;
+  }
 
+  eliminarEnlace(identificador : number){
+    console.log(identificador);
+    this.listaVideos.splice(identificador,1);
   }
 
 

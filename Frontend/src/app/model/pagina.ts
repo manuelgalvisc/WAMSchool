@@ -1,4 +1,5 @@
 import { Seccion } from './seccion';
+import { Enlace } from './enlace';
 
 export class Pagina {
 
@@ -7,5 +8,6 @@ export class Pagina {
     seccion : Seccion;
     tipo : number;
     contenidoPagina:string;
+    enlaces:Array<Enlace>;
 
 }
