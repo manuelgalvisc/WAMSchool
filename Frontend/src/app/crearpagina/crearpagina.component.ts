@@ -6,6 +6,7 @@ import { Enlace } from '../model/enlace';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalenlacesvideosComponent } from '../modalenlacesvideos/modalenlacesvideos.component';
 import { ComponenteyoutubeComponent } from '../componenteyoutube/componenteyoutube.component';
+import { ModalcargaarchivosComponent } from '../modalcargaarchivos/modalcargaarchivos.component';
 
 @Component({
   selector: 'app-crearpagina',
@@ -67,6 +68,9 @@ export class CrearpaginaComponent implements OnInit {
     modalRef.componentInstance.enlace = enlace;
   }
 
+  abrilModalCargaArchivo(){
+    const modalRef = this.modalService.open(ModalcargaarchivosComponent);
+  }
   eliminarEnlace(identificador : number){
     console.log(identificador);
     this.listaVideos.splice(identificador,1);

@@ -33,6 +33,8 @@ import { EditarObjetoAprendizajeComponent } from './editar-objeto-aprendizaje/ed
 import { ModalOaComponent } from './modal-oa/modal-oa.component';
 import { CrearpaginaComponent } from './crearpagina/crearpagina.component';
 import { ModalenlacesvideosComponent } from './modalenlacesvideos/modalenlacesvideos.component';
+import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
+import { ModalcargaarchivosComponent } from './modalcargaarchivos/modalcargaarchivos.component';
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
@@ -40,7 +42,7 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
-import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
+
 
 
 
@@ -71,7 +73,8 @@ const routes: Routes =[
     ModalOaComponent,
     CrearpaginaComponent,
     ModalenlacesvideosComponent,
-    ComponenteyoutubeComponent
+    ComponenteyoutubeComponent,
+    ModalcargaarchivosComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -89,7 +92,8 @@ const routes: Routes =[
   ],
   entryComponents:[
     ModalOaComponent,
-    ModalenlacesvideosComponent
+    ModalenlacesvideosComponent,
+    ComponenteyoutubeComponent,
   ],
   providers: [
     CategoriaService,
@@ -98,7 +102,8 @@ const routes: Routes =[
     ModalService,
     UserService,
     DatePipe,
-    PaginaService
+    PaginaService,
+
   ],
 
   bootstrap: [AppComponent
