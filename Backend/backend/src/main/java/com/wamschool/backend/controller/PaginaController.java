@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public class PaginaController {
 	@Autowired
 	SeccionServices sservice;
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearPagina")
 	public ResponseEntity<?> crearPagina(@RequestBody Pagina pagina, @RequestParam Long idSeccion) {
 		Map<String, Object> response = new HashMap<>();

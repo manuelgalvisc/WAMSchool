@@ -1,4 +1,4 @@
 <div class="container">
-  <button *ngIf="!userService.inOut" class="btn btn-light padding" type="submit" (click)="login()">Login</button>
-  <button *ngIf="userService.inOut" class="btn btn-danger padding" (click)="signOut()">Sign out</button>
+  <button *ngIf="!userService.inOut" class="btn btn-block btn-outline-light padding" type="submit" (click)="login()">Login</button>
+  <button *ngIf="userService.inOut" class="btn btn-block btn-outline-danger padding" (click)="signOut()">{{userService.user.nombre}}</button>
 </div>

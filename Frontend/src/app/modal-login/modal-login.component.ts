@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { User } from '../model/user';
 
@@ -18,9 +19,14 @@ export class ModalLoginComponent implements OnInit {
   user: User = new User();
 
   constructor(private _modalService: ModalService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private http: HttpClient) { }
 
   ngOnInit(): void {
+    if(this.userService.isAuthenticated()) {
+      Swal.fire('Login', `Hola ${this.userService.user.nombre} ya estas autenticado`, 'info');
+      this.userService.inOut = true;
+    }
   }
 
   login() {
@@ -29,15 +35,20 @@ export class ModalLoginComponent implements OnInit {
     } else if(this.user.password == null) {
       Swal.fire('Contraseña', 'Debe ingresar la contraseña', 'error');
     } else {
-      try {
-        this.userService.login(this.user).subscribe(json => {
-          Swal.fire('Bienvenido', json.mensaje, 'success');
-          this._modalService.cerrarModal();
-          this.userService.inOut = true;
-        })
-      } catch (err) {
-        Swal.fire('Error al ingresar el usuario', err.error.mensaje, 'error');
-      }
+      this.userService.login(this.user).subscribe(response => {
+        this.userService.guardarUsuario(response.access_token);
+        this.userService.guardarToken(response.access_token);
+
+        let usuario = this.userService.user;
+
+        Swal.fire('Bienvenido', `Hola ${usuario.nombre}, has iniciado sesión con exito`, 'success');
+        this._modalService.cerrarModal();
+        this.userService.inOut = true;
+      }, err => {
+        if (err.status == 400) {
+          Swal.fire('Error login', 'Usuario o clave incorrecta', 'error');
+        }
+      });
     }
   }
 

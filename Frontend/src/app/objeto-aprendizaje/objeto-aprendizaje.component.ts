@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
 import { DataService } from '../services/data.service';
 import { isUndefined } from 'util';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class ObjetoAprendizajeComponent implements OnInit{
   constructor(private categoriaService: CategoriaService,
               private objetoAprendizajeService: ObjetoAprendizajeService,
               private dataService: DataService,
-              private router: Router) {}
+              private router: Router,
+              private userService: UserService) {}
 
 
 
@@ -91,8 +93,8 @@ export class ObjetoAprendizajeComponent implements OnInit{
       this.iscategoriasseleccionadas = true;
     }else{
     const estadoOA = 'INACTIVO';
-    this.usuario.email = 'haig@nopo.com';
-    this.objetoAprendizaje.propietario = this.usuario;
+    this.usuario.email = this.userService.user.email;
+    this.objetoAprendizaje.propietario = this.userService.user;
     this.objetoAprendizaje.categorias = this.categoriasSeleccionadas;
     this.objetoAprendizaje.visitas = 0;
     this.objetoAprendizaje.estadoOA = estadoOA;
