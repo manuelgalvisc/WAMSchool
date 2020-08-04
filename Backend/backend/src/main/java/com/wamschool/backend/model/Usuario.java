@@ -129,11 +129,4 @@ public class Usuario implements Serializable,Cloneable{
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	
-	
-    
-	
-	
-
 }

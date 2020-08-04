@@ -41,7 +41,6 @@ export class RegistarUsuarioComponent implements OnInit {
     } else {
       this.userService.registrarUsuario(this.user).subscribe(json => {
         Swal.fire('Registro con exito', json.mensaje, 'success');
-        this.userService.inOut = true;
         this.router.navigate(['/']);
       });
     }

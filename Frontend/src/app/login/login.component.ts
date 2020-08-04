@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
   }
 
   signOut(): void {
+    Swal.fire('LogOut', `Hasta pronto ${this.userService.user.nombre} has cerrado sesión con éxito`, 'success');
     this.userService.logOut();
-    Swal.fire('LogOut', `Hola ${this.userService.user.nombre} has cerrado sesión con éxito`, 'success');
     this.router.navigate(['/home']);
   }
 

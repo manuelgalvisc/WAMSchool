@@ -43,12 +43,9 @@ import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
 
-
-
-
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: 'crearOA', component: ObjetoAprendizajeComponent},
+  {path: 'crearOA', component: ObjetoAprendizajeComponent,},
   {path: 'home', component: HomeComponent},
   {path: 'registrar_usuario', component: RegistarUsuarioComponent},
   {path: 'politicas', component: PoliticasComponent},

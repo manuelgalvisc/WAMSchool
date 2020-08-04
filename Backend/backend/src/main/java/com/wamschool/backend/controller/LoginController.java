@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,9 @@ public class LoginController {
 	
 	@Autowired
 	LoginServices servicio;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/crearRole")
@@ -42,33 +46,6 @@ public class LoginController {
 		servicio.agregarRole(role);;
 	}
 	
-	@PostMapping("/signIn")
-	public ResponseEntity<?> signIn(@RequestBody Usuario usuario){
-		
-		Map<String, Object> response = new HashMap<>();
-		try {
-			if(usuario != null && usuario.getEmail() != null && usuario.getPassword() != null) {
-				Usuario user = servicio.autenticarUsuario(usuario.getEmail());
-				if(user != null) {
-					if(usuario.getPassword().equals(user.getPassword())) {
-						response.put("data", user);
-						response.put("mensaje","Se ha autenticado el usuario");
-						return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
-					}
-				}
-			}
-
-		}catch(DataAccessException ex) {
-			response.put("data",null);
-			response.put("mensaje","El usuario no se encuentra registrado");
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		//creamos el json token 
-		response.put("data",null);
-		response.put("mensaje","No se ha podido autenticar el usuario o no existe");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CONFLICT);
-	}
-	
 	@PostMapping("/registrarUsuario")
 	public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
 		
@@ -76,10 +53,10 @@ public class LoginController {
 		try {			
 			if(usuario != null && usuario.getEmail() != null) {
 				if(!servicio.containsEmailUser(usuario.getEmail())) {
-					
+					usuario.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
+					usuario.setEnabled(true);
 					Usuario user = servicio.registrarUsuario(usuario);
 					if(user != null) {
-						
 						//le agregamos el rol de usuario
 						Role role = servicio.extraerRole(Roles.ROLE_USER.toString());
 						if(role != null) {
