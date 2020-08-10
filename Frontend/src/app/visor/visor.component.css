@@ -1,0 +1,41 @@
+.tamañoImagen {
+  width: auto;
+}
+
+a:hover {
+  background-color: #292b2c;
+  opacity: 0.6;
+  color: white;
+  border-style: none;
+}
+
+.pag:hover {
+  background-color: #5cb85c;
+  opacity: 0.6;
+  color: white;
+  border-style: none;
+}
+
+.fondo {
+  border-style: none;
+}
+
+.active {
+  background-color: #292b2c;
+  color: white;
+  border-style: none;
+}
+
+.activePag {
+  background-color: #5cb85c;
+  color: white;
+  border-style: none;
+}
+
+.pagina {
+  display: block;
+}
+
+.nopag {
+  display: none;
+}

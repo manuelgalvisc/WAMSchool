@@ -1,0 +1,44 @@
+<div class="container-fluid bg-succes">
+  <div class="row">
+    <div class="col-2">
+      <img src="https://th.bing.com/th/id/OIP.hR3Fn3fqbj-qAT-RLlkLawHaD8?pid=Api&rs=1" alt="Logo OA" class="img-thumbnail tamañoImagen">
+    </div>
+    <div class="col-10">
+      <div class="row">
+        <h2 class="display-4">{{visorService.oa.tituloOA}}</h2>
+      </div>
+      <div class="row">
+        <p>Autor: {{visorService.oa.nombreCompletoPropietario}}, Categorías: {{categorias}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-3">
+      <div class="list-group" role="tablist">
+        <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"
+          (click)="actividadesSecciones()" *ngIf="!iniciado">Modulos del OA
+        </a>
+      </div>
+      <div class="list-group" role="tablist" *ngIf="iniciado">
+        <div class="list-group-item list-group-item-action" data-toggle="list" role="tab"
+          *ngFor="let seccion of seccionesCompletas" [class.active]="seccion.seccion === seleccionado">
+          <a class="list-group-item list-group-item-action fondo" data-toggle="list" role="tab"
+            (click)="seccionSeleccionada(seccion.seccion)" [class.active]="seccion.seccion === seleccionado">
+            {{seccion.seccion.nombreSeccion}}
+          </a>
+          <div class="list-group-item list-group-item-action fondo" data-toggle="list" role="tab"
+            *ngFor="let pagina of seccion.paginas pag" [class.pagina]="seccion.seccion === seleccionado"
+            [class.nopag]="seccion.seccion !== seleccionado" [class.activePag]="pagina === selectPag">
+            <a class="list-group-item list-group-item-action fondo pag" data-toggle="list" role="tab"
+              (click)="actividadSel(pagina)" [class.activePag]="pagina === selectPag">
+              {{pagina.nombrePagina}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-9 card">
+      <div id="contenido" class="card-body"></div>
+    </div>
+  </div>
+</div>

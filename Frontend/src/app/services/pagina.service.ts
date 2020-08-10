@@ -54,10 +54,10 @@ export class PaginaService {
     const url = 'http://localhost:9000/api/pagina/listarPaginas';
 
     let httpHeaders = new HttpHeaders();
-    let token = this.userService.token;
+    /*let token = this.userService.token;
     if(token != null) {
       httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
-    }
+    }*/
 
     let params0 = new HttpParams();
     params0 = params0.append('idSeccion', idSeccion.toString());
@@ -65,7 +65,7 @@ export class PaginaService {
     return this.http.get<any>(url, {
       headers: httpHeaders,
       params: params0,
-    }).pipe(
+    })/*.pipe(
       catchError( e => {
         if (this.userService.isNoAutorizado(e)) {
           return throwError(e);
@@ -76,7 +76,7 @@ export class PaginaService {
       }
 
       )
-    );
+    )*/;
 
   }
 }

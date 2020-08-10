@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { RouterModule , Routes } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import {YouTubePlayerModule} from '@angular/youtube-player';
@@ -35,6 +35,15 @@ import { CrearpaginaComponent } from './crearpagina/crearpagina.component';
 import { ModalenlacesvideosComponent } from './modalenlacesvideos/modalenlacesvideos.component';
 import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
 import { ModalcargaarchivosComponent } from './modalcargaarchivos/modalcargaarchivos.component';
+import { ActividadComponent } from './actividad/actividad.component';
+import { CuestionarioComponent } from './cuestionario/cuestionario.component';
+import { OpcionmultipleComponent } from './opcionmultiple/opcionmultiple.component';
+import { PreguntaabiertaComponent } from './preguntaabierta/preguntaabierta.component';
+import { EnunciadoComponent } from './enunciado/enunciado.component';
+import { ElegirEnunciadoComponent } from './elegir-enunciado/elegir-enunciado.component';
+import { VisorComponent } from './visor/visor.component';
+import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
+
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
@@ -44,6 +53,7 @@ import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
 import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
+import { VisorService } from './services/visor.service';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -53,6 +63,7 @@ const routes: Routes =[
   {path: 'politicas', component: PoliticasComponent},
   {path: 'editarOA', component: EditarObjetoAprendizajeComponent},
   {path: 'crearSeccion', component: SeccionComponent},
+  {path: 'visorOA', component: VisorComponent},
   {path: 'editarSeccion', component: EditarSeccionComponent},
   {path: 'crearPagina', component: CrearpaginaComponent },
 ];
@@ -78,6 +89,14 @@ const routes: Routes =[
     ModalcargaarchivosComponent,
     EditarSeccionComponent,
     AhorcadoComponent
+    ActividadComponent,
+    CuestionarioComponent,
+    OpcionmultipleComponent,
+    PreguntaabiertaComponent,
+    EnunciadoComponent,
+    ElegirEnunciadoComponent,
+    EditarSeccionComponent,
+    VisorComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -92,11 +111,16 @@ const routes: Routes =[
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     YouTubePlayerModule,
+    CommonModule,
   ],
   entryComponents:[
     ModalOaComponent,
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
+    OpcionmultipleComponent,
+    PreguntaabiertaComponent,
+    EnunciadoComponent,
+    ElegirEnunciadoComponent,
   ],
   providers: [
     CategoriaService,
@@ -106,7 +130,7 @@ const routes: Routes =[
     UserService,
     DatePipe,
     PaginaService,
-
+    VisorService,
   ],
 
   bootstrap: [AppComponent
