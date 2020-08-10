@@ -5,7 +5,7 @@ export class Pagina {
 
     id:number;
     nombrePagina : string;
-    seccion : Seccion;
+    seccion : number;
     tipo : number;
     contenidoPagina:string;
     enlaces:Array<Enlace>;

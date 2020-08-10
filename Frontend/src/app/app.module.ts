@@ -42,6 +42,7 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
+import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 
 
 
@@ -54,6 +55,8 @@ const routes: Routes =[
   {path: 'politicas', component: PoliticasComponent},
   {path: 'editarOA', component: EditarObjetoAprendizajeComponent},
   {path: 'crearSeccion', component: SeccionComponent},
+  {path: 'editarSeccion', component: EditarSeccionComponent},
+  {path: 'crearPagina', component: CrearpaginaComponent },
 ];
 
 @NgModule({
@@ -74,7 +77,8 @@ const routes: Routes =[
     CrearpaginaComponent,
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
-    ModalcargaarchivosComponent
+    ModalcargaarchivosComponent,
+    EditarSeccionComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,

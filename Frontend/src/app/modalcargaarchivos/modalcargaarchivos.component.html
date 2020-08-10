@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-center">
-                    <h5 class="modal-title text-light">Titulo</h5>
+                    <h5 class="modal-title text-light">Cargar Archivos</h5>
                     <button (click)="activeModal.dismiss('Cross click')" type="button" class="close text-light"
                         data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -11,18 +11,16 @@
                 </div>
                 <div class="modal-body center">
                     <div class="container">
-                        <div class="form-row">
-                            <div class="col-12 text-center">
-                                <h3>Seleccione el Archivo</h3>
-                            </div>
+                     <div class="input-group">
+                      <div class="custom-file">
+                        <div class="file-field">
+                          <a class="btn-floating peach-gradient mt-0 float-left">
+                            <i class="fas fa-paperclip" aria-hidden="true"></i>
+                            <input (change)="subirArchivo($event)" name="pdf" type="file" accept="application/pdf" />
+                          </a>
                         </div>
-                    </div>
-                    <div class="container m-3">
-                        <div class="row">
-                            <div class="col-md-3">
-                             
-                            </div>
-                        </div>
+                      </div>
+                     </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-dark">
