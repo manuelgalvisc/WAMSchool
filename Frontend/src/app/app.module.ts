@@ -44,12 +44,9 @@ import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
 import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 
-
-
-
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: 'crearOA', component: ObjetoAprendizajeComponent},
+  {path: 'crearOA', component: ObjetoAprendizajeComponent,},
   {path: 'home', component: HomeComponent},
   {path: 'registrar_usuario', component: RegistarUsuarioComponent},
   {path: 'politicas', component: PoliticasComponent},
