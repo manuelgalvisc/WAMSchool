@@ -43,6 +43,7 @@ import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
 import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
+import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -75,7 +76,8 @@ const routes: Routes =[
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
-    EditarSeccionComponent
+    EditarSeccionComponent,
+    AhorcadoComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,
