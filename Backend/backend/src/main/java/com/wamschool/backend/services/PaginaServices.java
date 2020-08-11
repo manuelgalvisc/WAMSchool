@@ -8,6 +8,7 @@ public interface PaginaServices {
 	
 	public Pagina crearPagina(Pagina pagina);
 	public List<Pagina> listarPaginas(Long idSeccion);
+	public Pagina buscarPorIdPagina(Long idPagina);
 	
 
 }

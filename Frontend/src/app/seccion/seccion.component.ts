@@ -3,6 +3,7 @@ import { Seccion } from '../model/seccion';
 import { DataService } from '../services/data.service';
 import { SeccionService } from '../services/seccion.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seccion',
@@ -15,7 +16,8 @@ export class SeccionComponent implements OnInit {
   private idOA: number;
 
   constructor(private dataService: DataService,
-              private seccionService: SeccionService) { }
+              private seccionService: SeccionService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.seccion.descripcion = '';
@@ -34,7 +36,8 @@ export class SeccionComponent implements OnInit {
       json => {
         if ( json.data != null){
           Swal.fire('Nueva Seccion ', ` ${json.data.nombreSeccion} creada con exito !`, 'success');
-
+          this.dataService.seccionDTO = json.data;
+          this.router.navigate(['/editarSeccion']);
         }
 
       }

@@ -1,0 +1,28 @@
+<div class="container-fluid bg-succes">
+  <div class="row">
+    <div class="col-2 m-3">
+      <img src="https://th.bing.com/th/id/OIP.hR3Fn3fqbj-qAT-RLlkLawHaD8?pid=Api&rs=1" alt="Logo OA" class="img-thumbnail tamañoImagen">
+    </div>
+    <div class="col m-3">
+      <div class="row">
+        <h2 class="display-4">{{titulo}}</h2>
+      </div>
+      <div class="row">
+        <p>{{categorias}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 m-3">
+      <div class="btn-group-vertical">
+        <button type="button" class="btn btn-primary" *ngFor="let seccion of secciones" (click)="mostrarActividades()">{{seccion.nombreSeccion}}
+          <div *ngIf="mostrarActividad" class="btn-group-vertical">
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="col m-3">
+
+    </div>
+  </div>
+</div>

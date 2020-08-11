@@ -1,0 +1,80 @@
+<div class="form-group">
+  <h2 style="color: cadetblue;">EDITAR SECCIÓN</h2>
+</div>
+<br>
+<div class="form-group">
+  <label for="titulo">Titulo:</label>
+  <input type="text" class="form-control" [(ngModel)]="seccionDTO.nombreSeccion"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
+  <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+    <div *ngIf="titulo.errors.required">El nombre es requerido</div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="descripcion">Descripcion:</label>
+  <textarea class="form-control" [(ngModel)]="seccionDTO.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
+  <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+    <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
+  </div>
+</div>
+
+ <div class="form-group">
+    <div class="row">
+      <div class="form-group">
+        <button class="btn btn-info active form-group" routerLink="/crearPagina">Pagina Contenido <i
+            class="fas fa-plus-square"></i></button>
+        <div class="mx-auto">
+          <div *ngIf="seccionDTO.paginas.length>0">
+            <!--Table-->
+            <table class="table table-striped w-auto ml-3 mr-3">
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>idPagina</th>
+                  <th>nombre</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody class="py-3">
+                <tr *ngFor="let pagina of seccionDTO.paginas; index as i; let odd = odd" class="my-1"
+                  [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
+                  <th scope="row">{{i + 1}}</th>
+                  <td>{{pagina.id}}</td>
+                  <td>{{pagina.nombrePagina}}</td>
+                  <td>
+                    <button type="button" class="btn btn-default">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-default">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <div *ngIf="seccionDTO.paginas.length==0">
+            <span class="font-weight-bold">Esta seccion no tiene paginas creadas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="lineamiento">
+  <button  type="button" class="btn btn-success m-2" >Actualizar Seccion</button>
+  <button type="button" class="btn btn-danger m-2" routerLink="/editarOA">Cancelar</button>
+</div>
+
+
+
