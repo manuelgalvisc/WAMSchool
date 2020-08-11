@@ -35,6 +35,8 @@ import { CrearpaginaComponent } from './crearpagina/crearpagina.component';
 import { ModalenlacesvideosComponent } from './modalenlacesvideos/modalenlacesvideos.component';
 import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
 import { ModalcargaarchivosComponent } from './modalcargaarchivos/modalcargaarchivos.component';
+import { VisorComponent } from './visor/visor.component';
+
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
@@ -42,6 +44,7 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
+import { VisorService } from './services/visor.service';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -51,6 +54,7 @@ const routes: Routes =[
   {path: 'politicas', component: PoliticasComponent},
   {path: 'editarOA', component: EditarObjetoAprendizajeComponent},
   {path: 'crearSeccion', component: SeccionComponent},
+  {path: 'visorOA', component: VisorComponent}
 ];
 
 @NgModule({
@@ -71,7 +75,8 @@ const routes: Routes =[
     CrearpaginaComponent,
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
-    ModalcargaarchivosComponent
+    ModalcargaarchivosComponent,
+    VisorComponent
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -100,7 +105,7 @@ const routes: Routes =[
     UserService,
     DatePipe,
     PaginaService,
-
+    VisorService,
   ],
 
   bootstrap: [AppComponent

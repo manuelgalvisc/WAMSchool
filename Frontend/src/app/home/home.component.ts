@@ -14,6 +14,7 @@ import { DataService } from '../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeccionDTO } from '../DTOs/SeccionDTO';
 import { SeccionService } from '../services/seccion.service';
+import { VisorService } from '../services/visor.service';
 
 @Component({
   selector: 'app-home',
@@ -49,7 +50,8 @@ export class HomeComponent implements OnInit {
               private modalService: NgbModal,
               private dataService: DataService,
               private router: Router,
-              private seccionService: SeccionService) {
+              private seccionService: SeccionService,
+              private visorService: VisorService,) {
               }
 
   ngOnInit(): void {
@@ -303,6 +305,13 @@ export class HomeComponent implements OnInit {
       seccion.posInOA = dto.posInOA;
       seccion.objetoAprendizaje = dto.idOA;
     return seccion;
+  }
+
+  ejecutarOA(oa: ObjetoAprendizajeDTO) {
+    let seccion: Array<Seccion> = this.traerListaSecciones(oa.idOA);
+    oa.secciones = seccion;
+    this.visorService.oa = oa;
+    this.router.navigate(['/visorOA']);
   }
 
 }
