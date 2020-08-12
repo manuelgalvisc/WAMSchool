@@ -1,9 +1,12 @@
+import { PaginaService } from './pagina.service';
+import { SeccionDTO } from './../DTOs/SeccionDTO';
 import { Injectable } from '@angular/core';
 import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
-import { SeccionDTO } from '../DTOs/SeccionDTO';
 import { Seccion } from '../model/seccion';
 import { ConsultasService } from '../services/consultas.service';
 import { SeccionService } from './seccion.service';
+import { PaginaDTO } from '../DTOs/PaginaDTO';
+import { Pagina } from '../model/pagina';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,10 @@ import { SeccionService } from './seccion.service';
 export class DataService {
 
   objetoAprendizajeDTO: ObjetoAprendizajeDTO;
-  constructor(private seccionService: SeccionService) {
+  Archivo: File;
+  seccionDTO: SeccionDTO;
+  constructor(private seccionService: SeccionService,
+              private paginaService: PaginaService) {
 
    }
 
@@ -34,11 +40,39 @@ export class DataService {
 
   convertirSeccionDTOASeccion(dto : SeccionDTO):Seccion{
     let seccion :Seccion  = new Seccion();
-      seccion.id = dto.idSeccion;
-      seccion.nombreSeccion = dto.nombreSeccion;
-      seccion.descripcion = dto.descripcion;
-      seccion.posInOA = dto.posInOA;
-      seccion.objetoAprendizaje = dto.idOA;
+    seccion.id = dto.idSeccion;
+    seccion.nombreSeccion = dto.nombreSeccion;
+    seccion.descripcion = dto.descripcion;
+    seccion.posInOA = dto.posInOA;
+    seccion.objetoAprendizaje = dto.idOA;
     return seccion;
   }
+
+  traerListaPaginas(idSeccion: number): Array<Pagina> {
+    var listaPaginas: Array<PaginaDTO> = [];
+    var listaPaginasFinal : Array<Pagina> = [];
+    this.paginaService.listarPaginas(idSeccion).subscribe(
+      json =>{
+        if(json.data != null){
+          listaPaginas = json.data;
+          listaPaginas.map((y) => {
+            listaPaginasFinal.push(this.convertirPaginaDTOAPagina(y));
+          }
+          )
+        }
+      }
+    )
+    return listaPaginasFinal;
+  }
+
+  convertirPaginaDTOAPagina(dto : PaginaDTO): Pagina{
+    let pagina: Pagina = new Pagina();
+    pagina.id = dto.idPagina;
+    pagina.nombrePagina = dto.nombrePagina;
+    pagina.seccion = dto.idSeccion;
+    pagina.tipo = dto.tipo;
+    pagina.contenidoPagina = dto.contenidoPagina;
+    return pagina;
+  }
+
 }

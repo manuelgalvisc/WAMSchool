@@ -48,15 +48,21 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
+<<<<<<< HEAD
+=======
+import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
+>>>>>>> origin/Revisión
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: 'crearOA', component: ObjetoAprendizajeComponent},
+  {path: 'crearOA', component: ObjetoAprendizajeComponent,},
   {path: 'home', component: HomeComponent},
   {path: 'registrar_usuario', component: RegistarUsuarioComponent},
   {path: 'politicas', component: PoliticasComponent},
   {path: 'editarOA', component: EditarObjetoAprendizajeComponent},
   {path: 'crearSeccion', component: SeccionComponent},
+  {path: 'editarSeccion', component: EditarSeccionComponent},
+  {path: 'crearPagina', component: CrearpaginaComponent },
 ];
 
 @NgModule({
@@ -78,12 +84,16 @@ const routes: Routes =[
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
+<<<<<<< HEAD
     ActividadComponent,
     CuestionarioComponent,
     OpcionmultipleComponent,
     PreguntaabiertaComponent,
     EnunciadoComponent,
     ElegirEnunciadoComponent
+=======
+    EditarSeccionComponent
+>>>>>>> origin/Revisión
   ],
   imports: [
     NgMultiSelectDropDownModule,

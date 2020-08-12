@@ -22,8 +22,13 @@ public class PaginaServicesImpl implements PaginaServices{
 
 	@Override
 	public List<Pagina> listarPaginas(Long idSeccion) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return paginaRepo.listarPaginasPorSeccion(idSeccion);
+	}
+
+	@Override
+	public Pagina buscarPorIdPagina(Long idPagina) {
+		return paginaRepo.findById(idPagina).orElse(null);
 	}
 
 	

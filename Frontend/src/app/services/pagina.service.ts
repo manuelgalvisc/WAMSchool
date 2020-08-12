@@ -49,4 +49,34 @@ export class PaginaService {
 
 
   }
+
+  public listarPaginas(idSeccion:number):Observable<any>{
+    const url = 'http://localhost:9000/api/pagina/listarPaginas';
+
+    let httpHeaders = new HttpHeaders();
+    let token = this.userService.token;
+    if(token != null) {
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    }
+
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion', idSeccion.toString());
+
+    return this.http.get<any>(url, {
+      headers: httpHeaders,
+      params: params0,
+    }).pipe(
+      catchError( e => {
+        if (this.userService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+        Swal.fire('error al listar las paginas', e.error.mensaje, 'error');
+        return throwError(e);
+
+      }
+
+      )
+    );
+
+  }
 }

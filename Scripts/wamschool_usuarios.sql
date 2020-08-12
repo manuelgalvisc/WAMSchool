@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: wamschool
 -- ------------------------------------------------------
--- Server version	5.7.30-log
+-- Server version	8.0.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +21,7 @@
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (2,'Gomez','manuel@games.com','2000-01-02 00:00:00','Manuel','1234'),(3,'Adolf','haig@nopo.com','2000-01-02 00:00:00','Gustavo','1234'),(4,'White','hein@meta.com','2000-01-02 00:00:00','Walter','1234');
+INSERT INTO `usuarios` VALUES (1,'Galvis','manuel.galvis@gmail.com',_binary '',NULL,'Manuel','$2a$10$db0f87YLwUpXtQ8MP34vPuk89Blt7uhATJXM2pWnb6ADHjYaQPg6G'),(2,'Galvis','juan.galvis@gmail.com',_binary '',NULL,'Juan','$2a$10$shrIRpY/NimTRcOpYmEIHeILzwIEpnceHSiblfUaDx9RcRx.GIQXu');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13  0:57:00
+-- Dump completed on 2020-08-03 15:36:21

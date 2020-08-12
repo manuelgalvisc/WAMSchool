@@ -7,6 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalenlacesvideosComponent } from '../modalenlacesvideos/modalenlacesvideos.component';
 import { ComponenteyoutubeComponent } from '../componenteyoutube/componenteyoutube.component';
 import { ModalcargaarchivosComponent } from '../modalcargaarchivos/modalcargaarchivos.component';
+import { DataService } from '../services/data.service';
+import { ArchivoService } from '../services/archivo.service';
 
 @Component({
   selector: 'app-crearpagina',
@@ -21,7 +23,9 @@ export class CrearpaginaComponent implements OnInit {
   listaVideos : Array<Enlace>;
 
   constructor(private paginaService: PaginaService,
-    private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private archivoService: ArchivoService) { }
 
   ngOnInit(): void {
     this.pagina = new Pagina();
@@ -52,15 +56,23 @@ export class CrearpaginaComponent implements OnInit {
     if (this.pagina.nombrePagina.length > 0) {
       this.pagina.contenidoPagina = this.texto;
       this.pagina.enlaces = this.listaVideos;
-      this.paginaService.crearSeccion(this.pagina,1).subscribe(
+      this.paginaService.crearSeccion(this.pagina,this.dataService.seccionDTO.idSeccion).subscribe(
         json => {
           if (json.data != null) {
             Swal.fire('Nueva pagina ', ` ${json.data.nombrePagina} creada con exito !`, 'success');
-
+            this.guardarArchivo(json.data.idPagina);
           }
         }
       );
     }
+  }
+
+  guardarArchivo(idPagina: number): void{
+    this.archivoService.subirArchivo(this.dataService.Archivo, idPagina).subscribe(
+      json => {
+        alert(json.data);
+      }
+    )
   }
 
   abrilModalYOUTUBE(enlace:Enlace){

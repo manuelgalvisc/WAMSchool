@@ -47,6 +47,8 @@ export class ModalLoginComponent implements OnInit {
       }, err => {
         if (err.status == 400) {
           Swal.fire('Error login', 'Usuario o clave incorrecta', 'error');
+        } else if(err.status == 401) {
+          console.log(err);
         }
       });
     }
