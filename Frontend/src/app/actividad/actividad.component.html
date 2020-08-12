@@ -1,0 +1,26 @@
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <h3>Crear Actividades</h3>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="mostrarAlerta" class="alert alert-danger" role="alert">
+                Debe seleccionar un tipo de Actividad
+            </div>
+            <div *ngIf="!ocultarSelect" class="form-group">
+                <label for="exampleFormControlSelect1">Seleccione el tipo de Actividad:</label>
+                <select class="form-control" id="exampleFormControlSelect1" (change) = "seleccionActividad($event.target.value)">
+                  <option *ngFor="let act of listaActividades"  [ngValue]="act">{{act}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <router-outlet name="router-act"></router-outlet>
+    </div>
+    <div *ngIf="mostrarBtnCancelar" class="row">
+        <div class="container">
+            <button type="button" (click) = "desactivarBtnCancelar()" class="btn btn-danger float-right">Cancelar</button>
+        </div>
+    </div>
+</div>
