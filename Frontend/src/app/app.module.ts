@@ -48,10 +48,7 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
-<<<<<<< HEAD
-=======
 import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
->>>>>>> origin/Revisión
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -84,16 +81,13 @@ const routes: Routes =[
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
-<<<<<<< HEAD
     ActividadComponent,
     CuestionarioComponent,
     OpcionmultipleComponent,
     PreguntaabiertaComponent,
     EnunciadoComponent,
-    ElegirEnunciadoComponent
-=======
+    ElegirEnunciadoComponent,
     EditarSeccionComponent
->>>>>>> origin/Revisión
   ],
   imports: [
     NgMultiSelectDropDownModule,
