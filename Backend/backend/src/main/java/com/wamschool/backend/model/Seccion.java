@@ -41,6 +41,9 @@ public class Seccion implements Serializable, Cloneable{
 	@OneToMany(mappedBy = "seccion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Pagina> Paginas;
 	
+	@OneToMany(mappedBy = "seccionCuestionario",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<ActividadCuestionario> actividadesCuestionario;
+	
 	@Column(name = "s_posInOA")
 	private Integer posInOA;
 
@@ -82,6 +85,14 @@ public class Seccion implements Serializable, Cloneable{
 
 	public void setPosInOA(Integer posInOA) {
 		this.posInOA = posInOA;
+	}
+
+	public List<ActividadCuestionario> getActividadesCuestionario() {
+		return actividadesCuestionario;
+	}
+
+	public void setActividadesCuestionario(List<ActividadCuestionario> actividadesCuestionario) {
+		this.actividadesCuestionario = actividadesCuestionario;
 	}
 	
 	

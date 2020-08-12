@@ -35,6 +35,12 @@ import { CrearpaginaComponent } from './crearpagina/crearpagina.component';
 import { ModalenlacesvideosComponent } from './modalenlacesvideos/modalenlacesvideos.component';
 import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
 import { ModalcargaarchivosComponent } from './modalcargaarchivos/modalcargaarchivos.component';
+import { ActividadComponent } from './actividad/actividad.component';
+import { CuestionarioComponent } from './cuestionario/cuestionario.component';
+import { OpcionmultipleComponent } from './opcionmultiple/opcionmultiple.component';
+import { PreguntaabiertaComponent } from './preguntaabierta/preguntaabierta.component';
+import { EnunciadoComponent } from './enunciado/enunciado.component';
+import { ElegirEnunciadoComponent } from './elegir-enunciado/elegir-enunciado.component';
 import { VisorComponent } from './visor/visor.component';
 import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 
@@ -79,6 +85,12 @@ const routes: Routes =[
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
+    ActividadComponent,
+    CuestionarioComponent,
+    OpcionmultipleComponent,
+    PreguntaabiertaComponent,
+    EnunciadoComponent,
+    ElegirEnunciadoComponent,
     EditarSeccionComponent,
     VisorComponent,
   ],
@@ -101,6 +113,10 @@ const routes: Routes =[
     ModalOaComponent,
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
+    OpcionmultipleComponent,
+    PreguntaabiertaComponent,
+    EnunciadoComponent,
+    ElegirEnunciadoComponent,
   ],
   providers: [
     CategoriaService,
