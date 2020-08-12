@@ -311,6 +311,7 @@ export class HomeComponent implements OnInit {
     let seccion: Array<Seccion> = this.traerListaSecciones(oa.idOA);
     oa.secciones = seccion;
     this.visorService.oa = oa;
+    this.visorService.guardarOA(this.visorService.oa);
     this.router.navigate(['/visorOA']);
   }
 

@@ -36,7 +36,7 @@ public class PaginaController {
 	@Autowired
 	SeccionServices sservice;
 
-	//@Secured({"ROLE_USER", "ROLE_ADMIN"})
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearPagina")
 	public ResponseEntity<?> crearPagina(@RequestBody Pagina pagina, @RequestParam Long idSeccion) {
 		Map<String, Object> response = new HashMap<>();

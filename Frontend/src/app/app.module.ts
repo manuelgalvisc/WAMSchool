@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { RouterModule , Routes } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import {YouTubePlayerModule} from '@angular/youtube-player';
@@ -36,6 +36,7 @@ import { ModalenlacesvideosComponent } from './modalenlacesvideos/modalenlacesvi
 import { ComponenteyoutubeComponent } from './componenteyoutube/componenteyoutube.component';
 import { ModalcargaarchivosComponent } from './modalcargaarchivos/modalcargaarchivos.component';
 import { VisorComponent } from './visor/visor.component';
+import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
@@ -44,7 +45,6 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
-import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 import { VisorService } from './services/visor.service';
 
 const routes: Routes =[
@@ -79,8 +79,8 @@ const routes: Routes =[
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
-    VisorService,
-    EditarSeccionComponent
+    EditarSeccionComponent,
+    VisorComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -95,6 +95,7 @@ const routes: Routes =[
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     YouTubePlayerModule,
+    CommonModule,
   ],
   entryComponents:[
     ModalOaComponent,
