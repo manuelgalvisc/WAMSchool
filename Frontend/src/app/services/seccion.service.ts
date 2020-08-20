@@ -60,4 +60,17 @@ export class SeccionService {
     return this.http.get<any>(url, httpOptions);
 
   }
+
+  public buscarSeccionPorId(idSeccion: number): Observable<any> {
+
+    const url = 'http://localhost:9000/api/seccion/buscarSeccion';
+    let paramsO = new HttpParams();
+    paramsO = paramsO.append('idSeccion', idSeccion.toString());
+    const httpOptions = {
+      params: paramsO
+    };
+    return this.http.get<any>(url, httpOptions);
+
+  }
+
 }

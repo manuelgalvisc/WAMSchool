@@ -12,9 +12,10 @@ import { Seccion } from '../model/seccion';
 export class EditarSeccionComponent implements OnInit {
 
   public seccionDTO: SeccionDTO = new SeccionDTO();
-  constructor(private dataService: DataService) { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
+    console.log(this.dataService.seccionDTO);
     this.seccionDTO = this.dataService.seccionDTO;
     this.seccionDTO.paginas = this.dataService.traerListaPaginas(this.seccionDTO.idSeccion);
   }
