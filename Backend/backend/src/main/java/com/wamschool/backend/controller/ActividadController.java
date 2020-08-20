@@ -11,18 +11,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wamschool.backend.dto.AhorcadoDTO;
 import com.wamschool.backend.model.ActividadCuestionario;
+import com.wamschool.backend.model.Ahorcado;
 import com.wamschool.backend.model.Enunciado;
 import com.wamschool.backend.model.Seccion;
 import com.wamschool.backend.model.OpcionMultiple;
 import com.wamschool.backend.model.PreguntaAbierta;
 import com.wamschool.backend.model.Opcion;
 import com.wamschool.backend.services.ActividadCuestionarioServices;
+import com.wamschool.backend.services.AhorcadoServices;
 import com.wamschool.backend.services.EnunciadoServices;
 import com.wamschool.backend.services.OpcionMultipleServices;
 import com.wamschool.backend.services.OpcionServices;
@@ -31,7 +36,7 @@ import com.wamschool.backend.services.SeccionServices;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/api/actividadCuestionario")
+@RequestMapping("/api/actividad")
 public class ActividadController {
 
 	@Autowired
@@ -46,9 +51,11 @@ public class ActividadController {
 	PreguntaAbiertaServices paservice;
 	@Autowired
 	EnunciadoServices enunservice;
+	@Autowired
+	AhorcadoServices ahorcadoServices;
 	
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
-	@PostMapping("/crear")
+	@PostMapping("/crearCuestionario")
 	public ResponseEntity<?>crearActividadCuestionario(@RequestBody ActividadCuestionario actividad){
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -122,6 +129,90 @@ public class ActividadController {
 		response.put("mensaje", "Se presento un error creando la Actividad Cuestionario");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	
+	
+	@PostMapping("/crearAhorcado")
+	public ResponseEntity<?> crearAhorcado(@RequestBody Ahorcado ahorcado, @RequestParam Long idSeccion) {
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			if (ahorcado != null && idSeccion != null) {
+				Seccion sec = sservice.buscarPorId(idSeccion);
+				if (sec != null) {
+					ahorcado.setSeccion(sec);
+					Ahorcado ahorcadoCreado = ahorcadoServices.guardarAhorcado(ahorcado);
+					if (ahorcadoCreado != null) {
+						response.put("data", transformarAhorcadoToDTO(ahorcadoCreado));
+						response.put("mensage", "ahorcado creado con exito");
+						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+					}
+				}
+			}
+
+		} catch (DataAccessException da) {
+			response.put("data", null);
+			response.put("mensaje", "Se presento un error de acceso a la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error creando el ahorcado");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	@GetMapping("/listarAhorcados")
+	public ResponseEntity<?>listarAhorcados(@RequestParam Long idSeccion){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			if(idSeccion != null) {
+				List<Ahorcado> listaAhorcados = ahorcadoServices.listarAhorcadosPorIdSeccion(idSeccion);
+				if(listaAhorcados != null && !listaAhorcados.isEmpty()) {
+					List<AhorcadoDTO>listaEnviar = new ArrayList<>();
+					listaAhorcados.forEach((p) ->{
+						listaEnviar.add(transformarAhorcadoToDTO(p));
+					});
+					response.put("data", listaEnviar);
+					response.put("mensaje", "Se ha listado satisfactoriamente los ahorcados");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				}else {
+					response.put("data", null);
+					response.put("mensaje", "no existen ahorcados para esta seccion");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				}
+				
+			}
+		
+		} catch (DataAccessException da) {
+			response.put("data", null);
+			response.put("mensaje", "Se presento un error de acceso a la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error listando los ahorcados");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	public AhorcadoDTO transformarAhorcadoToDTO(Ahorcado ahorcado) {
+		AhorcadoDTO ahorcadoDTO = new AhorcadoDTO();
+		
+		ahorcadoDTO.setId(ahorcado.getId());
+		ahorcadoDTO.setPalabraOculta(ahorcado.getPalabraOculta());
+		ahorcadoDTO.setIdSeccion(ahorcado.getSeccion().getId());
+		
+		return ahorcadoDTO;		
+	}
+	
+	
 
 	
 }

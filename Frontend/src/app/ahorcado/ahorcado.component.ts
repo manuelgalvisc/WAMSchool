@@ -1,4 +1,8 @@
+import { ActividadService } from './../services/actividad.service';
+import { Ahorcado } from './../model/ahorcado';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -7,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AhorcadoComponent {
 
+  ahorcado: Ahorcado = new Ahorcado();
   title = "Ahorcado";
   pattern = new RegExp('^[A-Z]+$', 'i');
   palabra = ""
@@ -44,7 +49,8 @@ export class AhorcadoComponent {
     "y",
     "z"
   ];
-  constructor() {
+  constructor(private actividadService: ActividadService,
+              private dataService: DataService) {
     this.palabraOculta = "_ ".repeat(this.palabra.length);
   }
 
@@ -87,8 +93,17 @@ export class AhorcadoComponent {
       if(this.pattern.test(this.palabraGuardar)){
         this.palabra = this.palabraGuardar;
         this.palabraOculta = "_ ".repeat(this.palabra.length);
+        this.ahorcado.palabraOculta = this.palabra;
+        this.actividadService.crearAhorcado(this.ahorcado, this.dataService.seccionDTO.idSeccion).subscribe(
+          json =>{
+            if (json.data != null) {
+              Swal.fire('Nuevo Ahorcado  creado con exito !!', 'success');
+            }
+          }
+        )
       }else{
-        alert(this.palabraGuardar)
+        Swal.fire('la palabra contiene caracteres extraños', 'error');
+
       }
   }
 

@@ -56,7 +56,7 @@ export class CrearpaginaComponent implements OnInit {
     if (this.pagina.nombrePagina.length > 0) {
       this.pagina.contenidoPagina = this.texto;
       this.pagina.enlaces = this.listaVideos;
-      this.paginaService.crearSeccion(this.pagina,this.dataService.seccionDTO.idSeccion).subscribe(
+      this.paginaService.crearPagina(this.pagina,this.dataService.seccionDTO.idSeccion).subscribe(
         json => {
           if (json.data != null) {
             Swal.fire('Nueva pagina ', ` ${json.data.nombrePagina} creada con exito !`, 'success');
@@ -70,12 +70,11 @@ export class CrearpaginaComponent implements OnInit {
   guardarArchivo(idPagina: number): void{
     this.archivoService.subirArchivo(this.dataService.Archivo, idPagina).subscribe(
       json => {
-        alert(json.data);
       }
     )
   }
 
-  abrilModalYOUTUBE(enlace:Enlace){
+  abrilModalYOUTUBE(enlace: Enlace){
     const modalRef = this.modalService.open(ComponenteyoutubeComponent);
     modalRef.componentInstance.enlace = enlace;
   }

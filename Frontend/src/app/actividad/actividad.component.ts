@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
@@ -12,7 +13,8 @@ export class ActividadComponent implements OnInit {
   mostrarAlerta : boolean;
   ocultarSelect : boolean;
   mostrarBtnCancelar;
-  constructor() { 
+  constructor(private router: Router) {
+
     this.listaActividades = new Array<String>();
     this.listaActividades.push("----------------------------");
     this.listaActividades.push("Actividad Tipo Cuestionario");
@@ -36,11 +38,21 @@ export class ActividadComponent implements OnInit {
       this.ocultarSelect = true;
       this.mostrarBtnCancelar = true;
     }
+    if(tipoActividad === this.listaActividades[1]){
+      this.router.navigate(['/crearActividad/1']);
+    }
+    if(tipoActividad === this.listaActividades[2]){
+      this.router.navigate(['/crearActividad/2']);
+    }
+
+
   }
 
   desactivarBtnCancelar(){
-    this.ocultarSelect = false;
+
+    this.router.navigate(['/crearActividad']);
     this.mostrarBtnCancelar = false;
+    this.ocultarSelect = false;
   }
 
 }

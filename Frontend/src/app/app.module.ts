@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { RouterModule , Routes } from '@angular/router';
@@ -51,7 +51,6 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
-import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { VisorService } from './services/visor.service';
 
@@ -66,6 +65,12 @@ const routes: Routes =[
   {path: 'visorOA', component: VisorComponent},
   {path: 'editarSeccion', component: EditarSeccionComponent},
   {path: 'crearPagina', component: CrearpaginaComponent },
+  {path: 'crearActividad', component: ActividadComponent,
+    children: [
+      {path: '1', component: CuestionarioComponent},
+      {path: '2', component: AhorcadoComponent}
+    ]
+  }
 ];
 
 @NgModule({
@@ -88,7 +93,7 @@ const routes: Routes =[
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
     EditarSeccionComponent,
-    AhorcadoComponent
+    AhorcadoComponent,
     ActividadComponent,
     CuestionarioComponent,
     OpcionmultipleComponent,

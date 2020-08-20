@@ -17,7 +17,7 @@ export class PaginaService {
   constructor(private http: HttpClient,
               private userService: UserService) { }
 
-  public crearSeccion(pagina: Pagina,idSeccion:number): Observable<any>{
+  public crearPagina(pagina: Pagina,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/pagina/crearPagina'
 
     let httpHeaders = new HttpHeaders();
