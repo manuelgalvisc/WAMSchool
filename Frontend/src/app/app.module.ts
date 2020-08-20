@@ -51,7 +51,6 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
-import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { VisorService } from './services/visor.service';
 
@@ -88,7 +87,7 @@ const routes: Routes =[
     ComponenteyoutubeComponent,
     ModalcargaarchivosComponent,
     EditarSeccionComponent,
-    AhorcadoComponent
+    AhorcadoComponent,
     ActividadComponent,
     CuestionarioComponent,
     OpcionmultipleComponent,
