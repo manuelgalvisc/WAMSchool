@@ -1,3 +1,4 @@
+import { ActividadService } from './../services/actividad.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PreguntaabiertaComponent } from '../preguntaabierta/preguntaabierta.component';
@@ -8,7 +9,6 @@ import { EnunciadoComponent } from '../enunciado/enunciado.component';
 import { Enunciado } from '../model/enunciado';
 import { ElegirEnunciadoComponent } from '../elegir-enunciado/elegir-enunciado.component';
 import { ActividadCuestionario } from '../model/actividadCuestionario';
-import { ActividadcuestionarioService } from '../services/actividadcuestionario.service';
 import Swal from 'sweetalert2';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -20,9 +20,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class CuestionarioComponent implements OnInit {
 
   listaEnunciados: Enunciado[];
-  actividad:ActividadCuestionario;
+  actividad: ActividadCuestionario;
   mssError:string;
-  constructor(private modalService: NgbModal,private actividadService:ActividadcuestionarioService) { }
+  constructor(private modalService: NgbModal,private actividadService:ActividadService) { }
 
   ngOnInit(): void {
     this.listaEnunciados = new Array();
@@ -124,7 +124,7 @@ export class CuestionarioComponent implements OnInit {
             Swal.fire('Nueva actividad', `creada con exito !`, 'success');
             console.log(json.data);
           }
-  
+
         });
       }else{
         this.mssError = this.mssError.concat("La Introducción se encuentra vacía.");
