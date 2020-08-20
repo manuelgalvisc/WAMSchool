@@ -16,7 +16,7 @@ export class ActividadService {
               private userService: UserService) { }
 
    public crearAhorcado(ahorcado: Ahorcado, idSeccion: number): Observable<any>{
-    const url = 'http://localhost:9000/api/a/crearAhorcado'
+    const url = 'http://localhost:9000/api/actividad/crearAhorcado'
 
     let httpHeaders = new HttpHeaders();
     let token = this.userService.token;

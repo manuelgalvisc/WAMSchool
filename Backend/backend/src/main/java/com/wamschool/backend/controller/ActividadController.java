@@ -132,7 +132,7 @@ public class ActividadController {
 	
 	
 	
-	
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearAhorcado")
 	public ResponseEntity<?> crearAhorcado(@RequestBody Ahorcado ahorcado, @RequestParam Long idSeccion) {
 		Map<String, Object> response = new HashMap<>();

@@ -90,6 +90,7 @@ export class AhorcadoComponent {
   }
 
   guardarPalabra(){
+    if(this.palabraGuardar.length !== 0){
       if(this.pattern.test(this.palabraGuardar)){
         this.palabra = this.palabraGuardar;
         this.palabraOculta = "_ ".repeat(this.palabra.length);
@@ -106,5 +107,5 @@ export class AhorcadoComponent {
 
       }
   }
-
+  }
 }

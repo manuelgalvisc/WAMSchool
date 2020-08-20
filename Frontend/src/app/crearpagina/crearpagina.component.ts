@@ -68,10 +68,16 @@ export class CrearpaginaComponent implements OnInit {
   }
 
   guardarArchivo(idPagina: number): void{
-    this.archivoService.subirArchivo(this.dataService.Archivo, idPagina).subscribe(
-      json => {
-      }
-    )
+    if(this.dataService.Archivo != null){
+      this.archivoService.subirArchivo(this.dataService.Archivo, idPagina).subscribe(
+        json => {
+          if(json.data !=null){
+            this.dataService.Archivo = null;
+          }
+        }
+      )
+    }
+
   }
 
   abrilModalYOUTUBE(enlace: Enlace){

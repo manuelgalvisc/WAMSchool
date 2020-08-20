@@ -29,7 +29,7 @@ export class ModalcargaarchivosComponent implements OnInit {
   public subirArchivo(event): void{
     this.Archivo = event.target.files[0];
     if(this.Archivo.size >= this.tamañoMaximo){
-      Swal.fire('Advertencia',`Debe seleccionaro otro archivo`,'error');
+      Swal.fire('Advertencia',`Archivo demasiado pesado no se cargará`,'error');
     }else{
       this.dataService.Archivo = this.Archivo;
     }
