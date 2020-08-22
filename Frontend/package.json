@@ -24,6 +24,7 @@
     "@angular/youtube-player": "^9.2.4",
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "angular-animate": "^1.8.0",
     "angularx-social-login": "^2.3.1",
     "bootstrap": "^4.5.0",
     "firebase": "^7.17.1",

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid bg-light">
     <div class="row">
         <div class="col-3 mr-0">
             <div class="container p-3 my-3 mr-0 bg-primary text-white text-center rounded">
@@ -28,9 +28,9 @@
                         (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)">
                     </ng-multiselect-dropdown>
                 </div>
-            </div>
-            <div class="conainer my-2">
-                <button (click)="listarCategorias()"><i class="fa fa-search"></i></button>
+                <div class="conainer my-2">
+                    <button (click)="listarCategorias()"><i class="fa fa-search"></i></button>
+                </div>
             </div>
         </div>
         <div class="fondo col-9 ml-0">
@@ -79,7 +79,7 @@
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-default">
-                                        <i class="fas fa-running"></i>
+                                        <i class="fas fa-play" (click) = "ejecutarOA(oa)"></i>
                                     </button>
                                 </td>
                             </tr>

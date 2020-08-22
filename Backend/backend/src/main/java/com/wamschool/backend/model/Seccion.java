@@ -46,6 +46,38 @@ public class Seccion implements Serializable, Cloneable{
 	
 	@Column(name = "s_posInOA")
 	private Integer posInOA;
+	
+	@OneToMany(mappedBy = "seccion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ahorcado> ahorcados;
+
+	
+	/**
+	 * @return the paginas
+	 */
+	public List<Pagina> getPaginas() {
+		return Paginas;
+	}
+
+	/**
+	 * @param paginas the paginas to set
+	 */
+	public void setPaginas(List<Pagina> paginas) {
+		Paginas = paginas;
+	}
+
+	/**
+	 * @return the ahorcados
+	 */
+	public List<Ahorcado> getAhorcados() {
+		return ahorcados;
+	}
+
+	/**
+	 * @param ahorcados the ahorcados to set
+	 */
+	public void setAhorcados(List<Ahorcado> ahorcados) {
+		this.ahorcados = ahorcados;
+	}
 
 	public Long getId() {
 		return id;
