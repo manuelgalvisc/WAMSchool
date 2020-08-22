@@ -2,11 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
-import { RouterModule , Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import {YouTubePlayerModule} from '@angular/youtube-player';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -41,6 +41,7 @@ import { OpcionmultipleComponent } from './opcionmultiple/opcionmultiple.compone
 import { PreguntaabiertaComponent } from './preguntaabierta/preguntaabierta.component';
 import { EnunciadoComponent } from './enunciado/enunciado.component';
 import { ElegirEnunciadoComponent } from './elegir-enunciado/elegir-enunciado.component';
+import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 ///Servicios
 import { CategoriaService } from './services/categoria.service';
 import { ObjetoAprendizajeService } from './services/objeto-aprendizaje.service';
@@ -48,18 +49,20 @@ import { ConsultasService } from './services/consultas.service';
 import { ModalService } from './services/modal.service';
 import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
-import { EditarSeccionComponent } from './editar-seccion/editar-seccion.component';
 
-const routes: Routes =[
-  {path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: 'crearOA', component: ObjetoAprendizajeComponent,},
-  {path: 'home', component: HomeComponent},
-  {path: 'registrar_usuario', component: RegistarUsuarioComponent},
-  {path: 'politicas', component: PoliticasComponent},
-  {path: 'editarOA', component: EditarObjetoAprendizajeComponent},
-  {path: 'crearSeccion', component: SeccionComponent},
-  {path: 'editarSeccion', component: EditarSeccionComponent},
-  {path: 'crearPagina', component: CrearpaginaComponent },
+
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'crearOA', component: ObjetoAprendizajeComponent, },
+  { path: 'home', component: HomeComponent },
+  { path: 'registrar_usuario', component: RegistarUsuarioComponent },
+  { path: 'politicas', component: PoliticasComponent },
+  { path: 'editarOA', component: EditarObjetoAprendizajeComponent },
+  { path: 'crearSeccion', component: SeccionComponent},
+  { path: 'editarSeccion', component: EditarSeccionComponent},
+  { path: 'crearPagina', component: CrearpaginaComponent },
+  { path: 'crearActividades', component: ActividadComponent},
+  { path: 'cuestionario', component: CuestionarioComponent, outlet: 'routeract' }
 ];
 
 @NgModule({
@@ -103,7 +106,7 @@ const routes: Routes =[
     AngularFireModule.initializeApp(environment.firebaseConfig),
     YouTubePlayerModule,
   ],
-  entryComponents:[
+  entryComponents: [
     ModalOaComponent,
     ModalenlacesvideosComponent,
     ComponenteyoutubeComponent,

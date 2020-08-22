@@ -11,3 +11,18 @@
     border: none;
     padding: none;
 }
+
+.bteliminar_2 {
+    line-height: 12px;
+    width: 18px;
+    font-size: 8pt;
+    font-family: tahoma;
+}
+
+.celdaOscurita{
+    background-color: #ECEDEB;
+}
+
+.blanco{
+    background-color: white;
+}

@@ -29,7 +29,7 @@ public class OpcionMultiple implements Serializable {
 	@Column(name = "ACT_OM_ID")
 	private Long id;
 	
-	@Column(name = "ACT_OM_P")
+	@Column(name = "ACT_OM_P",columnDefinition = "text")
 	private String pregunta;
 	
 	@OneToMany(mappedBy = "opcionMultiple", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -62,5 +62,15 @@ public class OpcionMultiple implements Serializable {
 	public void setEnunciado(Enunciado enunciado) {
 		this.enunciado = enunciado;
 	}
+
+	public String getPregunta() {
+		return pregunta;
+	}
+
+	public void setPregunta(String pregunta) {
+		this.pregunta = pregunta;
+	}
+	
+	
 
 }

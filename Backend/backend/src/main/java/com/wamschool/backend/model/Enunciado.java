@@ -29,7 +29,7 @@ public class Enunciado implements Serializable {
 	@Column(name = "ACT_EN_ID")
 	private Long id;
 
-	@Column(name = "ACT_EN")
+	@Column(name = "ACT_EN",columnDefinition = "text")
 	private String enunciado;
 
 	@OneToMany(mappedBy = "enunciado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

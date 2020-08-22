@@ -24,7 +24,7 @@ public class PreguntaAbierta implements Serializable {
 	@Column(name = "ACT_PA_ID")
 	private Long id;
 
-	@Column(name = "ACT_PA_TEXTO")
+	@Column(name = "ACT_PA_TEXTO",columnDefinition = "text")
 	private String texto;
 
 	@Column(name = "ACT_PA_PALABRA")

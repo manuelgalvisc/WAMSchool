@@ -7,6 +7,10 @@ import { PreguntaAbierta } from '../model/preguntaAbierta';
 import { EnunciadoComponent } from '../enunciado/enunciado.component';
 import { Enunciado } from '../model/enunciado';
 import { ElegirEnunciadoComponent } from '../elegir-enunciado/elegir-enunciado.component';
+import { ActividadCuestionario } from '../model/actividadCuestionario';
+import { ActividadcuestionarioService } from '../services/actividadcuestionario.service';
+import Swal from 'sweetalert2';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-cuestionario',
@@ -15,13 +19,17 @@ import { ElegirEnunciadoComponent } from '../elegir-enunciado/elegir-enunciado.c
 })
 export class CuestionarioComponent implements OnInit {
 
-  listaPreguntas: any[];
   listaEnunciados: Enunciado[];
-  constructor(private modalService: NgbModal) { }
+  actividad:ActividadCuestionario;
+  mssError:string;
+  constructor(private modalService: NgbModal,private actividadService:ActividadcuestionarioService) { }
 
   ngOnInit(): void {
-    this.listaPreguntas = new Array();
     this.listaEnunciados = new Array();
+    this.actividad = new ActividadCuestionario();
+    this.actividad.introduccion = "";
+    this.actividad.enunciados = new Array();
+    this.mssError = "";
   }
 
   isOpcionMultiple(objeto: any): boolean {
@@ -73,6 +81,64 @@ export class CuestionarioComponent implements OnInit {
     let palabra: string = this.listaEnunciados[index].listaPreguntas[item].palabraARellenar;
     pregunta = pregunta.replace(palabra, '-----------');
     return pregunta;
+  }
+
+  eliminarActividadPreguntaAbierta(index :number, index_2:number){
+    let preguntaEliminada : any =this.listaEnunciados[index].listaPreguntas.splice(index_2,1);
+    let i : number;
+    let valor : number;
+    for(let p of this.listaEnunciados[index].listaPreguntasCompletar){
+      if(p.palabraARellenar === preguntaEliminada.palabraARellenar && p.texto === preguntaEliminada.texto){
+        valor = i;
+      }
+      i++;
+    }
+    this.listaEnunciados[index].listaPreguntasCompletar.slice(valor,1);
+  }
+
+  eliminarActividadopcionMultiple(index :number, index_2:number){
+    let preguntaEliminada : any =this.listaEnunciados[index].listaPreguntas.splice(index_2,1);
+    let i : number;
+    let valor : number;
+    for(let p of this.listaEnunciados[index].listaOpcionesMultiples){
+      if(p.pregunta === preguntaEliminada.pregunta && p.opciones.length === preguntaEliminada.opciones.length){
+        valor = i;
+      }
+      i++;
+    }
+    this.listaEnunciados[index].listaOpcionesMultiples.slice(valor,1);
+  }
+
+  eliminarEnunciado(index : number){
+    this.listaEnunciados.splice(index,1);
+  }
+
+  crear(){
+    this.mssError = "";
+    if(this.actividad.introduccion!= null && this.actividad.introduccion.length > 0
+      && this.enunciadoBienContruido() ){
+        this.actividad.enunciados = this.listaEnunciados;
+        console.log(this.actividad);
+        this.actividadService.crearCuestionario(this.actividad).subscribe((json) => {
+          if ( json.data != null){
+            Swal.fire('Nueva actividad', `creada con exito !`, 'success');
+            console.log(json.data);
+          }
+  
+        });
+      }else{
+        this.mssError = this.mssError.concat("La Introducción se encuentra vacía.");
+      }
+  }
+
+  enunciadoBienContruido():boolean{
+    for(let item of this.listaEnunciados){
+      if(item.listaPreguntas.length === 0){
+        this.mssError = "Hay enunciados mal construidos, o sin preguntas.";
+        return false;
+      }
+    }
+    return true;
   }
 
 }

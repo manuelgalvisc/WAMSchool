@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wamschool.backend.dto.ActividadCuestionarioDTO;
+import com.wamschool.backend.dto.EnunciadoDTO;
+import com.wamschool.backend.dto.OpcionDTO;
+import com.wamschool.backend.dto.OpcionMultipleDTO;
+import com.wamschool.backend.dto.PreguntaAbiertaDTO;
 import com.wamschool.backend.model.ActividadCuestionario;
 import com.wamschool.backend.model.Enunciado;
 import com.wamschool.backend.model.Seccion;
@@ -47,7 +52,7 @@ public class ActividadController {
 	@Autowired
 	EnunciadoServices enunservice;
 	
-	@Secured({"ROLE_USER", "ROLE_ADMIN"})
+	//@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crear")
 	public ResponseEntity<?>crearActividadCuestionario(@RequestBody ActividadCuestionario actividad){
 		Map<String, Object> response = new HashMap<>();
@@ -104,7 +109,7 @@ public class ActividadController {
 						}
 						actividadFinal.setEnunciados(enunciadosFinal);
 						actividadFinal = service.crear(actividadFinal);
-						response.put("data", actividadFinal);
+						response.put("data", convertirCuestionarioADTO(actividadFinal));
 						response.put("mensaje", "Se creo la Actividad Cuestionario satisfactoriamente");
 						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 					}
@@ -121,6 +126,54 @@ public class ActividadController {
 		response.put("data", null);
 		response.put("mensaje", "Se presento un error creando la Actividad Cuestionario");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	private ActividadCuestionarioDTO convertirCuestionarioADTO(ActividadCuestionario cuestionario){
+		
+		ActividadCuestionarioDTO cuestionarioDTO = new ActividadCuestionarioDTO();
+		cuestionarioDTO.setId(cuestionario.getId());
+		cuestionarioDTO.setIntroduccion(cuestionario.getIntroduccion());
+		cuestionarioDTO.setSeccionCuestionario(cuestionario.getSeccion().getId());
+		List<EnunciadoDTO>listaEnunciados = new ArrayList<EnunciadoDTO>();
+		for(Enunciado enunciado: cuestionario.getEnunciados()) {
+			EnunciadoDTO enunciadoDTO = new EnunciadoDTO();
+			enunciadoDTO.setEnunciado(enunciado.getEnunciado());
+			enunciadoDTO.setId(enunciado.getId());
+			enunciadoDTO.setActividadCuestionario(cuestionario.getId());
+			List<PreguntaAbiertaDTO>preguntasAbiertas = new ArrayList<PreguntaAbiertaDTO>();
+			for(PreguntaAbierta preguntaAbierta:enunciado.getListaPreguntasCompletar()) {
+				PreguntaAbiertaDTO preguntaAbiertaDTO = new PreguntaAbiertaDTO();
+				preguntaAbiertaDTO.setEnunciadoPreguntaAbierta(enunciado.getId());
+				preguntaAbiertaDTO.setId(preguntaAbierta.getId());
+				preguntaAbiertaDTO.setPalabraARellenar(preguntaAbierta.getPalabraARellenar());
+				preguntaAbiertaDTO.setTexto(preguntaAbierta.getTexto());
+				preguntasAbiertas.add(preguntaAbiertaDTO);
+			}
+			enunciadoDTO.setListaPreguntasCompletar(preguntasAbiertas);
+			List<OpcionMultipleDTO>opcionesMultiples = new ArrayList<OpcionMultipleDTO>();
+			for(OpcionMultiple opcionMultiple : enunciado.getListaOpcionesMultiples()) {
+				OpcionMultipleDTO opcionMultipleDTO = new OpcionMultipleDTO();
+				opcionMultipleDTO.setId(opcionMultiple.getId());
+				opcionMultipleDTO.setEnunciado(opcionMultiple.getEnunciado().getId());
+				opcionMultipleDTO.setPregunta(opcionMultiple.getPregunta());
+				List<OpcionDTO>opciones = new ArrayList<OpcionDTO>();
+				for(Opcion opcion : opcionMultiple.getOpciones()) {
+					OpcionDTO opcionDTO = new OpcionDTO();
+					opcionDTO.setId(opcion.getId());
+					opcionDTO.setOpcionMultiple(opcionMultiple.getId());
+					opcionDTO.setOpcion(opcion.getOpcion());
+					opcionDTO.setValor(opcion.getValor());
+					opciones.add(opcionDTO);
+				}
+				opcionMultipleDTO.setOpciones(opciones);
+				opcionesMultiples.add(opcionMultipleDTO);
+			}
+			enunciadoDTO.setListaOpcionesMultiples(opcionesMultiples);		
+			listaEnunciados.add(enunciadoDTO);
+		}
+		cuestionarioDTO.setEnunciados(listaEnunciados);
+		return cuestionarioDTO;
 	}
 
 	
