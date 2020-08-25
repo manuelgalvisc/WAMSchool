@@ -72,7 +72,8 @@ const routes: Routes =[
   {path: 'crearActividad', component: ActividadComponent,
     children: [
       {path: '1', component: CuestionarioComponent},
-      {path: '2', component: AhorcadoComponent}
+      {path: '2', component: AhorcadoComponent},
+      {path: '3', component: ActividadmatchComponent }
     ]
   }
 ];

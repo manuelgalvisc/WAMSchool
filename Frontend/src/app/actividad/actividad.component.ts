@@ -44,6 +44,9 @@ s
     if(tipoActividad === this.listaActividades[2]){
       this.router.navigate(['/crearActividad/2']);
     }
+    if(tipoActividad === this.listaActividades[3]){
+      this.router.navigate(['/crearActividad/3']);
+    }
 
 
   }
