@@ -13,6 +13,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DragulaModule } from 'ng2-dragula';
 
 //environment
 import { environment } from '../environments/environment';
@@ -54,6 +55,8 @@ import { PaginaService } from './services/pagina.service';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { VisorService } from './services/visor.service';
 import { ActividadmatchComponent } from './actividadmatch/actividadmatch.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalemparejamientoComponent } from './modalemparejamiento/modalemparejamiento.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -104,6 +107,7 @@ const routes: Routes =[
     EditarSeccionComponent,
     VisorComponent,
     ActividadmatchComponent,
+    ModalemparejamientoComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -119,6 +123,8 @@ const routes: Routes =[
     AngularFireModule.initializeApp(environment.firebaseConfig),
     YouTubePlayerModule,
     CommonModule,
+    BrowserAnimationsModule,
+    DragulaModule.forRoot()
   ],
   entryComponents: [
     ModalOaComponent,

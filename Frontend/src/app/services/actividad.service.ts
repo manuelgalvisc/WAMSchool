@@ -6,6 +6,7 @@ import {map, catchError, switchAll} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { UserService } from './user.service';
 import { ActividadCuestionario } from '../model/actividadCuestionario';
+import { ActividadEmparejamiento } from '../model/actividadEmparejamiento';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,34 @@ export class ActividadService {
           return throwError(e);
         }
         console.error(e.error.mensaje);
-        Swal.fire('error al crear la seccion', e.error.mensaje, 'error');
+        Swal.fire('error al crear la actividad', e.error.mensaje, 'error');
+        return throwError(e);
+      }
+      )
+    );
+  }
+
+  public crearEmparejamiento(actividad: ActividadEmparejamiento,idSeccion:number): Observable<any>{
+    const url = 'http://localhost:9000/api/actividad/crearEmparejamiento';
+
+    let httpHeaders = new HttpHeaders();
+    let token = this.userService.token;
+    if(token != null) {
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    }
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion',idSeccion.toString());
+
+    return this.http.post<any>(url, actividad,{
+      headers: httpHeaders,
+      params:params0,
+    }).pipe(
+      catchError( e => {
+        if (this.userService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+        console.error(e.error.mensaje);
+        Swal.fire('error al crear la actividad', e.error.mensaje, 'error');
         return throwError(e);
       }
       )
