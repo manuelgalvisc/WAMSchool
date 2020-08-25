@@ -1,3 +1,4 @@
+import { DataService } from './../services/data.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
@@ -8,12 +9,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./actividad.component.css']
 })
 export class ActividadComponent implements OnInit {
-
+s
   listaActividades : Array<String>;
   mostrarAlerta : boolean;
   ocultarSelect : boolean;
   mostrarBtnCancelar;
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              public dataService: DataService) {
 
     this.listaActividades = new Array<String>();
     this.listaActividades.push("----------------------------");
@@ -35,9 +37,6 @@ export class ActividadComponent implements OnInit {
       this.mostrarAlerta = false;
       this.ocultarSelect = true;
       this.mostrarBtnCancelar = true;
-      if(tipoActividad === this.listaActividades[1]){
-        this.router.navigate([{outlets:{routeract:'cuestionario'}}]);
-      }
     }
     if(tipoActividad === this.listaActividades[1]){
       this.router.navigate(['/crearActividad/1']);

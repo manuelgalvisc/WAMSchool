@@ -1,0 +1,37 @@
+<div class="abrir-modal animation fadein">
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-center">
+                    <h5 class="modal-title text-light">Crear Pareja</h5>
+                    <button (click)="ngbActive.dismiss('Cross click')" type="button" class="close text-light"
+                        data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div *ngIf="mssError.length > 0" class="alert alert-danger" role="alert">
+                            {{mssError}}
+                        </div>
+                        <div class="form-group">
+                            <label for="pareja">Ingrese el primer item</label>
+                            <textarea class="form-control" id="pareja" rows="3" [(ngModel)]="pareja1"
+                                required #par1="ngModel"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="pareja2">Ingrese la pareja</label>
+                            <textarea class="form-control" id="pareja2" rows="3" [(ngModel)]="pareja2"
+                                required #par2="ngModel"></textarea>
+                        </div>
+                        <div class="row justify-content-center mb-3">
+                            <button type="button" (click)="crear()" class="btn btn-primary btn-rounded">Crear</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
