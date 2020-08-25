@@ -5,6 +5,11 @@
     <div *ngIf="mssError.length > 0" class="alert alert-danger" role="alert">
         {{mssError}}
     </div>
+    <div class="form-group">
+        <label for="introduccion">Ingrese una Introduccion</label>
+        <textarea class="form-control" id="introduccion" rows="3" [(ngModel)]="introduccion"
+            required #intro="ngModel"></textarea>
+    </div>
     <div class="flex fondo">
         <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps">
             <div class="vamp" *ngFor="let vamp of vamps">{{ vamp.name }}</div>

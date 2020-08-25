@@ -20,19 +20,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wamschool.backend.dto.ActividadCuestionarioDTO;
+import com.wamschool.backend.dto.ActividadEmparejamientoDTO;
 import com.wamschool.backend.dto.EnunciadoDTO;
 import com.wamschool.backend.dto.OpcionDTO;
 import com.wamschool.backend.dto.OpcionMultipleDTO;
+import com.wamschool.backend.dto.ParejaItemDTO;
 import com.wamschool.backend.dto.PreguntaAbiertaDTO;
 import com.wamschool.backend.dto.AhorcadoDTO;
 import com.wamschool.backend.model.ActividadCuestionario;
+import com.wamschool.backend.model.ActividadEmparejamiento;
 import com.wamschool.backend.model.Ahorcado;
 import com.wamschool.backend.model.Enunciado;
 import com.wamschool.backend.model.Seccion;
 import com.wamschool.backend.model.OpcionMultiple;
+import com.wamschool.backend.model.ParejaItem;
 import com.wamschool.backend.model.PreguntaAbierta;
 import com.wamschool.backend.model.Opcion;
 import com.wamschool.backend.services.ActividadCuestionarioServices;
+import com.wamschool.backend.services.ActividadEmparejamientoServices;
 import com.wamschool.backend.services.AhorcadoServices;
 import com.wamschool.backend.services.EnunciadoServices;
 import com.wamschool.backend.services.OpcionMultipleServices;
@@ -59,8 +64,10 @@ public class ActividadController {
 	EnunciadoServices enunservice;
 	@Autowired
 	AhorcadoServices ahorcadoServices;
+	@Autowired
+	ActividadEmparejamientoServices emparejamientoServices;
 
-	// @Secured({"ROLE_USER", "ROLE_ADMIN"})
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
 	@PostMapping("/crearCuestionario")
 	public ResponseEntity<?> crearActividadCuestionario(@RequestBody ActividadCuestionario actividad,
@@ -271,5 +278,81 @@ public class ActividadController {
 
 		return ahorcadoDTO;
 	}
+	
+	//@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
+	@PostMapping("/crearEmparejamiento")
+	public ResponseEntity<?> crearEmparejamiento(@RequestBody ActividadEmparejamiento actividad, @RequestParam Long idSeccion) {
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			if(actividad != null) {
+				ActividadEmparejamiento actividadFinal = new ActividadEmparejamiento();
+				actividadFinal.setEnunciado(actividad.getEnunciado());
+				Seccion seccion = sservice.buscarPorId(idSeccion);
+				if(seccion != null) {
+					actividadFinal.setSeccion(seccion);
+					actividadFinal = emparejamientoServices.crearActividadEmparejamiento(actividadFinal);
+					if(actividadFinal != null && !actividad.getParejas().isEmpty()) {
+						List<ParejaItem> parejas =  new ArrayList<ParejaItem>();
+						for(ParejaItem paraja : actividad.getParejas()) {
+							ParejaItem parejaFinal = new ParejaItem();
+							parejaFinal.setCadena1(paraja.getCadena1());
+							parejaFinal.setCadena2(paraja.getCadena2());
+							parejaFinal.setActividad(actividadFinal);
+							parejaFinal = emparejamientoServices.crearParejaItem(parejaFinal);
+							parejas.add(parejaFinal);
+						}
+						actividadFinal.setParejas(parejas);
+						actividadFinal = emparejamientoServices.crearActividadEmparejamiento(actividadFinal);
+						response.put("data", transformarEmparejamientoADTO(actividadFinal));
+						response.put("mensaje", "Se ha creado satisfactoriamente la actividad");
+						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+						
+					}else {
+						response.put("data", null);
+						response.put("mensaje", "Se presento un error creando la actividad emparejamiento");
+						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+					}
+				}else {
+					response.put("data", null);
+					response.put("mensaje", "No existe la sección");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+				}
+			}
+		} catch (DataAccessException da) {
+			response.put("data", null);
+			response.put("mensaje", "Se presento un error de acceso a la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error creando la actividad emparejamiento");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	ActividadEmparejamientoDTO transformarEmparejamientoADTO(ActividadEmparejamiento actividad) {
+		ActividadEmparejamientoDTO actividadDTO = new ActividadEmparejamientoDTO();
+		actividadDTO.setEnunciado(actividad.getEnunciado());
+		actividadDTO.setId(actividad.getId());
+		actividadDTO.setIdSeccion(actividad.getSeccion().getId());
+		List<ParejaItemDTO> parejas = new ArrayList<ParejaItemDTO>();
+		for(ParejaItem pa : actividad.getParejas()) {
+			ParejaItemDTO pareja =  new ParejaItemDTO();
+			pareja.setActividad(actividad.getId());
+			pareja.setCadena1(pa.getCadena1());
+			pareja.setCadena2(pa.getCadena2());
+			pareja.setId(pa.getId());
+			parejas.add(pareja);
+		}
+		actividadDTO.setParejas(parejas);
+		return actividadDTO;
+	}
+
+	
+
 
 }

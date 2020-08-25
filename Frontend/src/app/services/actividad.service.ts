@@ -31,7 +31,7 @@ export class ActividadService {
 
     return this.http.post<any>(url, ahorcado, {
       headers: httpHeaders,
-      params: params0,
+      params: params0
     }).pipe(
       catchError( e => {
         if (this.userService.isNoAutorizado(e)) {
@@ -83,11 +83,13 @@ export class ActividadService {
     let httpHeaders = new HttpHeaders();
     let token = this.userService.token;
     if(token != null) {
-      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+      //httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+      httpHeaders = httpHeaders.append('Content-Type', 'application/json');
     }
     let params0 = new HttpParams();
     params0 = params0.append('idSeccion',idSeccion.toString());
 
+    console.log(actividad);
     return this.http.post<any>(url, actividad,{
       headers: httpHeaders,
       params:params0,

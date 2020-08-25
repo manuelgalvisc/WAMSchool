@@ -15,7 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+/**
+ * Entidad que se encraga de modelar la entidad pagina
+ * @author  wman 
+ *
+ */
 @Entity
 @Table(name="PAGINAS")
 public class Pagina implements Serializable,Cloneable {
