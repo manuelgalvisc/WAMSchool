@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 })
 export class ArchivoService {
 
+  listaArchivos: Array<File> = new Array<File>();
   constructor(private http: HttpClient,
               private userService: UserService) { }
 

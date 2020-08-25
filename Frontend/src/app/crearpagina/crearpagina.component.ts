@@ -68,15 +68,18 @@ export class CrearpaginaComponent implements OnInit {
   }
 
   guardarArchivo(idPagina: number): void{
-    if(this.dataService.Archivo != null){
-      this.archivoService.subirArchivo(this.dataService.Archivo, idPagina).subscribe(
-        json => {
-          if(json.data !=null){
-            this.dataService.Archivo = null;
+    if(this.archivoService.listaArchivos != null){
+      for(let i = 0; i<this.archivoService.listaArchivos.length; i++){
+        this.archivoService.subirArchivo(this.archivoService.listaArchivos[i], idPagina).subscribe(
+          json => {
+            if(json.data !=null){
+              this.dataService.Archivo = null;
+            }
           }
-        }
-      )
-    }
+        )
+      }
+      this.archivoService.listaArchivos = new Array<File>();
+      }
 
   }
 

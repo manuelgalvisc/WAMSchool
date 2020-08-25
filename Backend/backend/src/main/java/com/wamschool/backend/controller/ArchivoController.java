@@ -1,6 +1,7 @@
 package com.wamschool.backend.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,12 +13,16 @@ import java.util.UUID;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -112,6 +117,26 @@ public class ArchivoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	@GetMapping("/Archivos/{nombreArchivo:.+}")
+	public ResponseEntity<Resource>obtenerArchivo(@PathVariable String nombreArchivo){
+		Path rutaArchivo = Paths.get("Archivos").resolve(nombreArchivo);
+		Resource recurso = null;
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("error al cargar el archivo ");
+		}
+		
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+recurso.getFilename()+"\"");
+		return new ResponseEntity<Resource>(recurso,cabecera,HttpStatus.OK);
+		
+	}
 	
 	public ArchivoDTO convertirArchivoToDTO(Archivo archivo) {
 		ArchivoDTO archivoDTO  = new ArchivoDTO();
