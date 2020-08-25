@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service';
 
 import { Pagina } from '../model/pagina';
 import { Seccion } from '../model/seccion';
+import { ArchivoDTO } from '../DTOs/ArchivoDTO';
 
 @Component({
   selector: 'app-visor',
@@ -13,11 +14,13 @@ import { Seccion } from '../model/seccion';
 })
 export class VisorComponent implements OnInit {
   categorias: String = "";
-  seccionesCompletas : secciones[] = new Array;
+  seccionesCompletas : secciones[];
   seleccionado: Seccion;
   selectPag: Pagina;
   iniciado: boolean;
   actividadSeleccionada: Pagina;
+  pdfSrc: string;
+  listaArchivos: ArchivoDTO[];
 
   constructor(private _visorService: VisorService,
               private dataService: DataService) { }
@@ -33,6 +36,8 @@ export class VisorComponent implements OnInit {
       }
     }
     this.iniciado = false;
+    this.listaArchivos = new Array<ArchivoDTO>();
+    this.seccionesCompletas = new Array();
   }
 
   actividadesSecciones(): void {
@@ -51,9 +56,11 @@ export class VisorComponent implements OnInit {
   }
 
   actividadSel(item: Pagina) {
+    this.listaArchivos = this.visorService.convertirADTO(item.id);
     this.selectPag = (this.selectPag === item ? null : item)
     this.actividadSeleccionada = item;
     document.getElementById("contenido").innerHTML = this.actividadSeleccionada.contenidoPagina;
+    console.log(this.listaArchivos[0]);
   }
 
   get visorService(): VisorService {
