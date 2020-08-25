@@ -28,9 +28,8 @@ export class ModalenlacesvideosComponent implements OnInit {
 
   agregarEnlace(){
     if(this.enlace.nombre.length > 0 && this.enlace.url.length === 11){
-
       this.activeModal.close(this.enlace);
-      this.enlaceService.enlace = this.enlace;
+      this.enlaceService.listaEnlaces.push(this.enlace);
     }
   }
 }
