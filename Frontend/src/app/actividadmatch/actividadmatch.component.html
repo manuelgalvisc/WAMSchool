@@ -1,0 +1,33 @@
+<div class="container mt-2 mb-5">
+    <div class="row justify-content-center mb-3">
+        <h3>Crear Actividad Emparejar</h3>
+    </div>
+    <div *ngIf="mssError.length > 0" class="alert alert-danger" role="alert">
+        {{mssError}}
+    </div>
+    <div class="form-group">
+        <label for="introduccion">Ingrese una Introduccion</label>
+        <textarea class="form-control" id="introduccion" rows="3" [(ngModel)]="introduccion"
+            required #intro="ngModel"></textarea>
+    </div>
+    <div class="flex fondo">
+        <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps">
+            <div class="vamp" *ngFor="let vamp of vamps">{{ vamp.name }}</div>
+        </div>
+
+        <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps2">
+            <div class="vamp" *ngFor="let vamp of vamps2">{{ vamp.name }}</div>
+        </div>
+    </div>
+    <div class="container  mt-3 mb-3">
+        <div class="row">
+            <div class="justify-content-center m-2">
+                <button type="button" (click)="AgregarPareja()" class="btn btn-primary btn-rounded">Agregar Pareja</button>
+            </div>
+            <div class="justify-content-center m-2">
+                <button type="button" (click)="crear()" class="btn btn-primary btn-rounded">Crear</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
