@@ -11,6 +11,10 @@ import { UserService } from '../services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+/**
+ * Componente encardo de levantar el ingreso del usuario
+ */
 export class LoginComponent implements OnInit {
 
   constructor(private _modalService: ModalService,
@@ -20,10 +24,16 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * metodo que carga el modal para el login
+   */
   login(){
     this.abrirModal();
   }
 
+  /**
+   * metodo encargado de bajar el usuario
+   */
   signOut(): void {
     Swal.fire('LogOut', `Hasta pronto ${this.userService.user.nombre} has cerrado sesión con éxito`, 'success');
     this.userService.logOut();

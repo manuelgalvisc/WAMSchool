@@ -8,6 +8,10 @@ import { Enunciado } from '../model/enunciado';
   templateUrl: './enunciado.component.html',
   styleUrls: ['./enunciado.component.css']
 })
+/**
+ * componente encargado de crear el enunciado, es un modal auxiliar 
+ * revisar el componente padre cuestionario para posteriores cambios
+ */
 export class EnunciadoComponent implements OnInit {
 
   mssError : string;
@@ -23,6 +27,9 @@ export class EnunciadoComponent implements OnInit {
     this.enun.listaPreguntas = new Array();
   }
 
+  /**
+   * Se valida que se halla ingresado el enunciado
+   */
   crear(){
     this.mssError = "";
     if(this.enun.enunciado.length > 0){

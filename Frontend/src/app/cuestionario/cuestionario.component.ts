@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
 import { Seccion } from '../model/seccion';
 import { DataService } from '../services/data.service';
 
+/**
+ * componente que se encarga de crear el componente que crea la actividad cuestionario
+ */
 @Component({
   selector: 'app-cuestionario',
   templateUrl: './cuestionario.component.html',
@@ -34,14 +37,25 @@ export class CuestionarioComponent implements OnInit {
     this.mssError = "";
   }
 
+  /**
+   * se valida que es opcion multiple
+   * @param objeto 
+   */
   isOpcionMultiple(objeto: any): boolean {
     return objeto instanceof OpcionMultiple;
   }
 
+  /**
+   * se valida que sea pregunta abierta 
+   * @param objeto 
+   */
   isPreguntaAbierta(objeto: any): boolean {
     return objeto instanceof PreguntaAbierta;
   }
 
+  /**
+   * crea el modal que se encarga de crear los enunciados
+   */
   agregarEnunciado() {
     const modalRef = this.modalService.open(EnunciadoComponent);
     modalRef.result.then((r) => {
@@ -49,6 +63,9 @@ export class CuestionarioComponent implements OnInit {
     });
   }
 
+  /**
+   * agregar la opcion multiple, mediante un modal y seleccinando un enunciado 
+   */
   agregarOpcionMultiple() {
     const modalRef = this.modalService.open(ElegirEnunciadoComponent);
     modalRef.componentInstance.listaEnunciados = this.listaEnunciados;
@@ -63,6 +80,9 @@ export class CuestionarioComponent implements OnInit {
     });
   }
 
+  /**
+   * agregar una pregunta abierta para un enunciado
+   */
   agregarPreguntaAbierta() {
     const modalRef = this.modalService.open(ElegirEnunciadoComponent);
     modalRef.componentInstance.listaEnunciados = this.listaEnunciados;
@@ -78,6 +98,11 @@ export class CuestionarioComponent implements OnInit {
 
   }
 
+  /**
+   * saca la palabra que se va a completar del texto
+   * @param item 
+   * @param index 
+   */
   sacarPalabraCompletar(item: number, index : number): string {
     let pregunta: string = this.listaEnunciados[index].listaPreguntas[item].texto;
     let palabra: string = this.listaEnunciados[index].listaPreguntas[item].palabraARellenar;
@@ -85,6 +110,11 @@ export class CuestionarioComponent implements OnInit {
     return pregunta;
   }
 
+  /**
+   * elimina una actividad del tipo pregunta abierta 
+   * @param index 
+   * @param index_2 
+   */
   eliminarActividadPreguntaAbierta(index :number, index_2:number){
     let preguntaEliminada : any =this.listaEnunciados[index].listaPreguntas.splice(index_2,1);
     let i : number;
@@ -98,6 +128,11 @@ export class CuestionarioComponent implements OnInit {
     this.listaEnunciados[index].listaPreguntasCompletar.slice(valor,1);
   }
 
+  /**
+   * eliminar actividad del tipo opcion multiple
+   * @param index 
+   * @param index_2 
+   */
   eliminarActividadopcionMultiple(index :number, index_2:number){
     let preguntaEliminada : any =this.listaEnunciados[index].listaPreguntas.splice(index_2,1);
     let i : number;
@@ -111,10 +146,17 @@ export class CuestionarioComponent implements OnInit {
     this.listaEnunciados[index].listaOpcionesMultiples.slice(valor,1);
   }
 
+  /**
+   * elimina el enunciado
+   * @param index 
+   */
   eliminarEnunciado(index : number){
     this.listaEnunciados.splice(index,1);
   }
 
+  /**
+   * metodo crear, se encarga de validar que hallan enunciado creados correctamente 
+   */
   crear(){
     this.mssError = "";
     if(this.actividad.introduccion!= null && this.actividad.introduccion.length > 0
@@ -132,6 +174,9 @@ export class CuestionarioComponent implements OnInit {
       }
   }
 
+  /**
+   * Se valida que el enunciado se encuentre bien construido
+   */
   enunciadoBienContruido():boolean{
     for(let item of this.listaEnunciados){
       if(item.listaPreguntas.length === 0){

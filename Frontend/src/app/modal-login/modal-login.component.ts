@@ -14,6 +14,9 @@ import Swal from 'sweetalert2';
   templateUrl: './modal-login.component.html',
   styleUrls: ['./modal-login.component.css']
 })
+/**
+ * Modal para ingresar el usuario 
+ */
 export class ModalLoginComponent implements OnInit {
   titulo: string = "Ingresar";
   user: User = new User();
@@ -29,6 +32,9 @@ export class ModalLoginComponent implements OnInit {
     }
   }
 
+  /**
+   * metodo que valida el ingreso 
+   */
   login() {
     if(this.user.email == null) {
       Swal.fire('Email', 'Debe ingresar el email', 'error');

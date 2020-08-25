@@ -8,6 +8,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './preguntaabierta.component.html',
   styleUrls: ['./preguntaabierta.component.css']
 })
+/**
+ * Componente auxiliar modal para crear pregunta abiertas, revisar su padre cuestionario
+ */
 export class PreguntaabiertaComponent implements OnInit {
 
   preguntaAbierta : PreguntaAbierta;
@@ -21,6 +24,9 @@ export class PreguntaabiertaComponent implements OnInit {
     this.mssError = "";
   }
 
+  /**
+   * se encarga de crear una pregunta abierta 
+   */
   crear(){
     if(this.preguntaAbierta.texto.indexOf(this.preguntaAbierta.palabraARellenar) != -1){
       console.log(this.preguntaAbierta);

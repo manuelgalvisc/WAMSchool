@@ -7,6 +7,9 @@ import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
   styleUrls: ['./editor-texto.component.css']
 })
 
+/**
+ * Componente encardo de crear el componente de texto, se consume una libreria de angular
+ */
 export class EditorTextoComponent implements OnInit {
 
   @Output() editorTexto : EventEmitter<string>;
@@ -42,6 +45,10 @@ export class EditorTextoComponent implements OnInit {
     };
   }
 
+  /**
+   * evalua si hay cambios y le notificamos al componente padre que consuma este componente 
+   * @param event 
+   */
   changedEditor(event : EditorChangeContent | EditorChangeSelection){
     this.texto = event['editor']['root']['innerHTML'];
     this.editorTexto.emit(this.texto);

@@ -1,6 +1,8 @@
 import { Categoria } from '../model/categoria';
 import { Seccion } from '../model/seccion';
-
+/**
+ * Clase DTO Para la recepcion de info desde el backend
+ */
 export class ObjetoAprendizajeDTO{
     nombreCompletoPropietario: string;
     emailPropiertario : string;

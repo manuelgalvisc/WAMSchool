@@ -9,6 +9,9 @@ import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Servicios paar archivos
+ */
 export class ArchivoService {
 
   listaArchivos: Array<File> = new Array<File>();
@@ -16,6 +19,11 @@ export class ArchivoService {
   constructor(private http: HttpClient,
               private userService: UserService) { }
 
+  /**
+   * metodo encargado de subir el archivo al servido, requiere un archivo y la pagina a la que se anexa
+   * @param archivo 
+   * @param idPagina 
+   */
   subirArchivo(archivo: File, idPagina: number): Observable<any>{
     const urlEndPoint = 'http://localhost:9000/api/archivo/cargarArchivos';
     const formData = new FormData();

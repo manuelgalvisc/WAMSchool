@@ -1,7 +1,6 @@
-
-<form class="form-group">
+<div class="container fluid">
   <div class="container">
-    <div class="form-group">
+    <div class="form-group centrarTexto">
       <h2 style="color: cadetblue;">EDITAR OBJETO DE APRENDIZAJE: {{objetoAprendizajeDTO.tituloOA}}</h2>
     </div>
     <br>
@@ -40,64 +39,57 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container mt-2">
+    <button class="btn btn-info active form-group" routerLink="/crearSeccion">Agregar Sección <i
+      class="fas fa-plus-square"></i></button>
     <div class="row">
-      <div class="form-group">
-        <button class="btn btn-info active form-group" routerLink="/crearSeccion">Agregar Sección <i
-            class="fas fa-plus-square"></i></button>
-        <div class="mx-auto">
-          <div *ngIf="objetoAprendizajeDTO.secciones.length>0">
-            <!--Table-->
-            <table class="table table-striped w-auto ml-3 mr-3">
-              <!--Table head-->
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Titulo</th>
-                  <th>descripcion</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <!--Table head-->
+      <div *ngIf="objetoAprendizajeDTO.secciones.length>0" class="mx-auto overflow">
+        <div class="table-responsive">
+          <!--Table-->
+          <table class="table table-striped w-auto ml-3 mr-3">
+            <!--Table head-->
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Titulo</th>
+                <th>descripcion</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <!--Table head-->
 
-              <!--Table body-->
-              <tbody class="py-3">
-                <tr *ngFor="let seccion of objetoAprendizajeDTO.secciones; index as i; let odd = odd" class="my-1"
-                  [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
-                  <th scope="row">{{i + 1}}</th>
-                  <td>{{seccion.nombreSeccion}}</td>
-                  <td>{{seccion.descripcion}}</td>
-                  <td>
-                    <button type="button" class="btn btn-default" (click) = "editarSeccion(seccion.id)">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-default">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-              <!--Table body-->
-            </table>
-            <!--Table-->
-          </div>
-          <div *ngIf="objetoAprendizajeDTO.secciones.length==0">
-            <span class="font-weight-bold">Este OA no tiene secciones creadas</span>
-          </div>
+            <!--Table body-->
+            <tbody class="py-3">
+              <tr *ngFor="let seccion of objetoAprendizajeDTO.secciones; index as i; let odd = odd" class="my-1"
+                [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{seccion.nombreSeccion}}</td>
+                <td>{{seccion.descripcion}}</td>
+                <td>
+                  <button type="button" class="btn btn-default" (click)="editarSeccion(seccion.id)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-default">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <!--Table body-->
+          </table>
         </div>
+        <!--Table-->
+      </div>
+      <div *ngIf="objetoAprendizajeDTO.secciones.length==0">
+        <span class="font-weight-bold">Este OA no tiene secciones creadas</span>
       </div>
     </div>
   </div>
-
-
-  <div class="lineamiento">
-    <button type="button" class="btn btn-success m-2">Actualizar</button>
-    <button type="button" class="btn btn-danger m-2" routerLink="/home">Regresar</button>
+  <div class="container botondiv">
+    <button type="button" class="btn btn-success m-2 float-right">Actualizar</button>
+    <button type="button" class="btn btn-danger m-2 float-right" routerLink="/home">Regresar</button>
   </div>
-
-
-
-</form>
+</div>

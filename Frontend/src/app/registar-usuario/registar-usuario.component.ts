@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
   templateUrl: './registar-usuario.component.html',
   styleUrls: ['./registar-usuario.component.css'],
 })
+/**
+ * componente que se encarga de registrar el usuario 
+ */
 export class RegistarUsuarioComponent implements OnInit {
   user: User = new User();
   spassword: string = "";
@@ -28,6 +31,9 @@ export class RegistarUsuarioComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * metodo encargado de registrar el usuario
+   */
   create() {
     let fecha = new Date(this.user.fechaNacimiento);
     if(!this.check) {

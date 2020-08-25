@@ -58,6 +58,7 @@ import { VisorService } from './services/visor.service';
 import { ActividadmatchComponent } from './actividadmatch/actividadmatch.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalemparejamientoComponent } from './modalemparejamiento/modalemparejamiento.component';
+import { ListaOAComponent } from './visor/lista-oa/lista-oa.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -110,6 +111,7 @@ const routes: Routes =[
     VisorComponent,
     ActividadmatchComponent,
     ModalemparejamientoComponent,
+    ListaOAComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,
