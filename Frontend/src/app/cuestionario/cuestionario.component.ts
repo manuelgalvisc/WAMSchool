@@ -10,8 +10,8 @@ import { Enunciado } from '../model/enunciado';
 import { ElegirEnunciadoComponent } from '../elegir-enunciado/elegir-enunciado.component';
 import { ActividadCuestionario } from '../model/actividadCuestionario';
 import Swal from 'sweetalert2';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Seccion } from '../model/seccion';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-cuestionario',
@@ -23,7 +23,8 @@ export class CuestionarioComponent implements OnInit {
   listaEnunciados: Enunciado[];
   actividad: ActividadCuestionario;
   mssError:string;
-  constructor(private modalService: NgbModal,private actividadService:ActividadService) { }
+  constructor(private modalService: NgbModal,private actividadService:ActividadService,
+    private dataservice:DataService) { }
 
   ngOnInit(): void {
     this.listaEnunciados = new Array();
@@ -120,7 +121,7 @@ export class CuestionarioComponent implements OnInit {
       && this.enunciadoBienContruido() ){
         this.actividad.enunciados = this.listaEnunciados;
         console.log(this.actividad);
-        this.actividadService.crearCuestionario(this.actividad,1).subscribe((json) => {
+        this.actividadService.crearCuestionario(this.actividad,this.dataservice.seccionDTO.idSeccion).subscribe((json) => {
           if ( json.data != null){
             Swal.fire('Nueva actividad', `creada con exito !`, 'success');
             console.log(json.data);

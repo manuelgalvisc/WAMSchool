@@ -53,6 +53,7 @@ import { UserService } from './services/user.service';
 import { PaginaService } from './services/pagina.service';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { VisorService } from './services/visor.service';
+import { ActividadmatchComponent } from './actividadmatch/actividadmatch.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -102,6 +103,7 @@ const routes: Routes =[
     ElegirEnunciadoComponent,
     EditarSeccionComponent,
     VisorComponent,
+    ActividadmatchComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,

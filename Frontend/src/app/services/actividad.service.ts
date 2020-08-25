@@ -49,7 +49,7 @@ export class ActividadService {
 
   }
 
-  public crearCuestionario(actividad: ActividadCuestionario): Observable<any>{
+  public crearCuestionario(actividad: ActividadCuestionario,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearCuestionario';
 
     let httpHeaders = new HttpHeaders();
@@ -57,9 +57,12 @@ export class ActividadService {
     if(token != null) {
       httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     }
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion',idSeccion.toString());
 
-    return this.http.post<any>(url, actividad, {
-      headers: httpHeaders
+    return this.http.post<any>(url, actividad,{
+      headers: httpHeaders,
+      params:params0,
     }).pipe(
       catchError( e => {
         if (this.userService.isNoAutorizado(e)) {
@@ -68,12 +71,8 @@ export class ActividadService {
         console.error(e.error.mensaje);
         Swal.fire('error al crear la seccion', e.error.mensaje, 'error');
         return throwError(e);
-
       }
-
       )
     );
-
-
   }
 }
