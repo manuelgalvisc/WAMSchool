@@ -33,6 +33,12 @@ import com.wamschool.backend.servicesImpl.UtilidadesServicesImpl;
 
 import java.util.List;
 
+/** 
+ * Esta clase permite manejar los servicios relacionados al objeto de aprendizaje
+ * @author WamSchool
+ * @version 1.0
+*/
+
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/oa")
@@ -43,6 +49,11 @@ public class ObjetoAprendizajeController {
 	@Autowired
 	UtilidadesServicesImpl utilidades;
 
+	/**
+	 * Metodo que permite crear un objeto de aprendizaje en la base de datos 
+	 * @param oa objeto de aprendizaje que se quiere crear 
+	 * @return
+	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearOA")
 	public ResponseEntity<?> crearOA(@RequestBody ObjetoAprendizaje oa) {
@@ -87,6 +98,10 @@ public class ObjetoAprendizajeController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Metodo que lista las categorias guardadas en la base de datos  
+	 * @return lista de categorias
+	 */
 	@GetMapping("/listarCategorias")
 	public ResponseEntity<?> listarCategorias() {
 		Map<String, Object> response = new HashMap<>();
@@ -112,6 +127,10 @@ public class ObjetoAprendizajeController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * permite listar tosdos los objetos de aprendizaje que se tienen almacenados en la base de datos 
+	 * @return lista de objetos de aprendizaje
+	 */
 	@GetMapping("/listarOA")
 	public ResponseEntity<?> listarOA() {
 		Map<String, Object> response = new HashMap<>();
@@ -141,6 +160,11 @@ public class ObjetoAprendizajeController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Metodo que permite listar los objetos de aprendizaje por medio de paginacion
+	 * @param pagina pagina que se desea mostrar
+	 * @return
+	 */
 	@GetMapping("/listarOApag")
 	public ResponseEntity<?> listarOA(@RequestParam int pagina) {
 		Map<String, Object> response = new HashMap<>();
@@ -181,6 +205,12 @@ public class ObjetoAprendizajeController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Metodo que permite listar los objetos de aprendizaje filtrados por una categoria
+	 * @param categorias categorias parafiltrar
+	 * @param pagina pagina que se desea mostrar
+	 * @return
+	 */
 	@PostMapping("/listarOAcategorias")
 	public ResponseEntity<?> listarOAcategorias(@RequestBody List<Categoria> categorias, @RequestParam int pagina) {
 		Map<String, Object> response = new HashMap<>();
@@ -219,6 +249,12 @@ public class ObjetoAprendizajeController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * metodo que permite listar los objetos de aprendizaje filtrados por texto en su nombre
+	 * @param texto texto por el cual se filtrara la busqueda
+	 * @param pagina 
+	 * @return
+	 */
 	@GetMapping("/listarOAtexto")
 	public ResponseEntity<?> listarOAtexto(@RequestParam String texto, @RequestParam int pagina) {
 		Map<String, Object> response = new HashMap<>();
@@ -263,8 +299,13 @@ public class ObjetoAprendizajeController {
 	
 	
 
-	/////////////////////////////////////////////////////////////
+	
 
+	/**
+	 * metodo que permite transformar una entidad del tipo objeto de aprendizaje en una clase DTO
+	 * @param oa objeto de aprendizaje que se trasnformara
+	 * @return ObjetoAprendizajeDTO
+	 */
 	private ObjetoAprendizajeDTO transformarADTO(ObjetoAprendizaje oa) {
 
 		ObjetoAprendizajeDTO aux = new ObjetoAprendizajeDTO();
@@ -280,15 +321,6 @@ public class ObjetoAprendizajeController {
 		return aux;
 	}
 	
-	private SeccionDTO transformarSeccionADTO(Seccion seccion) {
-		
-		SeccionDTO seccionDTO = new SeccionDTO();
-		seccionDTO.setIdSeccion(seccion.getId());
-		seccionDTO.setDescripcion(seccion.getDescripcion());
-		seccionDTO.setNombreSeccion(seccion.getNombreSeccion());
-		seccionDTO.setPosInOA(seccion.getPosInOA());
-		seccionDTO.setIdOA(seccion.getObjetoAprendizaje().getId());
-		return seccionDTO;
-	}
+	
 
 }

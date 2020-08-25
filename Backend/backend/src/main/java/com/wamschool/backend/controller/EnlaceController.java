@@ -23,6 +23,14 @@ import com.wamschool.backend.model.Pagina;
 import com.wamschool.backend.services.EnlaceServices;
 import com.wamschool.backend.services.PaginaServices;
 
+
+
+/**
+ * Clase que permite implementar los metodos concernientes con el manejo de enlaces de youtube
+ * @author WamSchool
+ * @version 1.0 
+ */
+
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/enlace")
@@ -33,6 +41,12 @@ public class EnlaceController {
 	@Autowired
 	PaginaServices paginaServices;
 	
+	/**
+	 * Metodo que permite crear un enlace en la base de datos 
+	 * @param enlace enlace que se guardara
+	 * @param idPagina pagina a la cual pertenecera este enlace
+	 * @return
+	 */
 	@PostMapping("/crearEnlace")
 	public ResponseEntity<?>guardarEnlace(@RequestBody Enlace enlace, @RequestParam Long idPagina){
 		Map<String, Object> response = new HashMap<>();
@@ -65,6 +79,11 @@ public class EnlaceController {
 	}
 	
 	
+	/**
+	 * Metodo que permite listar todos los enlaces que petenecen a una respectiva pagina
+	 * @param idPagina pagina de los enlaces
+	 * @return
+	 */
 	@GetMapping("/listarEnlaces")
 	public ResponseEntity<?> listarEnlaces(@RequestParam Long idPagina) {
 		Map<String, Object> response = new HashMap<>();
@@ -96,6 +115,12 @@ public class EnlaceController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	/**
+	 * Metodo que permite trasnformar una entidad del tipo Enlace a una clase DTO del tipo enlaceDTO 
+	 * @param enlace enlace que sera trasnformado
+	 * @return enlaceDTO enlace que sera enviado al fronted
+	 */
 	public EnlaceDTO trasnformarEnlaceADTO(Enlace enlace){
 		
 		EnlaceDTO enlaceDTO = new EnlaceDTO();

@@ -26,6 +26,11 @@ import com.wamschool.backend.services.ObjetoAprendizajeServices;
 import com.wamschool.backend.services.SeccionServices;
 import com.wamschool.backend.servicesImpl.UtilidadesServicesImpl;
 
+/** 
+ * Esta clase permite manejar los servicios relacionados a con seccion
+ * @author WamSchool
+ * @version 1.0
+*/
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/seccion")
@@ -36,6 +41,12 @@ public class SeccionController {
 	@Autowired
 	SeccionServices sservice;
 	
+	/**
+	 * Metodo que permite crear una seccion en la base de datos 
+	 * @param seccion seccion que se quiere crear
+	 * @param idOA objeto de aprendizaje al cual pertennecera dicha seccion
+	 * @return 
+	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearSeccion")
 	public ResponseEntity<?> crearSeccion(@RequestBody Seccion seccion, @RequestParam Long idOA) {
@@ -71,6 +82,11 @@ public class SeccionController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Metodo que listara todas las secciones pertenecientes a un objeto de aprendizaje respectivo
+	 * @param idOA referencia del objeto de aprendizaje
+	 * @return
+	 */
 	@GetMapping("/listarSeccionesOA")
 	public ResponseEntity<?> listarSecciones(@RequestParam Long idOA) {
 		Map<String, Object> response = new HashMap<>();
@@ -101,6 +117,11 @@ public class SeccionController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Metodo que permite buscar una seccion por medio de un identificador
+	 * @param idSeccion identificador de seccion
+	 * @return
+	 */
 	@GetMapping("/buscarSeccion")
 	public ResponseEntity<?>buscarSeccion(@RequestParam Long idSeccion){
 		Map<String, Object> response = new HashMap<>();
@@ -135,10 +156,12 @@ public class SeccionController {
 		
 	}
 
-	/////////////////////////////////////////////////////////////
 
-	
-	
+	/**
+	 * Metodo que permite transformar una entidad del tipo seccion a una clase DTO seccion 
+	 * @param seccion entidad que se quiere trasnformar
+	 * @return seccionDTO
+	 */
 	private SeccionDTO transformarSeccionADTO(Seccion seccion) {
 		
 		SeccionDTO seccionDTO = new SeccionDTO();

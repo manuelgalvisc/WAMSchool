@@ -22,6 +22,12 @@ import com.wamschool.backend.model.Roles;
 import com.wamschool.backend.model.Usuario;
 import com.wamschool.backend.services.LoginServices;
 
+
+/** 
+ * Esta clase permite manejar los servicios relacionados con actividad
+ * @author WamSchool
+ * @version 1.0
+*/
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/login")
@@ -33,6 +39,10 @@ public class LoginController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	/**
+	 * Metodo que permite crear un rol en la base de datos
+	 * @param tipo el rol puede ser el tipo usuario o admin
+	 */
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/crearRole")
 	public void crearRoles(Long tipo) {
@@ -46,6 +56,11 @@ public class LoginController {
 		servicio.agregarRole(role);;
 	}
 	
+	/**
+	 * Metodo que permite registrar un usuaario en la base de datos 
+	 * @param usuario usuario que se desea crear 
+	 * @return
+	 */
 	@PostMapping("/registrarUsuario")
 	public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
 		
