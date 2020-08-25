@@ -37,8 +37,22 @@
         </div>
       </div>
     </div>
-    <div class="col-9 card">
-      <div id="contenido" class="card-body"></div>
+    <div class="col-9">
+      <div class="card">
+        <div id="contenido" class="card-body"></div>
+      </div>
+      <div id="my_pdf_viewer">
+        <pdf-viewer
+          [src] = "pdfSrc"
+          [render-text] = "true"
+          stryle = "display: block;">
+        </pdf-viewer>
+      </div>
+      <div id="video_viewer">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/L7vhP4Htp94" allowfullscreen></iframe>
+        </div>
+      </div>
     </div>
   </div>
 </div>

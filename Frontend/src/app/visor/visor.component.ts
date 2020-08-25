@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service';
 
 import { Pagina } from '../model/pagina';
 import { Seccion } from '../model/seccion';
+import { ArchivoDTO } from '../DTOs/ArchivoDTO';
 
 @Component({
   selector: 'app-visor',
@@ -13,16 +14,18 @@ import { Seccion } from '../model/seccion';
 })
 export class VisorComponent implements OnInit {
   categorias: String = "";
-  seccionesCompletas : secciones[] = new Array;
+  seccionesCompletas : secciones[];
   seleccionado: Seccion;
   selectPag: Pagina;
   iniciado: boolean;
   actividadSeleccionada: Pagina;
+  pdfSrc: string;
+  listaArchivos: ArchivoDTO[];
 
   constructor(private _visorService: VisorService,
               private dataService: DataService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
       this.visorService.oa = this.visorService.obtenerOA();
     }
@@ -33,6 +36,8 @@ export class VisorComponent implements OnInit {
       }
     }
     this.iniciado = false;
+    this.listaArchivos = new Array<ArchivoDTO>();
+    this.seccionesCompletas = new Array();
   }
 
   actividadesSecciones(): void {
@@ -46,14 +51,34 @@ export class VisorComponent implements OnInit {
     this.iniciado = true;
   }
 
+
   seccionSeleccionada(item: Seccion) {
-    this.seleccionado = (this.seleccionado === item ? null : item)
+    this.seleccionado = (this.seleccionado === item ? null : item);
   }
 
+  //Seleccion de actividad
   actividadSel(item: Pagina) {
     this.selectPag = (this.selectPag === item ? null : item)
     this.actividadSeleccionada = item;
     document.getElementById("contenido").innerHTML = this.actividadSeleccionada.contenidoPagina;
+    this.obtenerArchivos(item.id);
+  }
+
+  obtenerArchivos(item: number) {
+    var listaPaginas: Array<ArchivoDTO> = new Array;
+    this.visorService.obtenerArchivos(item).subscribe(
+      json =>{
+        if(json.data != null){
+          listaPaginas = json.data;
+          listaPaginas.map((y) => {
+            let archivo: ArchivoDTO = new ArchivoDTO();
+            archivo.nombre = y.nombre;
+            this.listaArchivos.push(archivo);
+            console.log(archivo.nombre);
+            this.pdfSrc = "http://localhost:9000/api/archivo/Archivos/"+archivo.nombre;
+          });
+        }
+      });
   }
 
   get visorService(): VisorService {

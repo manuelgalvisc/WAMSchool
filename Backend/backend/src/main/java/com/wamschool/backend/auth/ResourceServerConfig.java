@@ -19,16 +19,16 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
-	
+
 	//Configuración de las páginas públicas y privadas en el servidor.
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET , "/api/oa/listarOA", "/api/oa/listarOApag", "/api/oa/listarCategorias","/api/seccion/buscarSeccion", "/api/oa/listarOAtexto","/api/seccion/listarSeccionesOA","/api/pagina/listarPaginas","/api/actividad/listarAhorcados","/api/archivo/Archivos/{nombreArchivo:.+}").permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.GET , "/api/oa/listarOA", "/api/oa/listarOApag", "/api/oa/listarCategorias","/api/seccion/buscarSeccion", "/api/oa/listarOAtexto","/api/seccion/listarSeccionesOA","/api/pagina/listarPaginas","/api/actividad/listarAhorcados","/api/archivo/Archivos/{nombreArchivo:.+}", "/api/archivo/listarArchivos").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/oa/listarOAcategorias","/api/pagina/crearPagina", "/login/registrarUsuario", "/login/signIn").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource());
 	}
-	
+
 	//Configurar CORS para el frontend
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
@@ -37,19 +37,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);
 		config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-		
+
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", config);
-		
+
 		return source;
 	}
-	
+
 	//Filtros de Spring
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
 		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		
+
 		return bean;
 	}
 }

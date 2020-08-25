@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 //environment
 import { environment } from '../environments/environment';
@@ -125,7 +126,8 @@ const routes: Routes =[
     YouTubePlayerModule,
     CommonModule,
     BrowserAnimationsModule,
-    DragulaModule.forRoot()
+    DragulaModule.forRoot(),
+    PdfViewerModule,
   ],
   entryComponents: [
     ModalOaComponent,

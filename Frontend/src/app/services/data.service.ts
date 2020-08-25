@@ -52,16 +52,14 @@ export class DataService {
     var listaPaginas: Array<PaginaDTO> = [];
     var listaPaginasFinal : Array<Pagina> = [];
     this.paginaService.listarPaginas(idSeccion).subscribe(
-      json =>{
+      async json =>{
         if(json.data != null){
           listaPaginas = json.data;
-          listaPaginas.map((y) => {
+          await listaPaginas.map((y) => {
             listaPaginasFinal.push(this.convertirPaginaDTOAPagina(y));
-          }
-          )
+          });
         }
-      }
-    )
+      });
     return listaPaginasFinal;
   }
 
