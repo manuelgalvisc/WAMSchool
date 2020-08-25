@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 export class ActividadmatchComponent implements OnInit {
 
   parejas :ParejaItem[];
+  introduccion:string;
 
   vamps = [
   ];
@@ -42,6 +43,7 @@ export class ActividadmatchComponent implements OnInit {
     this.vamps = new Array();
     this.vamps2 = new Array();
     this.mssError = "";
+    this.introduccion = "";
   }
 
   AgregarPareja() {
@@ -57,9 +59,10 @@ export class ActividadmatchComponent implements OnInit {
   }
 
   crear(){
-    if(this.parejas.length > 0 && this.vamps.length === this.vamps2.length){
+    if(this.parejas.length > 0 && this.vamps.length === this.vamps2.length && this.introduccion.length > 0){
       let actividad : ActividadEmparejamiento = new ActividadEmparejamiento();
-      actividad.pareja = this.parejas;
+      actividad.parejas = this.parejas;
+      actividad.enunciado = this.introduccion;
       this.actividadService.crearEmparejamiento(actividad,this.dataService.seccionDTO.idSeccion).subscribe((json) => {
         if ( json.data != null){
           Swal.fire('Nueva actividad', `creada con exito !`, 'success');
@@ -67,7 +70,7 @@ export class ActividadmatchComponent implements OnInit {
         }
       });
     }else{
-      this.mssError = "Se ha presentado un error, verifique que no hallan columnas con mas items que otras"
+      this.mssError = "Se ha presentado un error, verifique que no hallan columnas con mas items que otras, o que la introducción no se encuentre vacía."
     }
   };
 

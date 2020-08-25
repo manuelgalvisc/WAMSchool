@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/*
+ * Esta entidad se encarga de modelar las Secciones 
+ */
+
 @Entity
 @Table(name = "secciones")
 public class Seccion implements Serializable, Cloneable{
@@ -50,7 +54,9 @@ public class Seccion implements Serializable, Cloneable{
 	@OneToMany(mappedBy = "seccion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Ahorcado> ahorcados;
 
-	
+	@OneToMany(mappedBy = "seccion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ActividadEmparejamiento> actividadesEmparejamiento;
+
 	/**
 	 * @return the paginas
 	 */
@@ -127,6 +133,13 @@ public class Seccion implements Serializable, Cloneable{
 		this.actividadesCuestionario = actividadesCuestionario;
 	}
 	
-	
+	public List<ActividadEmparejamiento> getActividadesEmparejamiento() {
+		return actividadesEmparejamiento;
+	}
+
+	public void setActividadesEmparejamiento(List<ActividadEmparejamiento> actividadesEmparejamiento) {
+		this.actividadesEmparejamiento = actividadesEmparejamiento;
+	}
+
 	
 }

@@ -24,7 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.GET , "/api/oa/listarOA", "/api/oa/listarOApag", "/api/oa/listarCategorias","/api/seccion/buscarSeccion", "/api/oa/listarOAtexto","/api/seccion/listarSeccionesOA","/api/pagina/listarPaginas","/api/actividad/listarAhorcados").permitAll()
-		.antMatchers(HttpMethod.POST, "/api/oa/listarOAcategorias","/api/pagina/crearPagina", "/login/registrarUsuario", "/login/signIn").permitAll()
+		.antMatchers(HttpMethod.POST, "/api/oa/listarOAcategorias","/api/pagina/crearPagina","/api/actividad/crearEmparejamiento", "/login/registrarUsuario", "/login/signIn").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource());
 	}
