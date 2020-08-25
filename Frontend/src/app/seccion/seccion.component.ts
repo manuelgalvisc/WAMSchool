@@ -15,7 +15,7 @@ export class SeccionComponent implements OnInit {
   public seccion: Seccion = new Seccion();
   private idOA: number;
 
-  constructor(private dataService: DataService,
+  constructor(public dataService: DataService,
               private seccionService: SeccionService,
               private router: Router) { }
 

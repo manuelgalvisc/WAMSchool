@@ -101,23 +101,43 @@ public class SeccionController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	@GetMapping("/buscarSeccion")
+	public ResponseEntity<?>buscarSeccion(@RequestParam Long idSeccion){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			Seccion seccionEnviar;
+			if (idSeccion != null) {
+				seccionEnviar=sservice.buscarPorId(idSeccion);
+				if(seccionEnviar !=null) {
+					response.put("data", transformarSeccionADTO(seccionEnviar));
+					response.put("mensaje", "Se encontro una seccion ");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				}else {
+					response.put("data", null);
+					response.put("mensaje", "no existe una seccion con este identificador");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+				}
+			}else {
+				response.put("data", null);
+				response.put("mensaje", "Se presento un error buscando la seccion idseccion nulo");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			}
+				
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();		
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error listando las secciones para el OA");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		
+	}
 
 	/////////////////////////////////////////////////////////////
 
-	private ObjetoAprendizajeDTO transformarADTO(ObjetoAprendizaje oa) {
-
-		ObjetoAprendizajeDTO aux = new ObjetoAprendizajeDTO();
-		aux.setNombreCompletoPropietario(oa.getPropietario().getNombre() + " " + oa.getPropietario().getApellido());
-		aux.setEmailPropiertario(oa.getPropietario().getEmail());
-		aux.setTituloOA(oa.getTituloOA());
-		aux.setDescripcion(oa.getDescripcion());
-		aux.setIdOA(oa.getId());
-		aux.setFechaActualizacion(oa.getFechaActualizacion());
-		aux.setEstadoOA(oa.getEstadoOA());
-		aux.setVisitas(oa.getVisitas());
-		aux.setCategorias(oa.getCategorias());
-		return aux;
-	}
+	
 	
 	private SeccionDTO transformarSeccionADTO(Seccion seccion) {
 		

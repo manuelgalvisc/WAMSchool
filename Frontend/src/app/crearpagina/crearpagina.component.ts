@@ -24,7 +24,7 @@ export class CrearpaginaComponent implements OnInit {
 
   constructor(private paginaService: PaginaService,
               private modalService: NgbModal,
-              private dataService: DataService,
+              public dataService: DataService,
               private archivoService: ArchivoService) { }
 
   ngOnInit(): void {

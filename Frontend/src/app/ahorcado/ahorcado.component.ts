@@ -57,7 +57,6 @@ export class AhorcadoComponent {
   comprobar(letra) {
     this.existeLetra(letra);
     const palabraOcultaArreglo = this.palabraOculta.split(" ");
-
     for (let i = 0; i <= this.palabra.length; i++) {
       if (this.palabra[i] === letra) {
         palabraOcultaArreglo[i] = letra;
@@ -92,9 +91,10 @@ export class AhorcadoComponent {
   guardarPalabra(){
     if(this.palabraGuardar.length !== 0){
       if(this.pattern.test(this.palabraGuardar)){
+        this.palabraGuardar = this.palabraGuardar.toLowerCase();
         this.palabra = this.palabraGuardar;
         this.palabraOculta = "_ ".repeat(this.palabra.length);
-        this.ahorcado.palabraOculta = this.palabra;
+        this.ahorcado.palabraOculta = this.palabra.toLowerCase();
         this.actividadService.crearAhorcado(this.ahorcado, this.dataService.seccionDTO.idSeccion).subscribe(
           json =>{
             if (json.data != null) {

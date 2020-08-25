@@ -1,3 +1,4 @@
+import { SeccionService } from './../services/seccion.service';
 import { Component, OnInit } from '@angular/core';
 import { ObjetoAprendizaje } from '../model/objetoAprendizaje';
 import { Categoria } from '../model/categoria';
@@ -6,6 +7,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
 import { DataService } from '../services/data.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Seccion } from '../model/seccion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-objeto-aprendizaje',
@@ -29,7 +32,9 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
 
   constructor(private categoriaService: CategoriaService,
               private dataService: DataService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private router: Router,
+              private seccionService:SeccionService) { }
 
   ngOnInit(): void {
     this.objetoAprendizajeDTO = this.dataService.objetoAprendizajeDTO;
@@ -74,8 +79,18 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
         this.categoriasSeleccionadas.splice(i);
       }
     }
+
   }
 
+  editarSeccion(idSeccion: number){
+    this.seccionService.buscarSeccionPorId(idSeccion).subscribe( json => {
+      if(json.data != null){
+        this.dataService.seccionDTO = json.data;
+        this.router.navigate(['/editarSeccion']);
+      }
 
+    });
+
+  }
 
 }
