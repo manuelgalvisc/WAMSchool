@@ -1,3 +1,4 @@
+import { Enlace } from './../model/enlace';
 import { PaginaService } from './pagina.service';
 import { SeccionDTO } from './../DTOs/SeccionDTO';
 import { Injectable } from '@angular/core';
@@ -16,6 +17,7 @@ export class DataService {
   objetoAprendizajeDTO: ObjetoAprendizajeDTO;
   Archivo: File;
   seccionDTO: SeccionDTO;
+
   constructor(private seccionService: SeccionService,
               private paginaService: PaginaService) {
 
