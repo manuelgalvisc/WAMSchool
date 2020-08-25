@@ -17,17 +17,19 @@ export class ActividadcuestionarioService {
               private userService: UserService) { }
 
 
-  public crearCuestionario(actividad: ActividadCuestionario): Observable<any>{
-    const url = 'http://localhost:9000/api/actividadCuestionario/crear';
+  public crearCuestionario(actividad: ActividadCuestionario,idSeccion:number): Observable<any>{
+    const url = 'http://localhost:9000/api/actividad/crearCuestionario';
 
     let httpHeaders = new HttpHeaders();
     let token = this.userService.token;
     if(token != null) {
       httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     }
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion',idSeccion.toString());
 
-    return this.http.post<any>(url, actividad, {
-      headers: httpHeaders
+    return this.http.post<any>(url, actividad,{
+      params:params0
     }).pipe(
       catchError( e => {
         if (this.userService.isNoAutorizado(e)) {

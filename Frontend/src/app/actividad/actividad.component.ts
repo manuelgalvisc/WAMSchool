@@ -35,9 +35,6 @@ export class ActividadComponent implements OnInit {
       this.mostrarAlerta = false;
       this.ocultarSelect = true;
       this.mostrarBtnCancelar = true;
-      if(tipoActividad === this.listaActividades[1]){
-        this.router.navigate([{outlets:{routeract:'cuestionario'}}]);
-      }
     }
     if(tipoActividad === this.listaActividades[1]){
       this.router.navigate(['/crearActividad/1']);

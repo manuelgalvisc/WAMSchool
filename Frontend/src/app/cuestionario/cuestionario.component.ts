@@ -11,6 +11,7 @@ import { ActividadCuestionario } from '../model/actividadCuestionario';
 import { ActividadcuestionarioService } from '../services/actividadcuestionario.service';
 import Swal from 'sweetalert2';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Seccion } from '../model/seccion';
 
 @Component({
   selector: 'app-cuestionario',
@@ -119,12 +120,11 @@ export class CuestionarioComponent implements OnInit {
       && this.enunciadoBienContruido() ){
         this.actividad.enunciados = this.listaEnunciados;
         console.log(this.actividad);
-        this.actividadService.crearCuestionario(this.actividad).subscribe((json) => {
+        this.actividadService.crearCuestionario(this.actividad,1).subscribe((json) => {
           if ( json.data != null){
             Swal.fire('Nueva actividad', `creada con exito !`, 'success');
             console.log(json.data);
           }
-  
         });
       }else{
         this.mssError = this.mssError.concat("La Introducción se encuentra vacía.");
