@@ -1,47 +1,56 @@
 <div class="container-fluid bg-light">
-    <div class="row">
-        <div class="col-3 mr-0">
+    <div class="container mb-3">
+        <div class="row">
             <div class="container p-3 my-3 mr-0 bg-primary text-white text-center rounded">
                 <h4>Filtros OA</h4>
             </div>
-            <nav class="navbar navbar-light bg-light">
-                <form class="form-inline">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <a class="page-link" (click)="listarPorTexto()"><i
-                                    class="fa fa-search form-control-feedback"></i></a>
+            <div class="mx-auto">
+                <nav class="navbar navbar-light bg-light">
+                    <form class="form-inline">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <a class="page-link" (click)="listarPorTexto()"><i
+                                        class="fa fa-search form-control-feedback"></i></a>
+                            </div>
+                            <input [(ngModel)]="textConsulta" [ngModelOptions]="{standalone: true}" type="text"
+                                class="form-control" placeholder="Buscar" (keyup)="mostrarText()"
+                                (mousemove)="focus = false">
                         </div>
-                        <input [(ngModel)]="textConsulta" [ngModelOptions]="{standalone: true}" type="text"
-                            class="form-control" placeholder="Buscar" (keyup)="mostrarText()"
-                            (mousemove)="focus = false">
-                    </div>
-                </form>
-            </nav>
-            <div *ngIf="focus" class="text-justify text-primary">
-                <p>Ingrese palabras clave que esten relacionadas
-                    con la descripción del OA o su titulo</p>
-            </div>
-            <div class="container my-3">
-                <div class="form-group">
-                    <ng-multiselect-dropdown [placeholder]="'Selecciona una categoria'" [data]="categorias"
-                        [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
-                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)">
-                    </ng-multiselect-dropdown>
+                    </form>
+                </nav>
+                <div *ngIf="focus" class="text-justify text-primary">
+                    <p>Ingrese palabras clave que esten relacionadas
+                        con la descripción del OA o su titulo</p>
                 </div>
-                <div class="conainer my-2">
-                    <button (click)="listarCategorias()"><i class="fa fa-search"></i></button>
+                <div class="container my-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <ng-multiselect-dropdown [placeholder]="'Selecciona una categoria'" [data]="categorias"
+                                [(ngModel)]="selectedItems" [settings]="dropdownSettings"
+                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                (onDeSelect)="onItemDeSelect($event)">
+                            </ng-multiselect-dropdown>
+
+                            <button (click)="listarCategorias()"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="fondo col-9 ml-0">
-            <div class="container p-3 my-3 ml-0 bg-light text-black text-center rounded">
-                <h4>Búsqueda OA</h4>
-            </div>
-            <div *ngIf="mostrarTabla()" class="row bg-light text-back">
-                <div class="mx-auto">
+    </div>
 
+    <div style="background-color:blue;color:blue"><br /></div>
+
+    <div class="container fondo mt-2 tabla_2">
+
+        <div class="container p-3 my-3 ml-0 bg-light text-black text-center rounded">
+            <h4>Búsqueda OA</h4>
+        </div>
+        <div *ngIf="mostrarTabla()" class="row bg-light text-back">
+            <div class="mx-auto overflow">
+                <div class="table-responsive">
                     <table class="table table-striped w-auto">
-
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -68,48 +77,52 @@
                                 <td class="text-center">{{oa.visitas}}</td>
                                 <td class="text-center">{{oa.fechaActualizacion | date}}</td>
                                 <td>
-                                    <button type=" button" class="btn btn-default" (click) = "mostrarModal(oa)">
+                                    <button type=" button" class="btn btn-default" (click)="mostrarModal(oa)">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-default" (click) = "editarOA(oa)">
+                                    <button type="button" class="btn btn-default" (click)="editarOA(oa)">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-default">
-                                        <i class="fas fa-play" (click) = "ejecutarOA(oa)"></i>
+                                        <i class="fas fa-play" (click)="ejecutarOA(oa)"></i>
                                     </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
-            <div class="container mt-3">
-                <div class="row">
-                    <div class="mx-auto">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li *ngIf="numeroPagina > 1" class="page-item"><a class="page-link" (click)="traerPaginacion(1)"><i
-                                            class="fas fa-angle-double-left"></i></a></li>
-                                <li [ngClass]="{'disabled':pagina == 0}" *ngIf="numeroPagina > 1" class="page-item"><a
-                                        class="page-link" (click)="disminuirPagina()"><i class="fas fa-chevron-left"></i></a></li>
-                                <li *ngFor="let i of listaPaginas; size as count; j as index"
-                                    [ngClass]="{'disabled':pagina == i - 1}" class="page-item">
-                                    <a class="page-link" (click)="traerPaginacion(i)">{{i}}</a>
-                                </li>
-                                <li [ngClass]="{'disabled':pagina == numeroPagina - 1}" *ngIf="numeroPagina > 1" class="page-item">
-                                    <a class="page-link" (click)="aumentarPagina()"><i class="fas fa-chevron-right"></i></a></li>
-                                <li *ngIf="numeroPagina > 1" class="page-item"><a class="page-link" (click)="ultimaPagina()"><i
-                                            class="fas fa-angle-double-right"></i></a></li>
-                            </ul>
-                        </nav>
-                    </div>
+
+        </div>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="mx-auto">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li *ngIf="numeroPagina > 1" class="page-item"><a class="page-link"
+                                    (click)="traerPaginacion(1)"><i class="fas fa-angle-double-left"></i></a></li>
+                            <li [ngClass]="{'disabled':pagina == 0}" *ngIf="numeroPagina > 1" class="page-item"><a
+                                    class="page-link" (click)="disminuirPagina()"><i
+                                        class="fas fa-chevron-left"></i></a></li>
+                            <li *ngFor="let i of listaPaginas; size as count; j as index"
+                                [ngClass]="{'disabled':pagina == i - 1}" class="page-item">
+                                <a class="page-link" (click)="traerPaginacion(i)">{{i}}</a>
+                            </li>
+                            <li [ngClass]="{'disabled':pagina == numeroPagina - 1}" *ngIf="numeroPagina > 1"
+                                class="page-item">
+                                <a class="page-link" (click)="aumentarPagina()"><i class="fas fa-chevron-right"></i></a>
+                            </li>
+                            <li *ngIf="numeroPagina > 1" class="page-item"><a class="page-link"
+                                    (click)="ultimaPagina()"><i class="fas fa-angle-double-right"></i></a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

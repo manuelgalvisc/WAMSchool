@@ -17,6 +17,11 @@ export class ActividadService {
   constructor(private http: HttpClient,
               private userService: UserService) { }
 
+  /**
+   * Metodo encargado de craer la actividad tipo ahorcado 
+   * @param ahorcado 
+   * @param idSeccion 
+   */
    public crearAhorcado(ahorcado: Ahorcado, idSeccion: number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearAhorcado'
 
@@ -50,6 +55,11 @@ export class ActividadService {
 
   }
 
+  /**
+   * 
+   * @param actividad Metodo encargado de crear las actividades de tipo Cuestionario
+   * @param idSeccion 
+   */
   public crearCuestionario(actividad: ActividadCuestionario,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearCuestionario';
 
@@ -77,13 +87,18 @@ export class ActividadService {
     );
   }
 
+  /**
+   * Metodo enacargado de crear las actividades detipo emparejamiento
+   * @param actividad 
+   * @param idSeccion 
+   */
   public crearEmparejamiento(actividad: ActividadEmparejamiento,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearEmparejamiento';
 
     let httpHeaders = new HttpHeaders();
     let token = this.userService.token;
     if(token != null) {
-      //httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
       httpHeaders = httpHeaders.append('Content-Type', 'application/json');
     }
     let params0 = new HttpParams();
