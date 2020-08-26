@@ -25,7 +25,7 @@ export class VisorComponent implements OnInit {
   constructor(private _visorService: VisorService,
               private dataService: DataService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
       this.visorService.oa = this.visorService.obtenerOA();
     }
@@ -51,16 +51,34 @@ export class VisorComponent implements OnInit {
     this.iniciado = true;
   }
 
+
   seccionSeleccionada(item: Seccion) {
-    this.seleccionado = (this.seleccionado === item ? null : item)
+    this.seleccionado = (this.seleccionado === item ? null : item);
   }
 
+  //Seleccion de actividad
   actividadSel(item: Pagina) {
-    this.listaArchivos = this.visorService.convertirADTO(item.id);
     this.selectPag = (this.selectPag === item ? null : item)
     this.actividadSeleccionada = item;
     document.getElementById("contenido").innerHTML = this.actividadSeleccionada.contenidoPagina;
-    console.log(this.listaArchivos[0]);
+    this.obtenerArchivos(item.id);
+  }
+
+  obtenerArchivos(item: number) {
+    var listaPaginas: Array<ArchivoDTO> = new Array;
+    this.visorService.obtenerArchivos(item).subscribe(
+      json =>{
+        if(json.data != null){
+          listaPaginas = json.data;
+          listaPaginas.map((y) => {
+            let archivo: ArchivoDTO = new ArchivoDTO();
+            archivo.nombre = y.nombre;
+            this.listaArchivos.push(archivo);
+            console.log(archivo.nombre);
+            this.pdfSrc = "http://localhost:9000/api/archivo/Archivos/"+archivo.nombre;
+          });
+        }
+      });
   }
 
   get visorService(): VisorService {

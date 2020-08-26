@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
 
+import { ArchivoService } from '../services/archivo.service';
+
 import { ObjetoAprendizajeDTO } from '../DTOs/ObjetoAprendizajeDTO';
-import { ArchivoDTO } from '../DTOs/ArchivoDTO';
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +12,10 @@ import { ArchivoDTO } from '../DTOs/ArchivoDTO';
 
 export class VisorService {
   private _oa: ObjetoAprendizajeDTO;
+  listNombres: String[] = new Array;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private archivoService: ArchivoService) {}
 
   //Tomamos el Objeto seleccionado desde el Home
   guardarOA(oa: ObjetoAprendizajeDTO) {
@@ -41,26 +43,7 @@ export class VisorService {
     const httpOptions = {
       params: paramsO
     };
-
     return this.http.get<any>(url, httpOptions);
-  }
-
-  //Convertimos los archivos en DTOs para hacer uso de ellos en la vista
-  convertirADTO(idPagina: number): Array<ArchivoDTO> {
-    var listaPaginas: Array<ArchivoDTO> = new Array;
-    var listaPaginasFinal = new Array;
-    this.obtenerArchivos(idPagina).subscribe(
-      json =>{
-        if(json.data != null){
-          listaPaginas = json.data;
-          listaPaginas.map((y) => {
-            let archivo: ArchivoDTO = new ArchivoDTO();
-            archivo.url = y.url;
-            listaPaginasFinal.push(archivo);
-          });
-        }
-      });
-    return listaPaginasFinal;
   }
 
   set oa(oa: ObjetoAprendizajeDTO) {
