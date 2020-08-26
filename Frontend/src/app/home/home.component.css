@@ -9,6 +9,14 @@
     padding-left: 2.375rem;
 }
 
+.overflow{
+    overflow: auto;
+}
+
+.tabla_2{
+    padding-top: .25rem;
+}
+
 .has-search .form-control-feedback {
     position: absolute;
     z-index: 2;
