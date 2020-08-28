@@ -45,6 +45,14 @@ import com.wamschool.backend.services.OpcionServices;
 import com.wamschool.backend.services.PreguntaAbiertaServices;
 import com.wamschool.backend.services.SeccionServices;
 
+
+/** 
+ * Esta clase permite manejar los servicios relacionados con actividad
+ * @author WamSchool
+ * @version 1.7 
+*/
+
+
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/actividad")
@@ -66,7 +74,16 @@ public class ActividadController {
 	AhorcadoServices ahorcadoServices;
 	@Autowired
 	ActividadEmparejamientoServices emparejamientoServices;
+	
+	
+	 
 
+	/**
+	 * Metodo que permite crear una actividad del tipo cuestionario en la base de datos
+	 * @param actividad actividad que ingresa en forma de json 
+	 * @param idSeccion seccion a la cual le asignaremos dicha actividad
+	 * @return
+	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
 	@PostMapping("/crearCuestionario")
@@ -149,57 +166,14 @@ public class ActividadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	private ActividadCuestionarioDTO convertirCuestionarioADTO(ActividadCuestionario cuestionario) {
+	
 
-		ActividadCuestionarioDTO cuestionarioDTO = new ActividadCuestionarioDTO();
-		cuestionarioDTO.setId(cuestionario.getId());
-		cuestionarioDTO.setIntroduccion(cuestionario.getIntroduccion());
-		cuestionarioDTO.setSeccionCuestionario(cuestionario.getSeccion().getId());
-		List<EnunciadoDTO> listaEnunciados = new ArrayList<EnunciadoDTO>();
-		for (Enunciado enunciado : cuestionario.getEnunciados()) {
-			EnunciadoDTO enunciadoDTO = new EnunciadoDTO();
-			enunciadoDTO.setEnunciado(enunciado.getEnunciado());
-			enunciadoDTO.setId(enunciado.getId());
-			enunciadoDTO.setActividadCuestionario(cuestionario.getId());
-			List<PreguntaAbiertaDTO> preguntasAbiertas = new ArrayList<PreguntaAbiertaDTO>();
-			if (enunciado.getListaPreguntasCompletar() != null) {
-				for (PreguntaAbierta preguntaAbierta : enunciado.getListaPreguntasCompletar()) {
-					PreguntaAbiertaDTO preguntaAbiertaDTO = new PreguntaAbiertaDTO();
-					preguntaAbiertaDTO.setEnunciadoPreguntaAbierta(enunciado.getId());
-					preguntaAbiertaDTO.setId(preguntaAbierta.getId());
-					preguntaAbiertaDTO.setPalabraARellenar(preguntaAbierta.getPalabraARellenar());
-					preguntaAbiertaDTO.setTexto(preguntaAbierta.getTexto());
-					preguntasAbiertas.add(preguntaAbiertaDTO);
-				}
-			}
-			enunciadoDTO.setListaPreguntasCompletar(preguntasAbiertas);
-			List<OpcionMultipleDTO> opcionesMultiples = new ArrayList<OpcionMultipleDTO>();
-			if (enunciado.getListaOpcionesMultiples() != null) {
-				for (OpcionMultiple opcionMultiple : enunciado.getListaOpcionesMultiples()) {
-					OpcionMultipleDTO opcionMultipleDTO = new OpcionMultipleDTO();
-					opcionMultipleDTO.setId(opcionMultiple.getId());
-					opcionMultipleDTO.setEnunciado(opcionMultiple.getEnunciado().getId());
-					opcionMultipleDTO.setPregunta(opcionMultiple.getPregunta());
-					List<OpcionDTO> opciones = new ArrayList<OpcionDTO>();
-					for (Opcion opcion : opcionMultiple.getOpciones()) {
-						OpcionDTO opcionDTO = new OpcionDTO();
-						opcionDTO.setId(opcion.getId());
-						opcionDTO.setOpcionMultiple(opcionMultiple.getId());
-						opcionDTO.setOpcion(opcion.getOpcion());
-						opcionDTO.setValor(opcion.getValor());
-						opciones.add(opcionDTO);
-					}
-					opcionMultipleDTO.setOpciones(opciones);
-					opcionesMultiples.add(opcionMultipleDTO);
-				}
-			}
-			enunciadoDTO.setListaOpcionesMultiples(opcionesMultiples);
-			listaEnunciados.add(enunciadoDTO);
-		}
-		cuestionarioDTO.setEnunciados(listaEnunciados);
-		return cuestionarioDTO;
-	}
-
+	/**
+	 * Metodo que permite crear un ahorcado en la base de datos 
+	 * @param ahorcado entidad en forma de json que ingresa desde el forntend
+	 * @param idSeccion seccion a la cual le asignaremos el ahorcado 
+	 * @return
+	 */
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@PostMapping("/crearAhorcado")
 	public ResponseEntity<?> crearAhorcado(@RequestBody Ahorcado ahorcado, @RequestParam Long idSeccion) {
@@ -233,6 +207,11 @@ public class ActividadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Metodo que permite devolver una lista de ahorcados 
+	 * @param idSeccion nos dice de seccion sacaremos los ahorcados
+	 * @return
+	 */
 	@GetMapping("/listarAhorcados")
 	public ResponseEntity<?> listarAhorcados(@RequestParam Long idSeccion) {
 		Map<String, Object> response = new HashMap<>();
@@ -269,16 +248,14 @@ public class ActividadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	public AhorcadoDTO transformarAhorcadoToDTO(Ahorcado ahorcado) {
-		AhorcadoDTO ahorcadoDTO = new AhorcadoDTO();
-
-		ahorcadoDTO.setId(ahorcado.getId());
-		ahorcadoDTO.setPalabraOculta(ahorcado.getPalabraOculta());
-		ahorcadoDTO.setIdSeccion(ahorcado.getSeccion().getId());
-
-		return ahorcadoDTO;
-	}
 	
+	
+	/**
+	 * metodo que permite crear una actividad del tipo emparejamiento 
+	 * @param actividad objeto que ingresa por medio del servicio para ser creado 
+	 * @param idSeccion nos mapea la seccion a la cual pertenece la actividad
+	 * @return
+	 */
 	//@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
 	@PostMapping("/crearEmparejamiento")
@@ -334,6 +311,11 @@ public class ActividadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Este metodo permite transformar una entidad del tipo ActividadEmparejamiento a ActividadEmparejamientoDTO para poder enviarla 
+	 * @param actividad entidad actividad que sera transformada
+	 * @return ActividadEmparejamientoDTO objeto transformado para enviar
+	 */
 	ActividadEmparejamientoDTO transformarEmparejamientoADTO(ActividadEmparejamiento actividad) {
 		ActividadEmparejamientoDTO actividadDTO = new ActividadEmparejamientoDTO();
 		actividadDTO.setEnunciado(actividad.getEnunciado());
@@ -352,6 +334,77 @@ public class ActividadController {
 		return actividadDTO;
 	}
 
+	
+	/**
+	 * permite transformar un objeto del tipo ahorcado para poder ser enviado al frontend
+	 * @param ahorcado 
+	 * @return ahorcadoDTO
+	 */
+	public AhorcadoDTO transformarAhorcadoToDTO(Ahorcado ahorcado) {
+		AhorcadoDTO ahorcadoDTO = new AhorcadoDTO();
+
+		ahorcadoDTO.setId(ahorcado.getId());
+		ahorcadoDTO.setPalabraOculta(ahorcado.getPalabraOculta());
+		ahorcadoDTO.setIdSeccion(ahorcado.getSeccion().getId());
+
+		return ahorcadoDTO;
+	}
+	
+	/**
+	 * Permite trasnformar una entidad ActividadCuestionario en una clase DTO para enviar
+	 * @param cuestionario
+	 * @return ActividadCuestionarioDTO
+	 */
+	private ActividadCuestionarioDTO convertirCuestionarioADTO(ActividadCuestionario cuestionario) {
+
+		ActividadCuestionarioDTO cuestionarioDTO = new ActividadCuestionarioDTO();
+		cuestionarioDTO.setId(cuestionario.getId());
+		cuestionarioDTO.setIntroduccion(cuestionario.getIntroduccion());
+		cuestionarioDTO.setSeccionCuestionario(cuestionario.getSeccion().getId());
+		List<EnunciadoDTO> listaEnunciados = new ArrayList<EnunciadoDTO>();
+		for (Enunciado enunciado : cuestionario.getEnunciados()) {
+			EnunciadoDTO enunciadoDTO = new EnunciadoDTO();
+			enunciadoDTO.setEnunciado(enunciado.getEnunciado());
+			enunciadoDTO.setId(enunciado.getId());
+			enunciadoDTO.setActividadCuestionario(cuestionario.getId());
+			List<PreguntaAbiertaDTO> preguntasAbiertas = new ArrayList<PreguntaAbiertaDTO>();
+			if (enunciado.getListaPreguntasCompletar() != null) {
+				for (PreguntaAbierta preguntaAbierta : enunciado.getListaPreguntasCompletar()) {
+					PreguntaAbiertaDTO preguntaAbiertaDTO = new PreguntaAbiertaDTO();
+					preguntaAbiertaDTO.setEnunciadoPreguntaAbierta(enunciado.getId());
+					preguntaAbiertaDTO.setId(preguntaAbierta.getId());
+					preguntaAbiertaDTO.setPalabraARellenar(preguntaAbierta.getPalabraARellenar());
+					preguntaAbiertaDTO.setTexto(preguntaAbierta.getTexto());
+					preguntasAbiertas.add(preguntaAbiertaDTO);
+				}
+			}
+			enunciadoDTO.setListaPreguntasCompletar(preguntasAbiertas);
+			List<OpcionMultipleDTO> opcionesMultiples = new ArrayList<OpcionMultipleDTO>();
+			if (enunciado.getListaOpcionesMultiples() != null) {
+				for (OpcionMultiple opcionMultiple : enunciado.getListaOpcionesMultiples()) {
+					OpcionMultipleDTO opcionMultipleDTO = new OpcionMultipleDTO();
+					opcionMultipleDTO.setId(opcionMultiple.getId());
+					opcionMultipleDTO.setEnunciado(opcionMultiple.getEnunciado().getId());
+					opcionMultipleDTO.setPregunta(opcionMultiple.getPregunta());
+					List<OpcionDTO> opciones = new ArrayList<OpcionDTO>();
+					for (Opcion opcion : opcionMultiple.getOpciones()) {
+						OpcionDTO opcionDTO = new OpcionDTO();
+						opcionDTO.setId(opcion.getId());
+						opcionDTO.setOpcionMultiple(opcionMultiple.getId());
+						opcionDTO.setOpcion(opcion.getOpcion());
+						opcionDTO.setValor(opcion.getValor());
+						opciones.add(opcionDTO);
+					}
+					opcionMultipleDTO.setOpciones(opciones);
+					opcionesMultiples.add(opcionMultipleDTO);
+				}
+			}
+			enunciadoDTO.setListaOpcionesMultiples(opcionesMultiples);
+			listaEnunciados.add(enunciadoDTO);
+		}
+		cuestionarioDTO.setEnunciados(listaEnunciados);
+		return cuestionarioDTO;
+	}
 	
 
 

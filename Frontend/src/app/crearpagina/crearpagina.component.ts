@@ -1,3 +1,4 @@
+import { EnlaceService } from './../services/enlace.service';
 import { Component, OnInit } from '@angular/core';
 import { Pagina } from '../model/pagina';
 import { PaginaService } from '../services/pagina.service';
@@ -28,7 +29,8 @@ export class CrearpaginaComponent implements OnInit {
   constructor(private paginaService: PaginaService,
               private modalService: NgbModal,
               public dataService: DataService,
-              private archivoService: ArchivoService) { }
+              private archivoService: ArchivoService,
+              private enlaceService: EnlaceService) { }
 
   ngOnInit(): void {
     this.pagina = new Pagina();
@@ -37,6 +39,7 @@ export class CrearpaginaComponent implements OnInit {
     this.texto = ""
     this.mostrarContenido = false;
     this.listaVideos = new Array<Enlace>();
+
   }
 
   /**
@@ -71,12 +74,12 @@ export class CrearpaginaComponent implements OnInit {
   crearPagina() {
     if (this.pagina.nombrePagina.length > 0) {
       this.pagina.contenidoPagina = this.texto;
-      this.pagina.enlaces = this.listaVideos;
       this.paginaService.crearPagina(this.pagina,this.dataService.seccionDTO.idSeccion).subscribe(
         json => {
           if (json.data != null) {
             Swal.fire('Nueva pagina ', ` ${json.data.nombrePagina} creada con exito !`, 'success');
             this.guardarArchivo(json.data.idPagina);
+            this.guardarVideo(json.data.idPagina);
           }
         }
       );
@@ -107,6 +110,16 @@ export class CrearpaginaComponent implements OnInit {
    * metodo que se encarga de abril el modal que crea los enlaces de youtube
    * @param enlace 
    */
+  guardarVideo(idPagina: number){
+    this.enlaceService.crearEnlace(this.enlaceService.enlace, idPagina ).subscribe(
+      json =>{
+        if(json.data != null){
+        }
+      }
+    )
+  }
+
+
   abrilModalYOUTUBE(enlace: Enlace){
     const modalRef = this.modalService.open(ComponenteyoutubeComponent);
     modalRef.componentInstance.enlace = enlace;

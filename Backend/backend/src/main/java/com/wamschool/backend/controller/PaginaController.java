@@ -26,6 +26,12 @@ import com.wamschool.backend.model.Seccion;
 import com.wamschool.backend.services.PaginaServices;
 import com.wamschool.backend.services.SeccionServices;
 
+
+/** 
+ * Esta clase permite manejar los servicios relacionados a con pagina
+ * @author WamSchool
+ * @version 1.0
+*/
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/pagina")
@@ -36,6 +42,12 @@ public class PaginaController {
 	@Autowired
 	SeccionServices sservice;
 
+	/**
+	 * Metodo que permite crear una pagina en la base de datos
+	 * @param pagina pagina que se desea crear 
+	 * @param idSeccion seccion a la cual pertenecera esa pagina
+	 * @return
+	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/crearPagina")
 	public ResponseEntity<?> crearPagina(@RequestBody Pagina pagina, @RequestParam Long idSeccion) {
@@ -69,6 +81,11 @@ public class PaginaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Metodo que permite listar las paginas que pertenecen a determinada seccion
+	 * @param idSeccion seccion de la cual se quieren listar las paginas
+	 * @return
+	 */
 	@GetMapping("/listarPaginas")
 	public ResponseEntity<?>listarPaginas(@RequestParam Long idSeccion){
 		Map<String, Object> response = new HashMap<>();
@@ -105,6 +122,11 @@ public class PaginaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Metodo que pemite transfornar una entidad del tipo pagina en una clase DTO 
+	 * @param pagina entidad que se desea trasnformar
+	 * @return PaginaDTO
+	 */
 	private PaginaDTO transformarPaginaADTO(Pagina pagina) {
 
 		PaginaDTO paginaDTO = new PaginaDTO();

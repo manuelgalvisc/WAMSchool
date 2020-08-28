@@ -34,6 +34,12 @@ import com.wamschool.backend.model.Pagina;
 import com.wamschool.backend.services.ArchivoServices;
 import com.wamschool.backend.services.PaginaServices;
 
+
+/**
+ * Clase que permite implementar los metodos concernientes con el manejo de los archivos
+ * @author WamSchool
+ * @version 1.0 
+ */
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/archivo")
@@ -44,6 +50,12 @@ public class ArchivoController {
 	@Autowired
 	ArchivoServices archivoServices;
 	
+	/**
+	 * Metodo que permite crear un archivo en una carpeta en el proyecto 
+	 * @param archivo archivo que se desea crear 
+	 * @param idPagina pagina a la cual se le asociara este archivo
+	 * @return
+	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/cargarArchivos")
 	public ResponseEntity<?>cargarArchivo(@RequestParam("archivo") MultipartFile archivo, @RequestParam("idPagina") Long idPagina){
@@ -82,6 +94,11 @@ public class ArchivoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Metodo que devuelve una lista archivos con su respectivo nombre y ruta de ubicacion 
+	 * @param idPagina pagina a la cual pertenece la lista de archivos
+	 * @return
+	 */
 	@GetMapping("/listarArchivos")
 	public ResponseEntity<?> listarArchivos(@RequestParam Long idPagina){
 		Map<String, Object> response = new HashMap<>();
@@ -117,6 +134,11 @@ public class ArchivoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Metodo que permite consultar un archivo por su id
+	 * @param nombreArchivo nombre del archivo que consultaremos 
+	 * @return
+	 */
 	@GetMapping("/Archivos/{nombreArchivo:.+}")
 	public ResponseEntity<Resource>obtenerArchivo(@PathVariable String nombreArchivo){
 		Path rutaArchivo = Paths.get("Archivos").resolve(nombreArchivo);
@@ -138,6 +160,11 @@ public class ArchivoController {
 		
 	}
 	
+	/**
+	 * Metodo que permite trasnformar una entidad del tipo archivo en una clase DTO archivo
+	 * @param archivo entidad para ser trasnformada
+	 * @return archivoDTO clase que sera enviada hacia el frontend
+	 */
 	public ArchivoDTO convertirArchivoToDTO(Archivo archivo) {
 		ArchivoDTO archivoDTO  = new ArchivoDTO();
 		
