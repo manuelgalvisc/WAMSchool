@@ -8,6 +8,10 @@ import { Enlace } from '../model/enlace';
   templateUrl: './componenteyoutube.component.html',
   styleUrls: ['./componenteyoutube.component.css']
 })
+/**
+ * Componente que permite visualizar los videos de youtube,
+ * solo es necesario ingresar el código
+ */
 export class ComponenteyoutubeComponent implements OnInit {
 
   @Input() enlace : Enlace;

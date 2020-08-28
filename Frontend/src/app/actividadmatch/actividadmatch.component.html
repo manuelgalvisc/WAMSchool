@@ -11,11 +11,11 @@
             required #intro="ngModel"></textarea>
     </div>
     <div class="flex fondo">
-        <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps">
+        <div class="container break" dragula="VAMPIRES" [(dragulaModel)]="vamps">
             <div class="vamp" *ngFor="let vamp of vamps">{{ vamp.name }}</div>
         </div>
 
-        <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps2">
+        <div class="container break" dragula="VAMPIRES" [(dragulaModel)]="vamps2">
             <div class="vamp" *ngFor="let vamp of vamps2">{{ vamp.name }}</div>
         </div>
     </div>

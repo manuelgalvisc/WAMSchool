@@ -7,6 +7,9 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './modalemparejamiento.component.html',
   styleUrls: ['./modalemparejamiento.component.css']
 })
+/**
+ * Componente auxiliar Modal para crear las parejas 
+ */
 export class ModalemparejamientoComponent implements OnInit {
 
   constructor(private ngbModal:NgbModal,public ngbActive:NgbActiveModal) { }

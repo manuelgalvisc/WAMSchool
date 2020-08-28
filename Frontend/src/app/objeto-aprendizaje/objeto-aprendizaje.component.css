@@ -1,5 +1,6 @@
-.lineamiento {
-  position: absolute;
-  right: 0%;
-  bottom: 10%;
+.botondiv {
+  margin-bottom: 5rem;
+}
+.centrarTexto{
+  text-align: center;
 }

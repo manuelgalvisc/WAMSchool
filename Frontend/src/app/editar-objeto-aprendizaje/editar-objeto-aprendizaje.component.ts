@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
   templateUrl: './editar-objeto-aprendizaje.component.html',
   styleUrls: ['./editar-objeto-aprendizaje.component.css']
 })
+/**
+ * Componente que se encarga de editar el objeto aprendizaje 
+ */
 export class EditarObjetoAprendizajeComponent implements OnInit {
 
   myForm: FormGroup;
@@ -27,8 +30,6 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
   categorias: Categoria;
   crearSeccionesOA: boolean;
   iscategoriasseleccionadas: boolean;
-
-
 
   constructor(private categoriaService: CategoriaService,
               private dataService: DataService,
@@ -63,10 +64,19 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
       categorias: [this.categoriasSeleccionadas]
   });
   }
+
+  /**
+   * seleccion items categorias
+   * @param item 
+   */
   onItemSelect(item: any) {
     this.categoriasSeleccionadas.push(item);
     this.iscategoriasseleccionadas = false;
   }
+  /**
+   * seleccion todos los items de las categorias
+   * @param items 
+   */
   onSelectAll(items: Categoria[]){
     this.categoriasSeleccionadas = items;
     this.iscategoriasseleccionadas = false;
@@ -81,7 +91,10 @@ export class EditarObjetoAprendizajeComponent implements OnInit {
     }
 
   }
-
+  /**
+   * se encarga de enviar a la seccion, a su editar 
+   * @param idSeccion 
+   */
   editarSeccion(idSeccion: number){
     this.seccionService.buscarSeccionPorId(idSeccion).subscribe( json => {
       if(json.data != null){

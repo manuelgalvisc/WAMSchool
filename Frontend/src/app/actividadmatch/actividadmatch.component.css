@@ -34,4 +34,8 @@ h3, h3 code {
   border-bottom: 1px solid #777;
 }
 
+.break{
+  word-break: break-all;
+}
+
 a:link, a:visited, a:hover, a:active { color: lightblue; }

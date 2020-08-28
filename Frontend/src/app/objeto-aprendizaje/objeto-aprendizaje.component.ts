@@ -18,6 +18,9 @@ import { UserService } from '../services/user.service';
   templateUrl: './objeto-aprendizaje.component.html',
   styleUrls: ['./objeto-aprendizaje.component.css']
 })
+/**
+ * Componente encargado de crear los objetos de aprendizaje 
+ */
 export class ObjetoAprendizajeComponent implements OnInit{
 
   dropdownList = [];
@@ -63,6 +66,11 @@ export class ObjetoAprendizajeComponent implements OnInit{
     };
 
   }
+
+  /**
+   * metodos para el select de categorias
+   * @param item 
+   */
   onItemSelect(item: any) {
     this.categoriasSeleccionadas.push(item);
     this.iscategoriasseleccionadas = false;
@@ -82,8 +90,11 @@ export class ObjetoAprendizajeComponent implements OnInit{
 
 
   }
+///fin de metodos para categorias
 
-
+/**
+ * metodo para crear el objeto de aprendizaje 
+ */
   crearOA(){
 
     if (this.objetoAprendizaje.tituloOA.length === 0

@@ -9,6 +9,9 @@ import { DataService } from '../services/data.service';
   templateUrl: './ahorcado.component.html',
   styleUrls: ['./ahorcado.component.css']
 })
+/**
+ * Componente encargado de realizar la actividad de ahorcado 
+ */
 export class AhorcadoComponent {
 
   ahorcado: Ahorcado = new Ahorcado();
@@ -54,6 +57,10 @@ export class AhorcadoComponent {
     this.palabraOculta = "_ ".repeat(this.palabra.length);
   }
 
+  /**
+   * comprobamos que la letra ingresada se encuentre en la palabra
+   * @param letra 
+   */
   comprobar(letra) {
     this.existeLetra(letra);
     const palabraOcultaArreglo = this.palabraOculta.split(" ");
@@ -65,6 +72,10 @@ export class AhorcadoComponent {
     this.palabraOculta = palabraOcultaArreglo.join(" ");
     this.verificaGanador();
   }
+
+  /**
+   * se encarga de verificar si hay ganador
+   */
   verificaGanador() {
     const palabraArr = this.palabraOculta.split(" ");
     const palabraEvaluar = palabraArr.join("");
@@ -79,6 +90,10 @@ export class AhorcadoComponent {
     }
   }
 
+  /**
+   * se verifica qye la letra existe en la paalabra 
+   * @param letra 
+   */
   existeLetra(letra) {
     if (this.palabra.indexOf(letra) >= 0) {
       //console.log("La letra existe" + letra);
@@ -88,6 +103,9 @@ export class AhorcadoComponent {
 
   }
 
+  /**
+   * Se guarda la palabra  del ahorcado 
+   */
   guardarPalabra(){
     if(this.palabraGuardar.length !== 0){
       if(this.pattern.test(this.palabraGuardar)){

@@ -1,26 +1,28 @@
-<div class="form-group">
-  <h5 style="color: cadetblue">OBJETO DE APRENDIZAJE: {{dataService.objetoAprendizajeDTO.tituloOA}} </h5>
-  <h3 style="color: brown;">CREAR SECCIÓN </h3>
+<div class="container">
+  <div class="form-group centrarTexto">
+    <h5 style="color: cadetblue">OBJETO DE APRENDIZAJE: {{dataService.objetoAprendizajeDTO.tituloOA}} </h5>
+    <h3 style="color: brown;">CREAR SECCIÓN </h3>
+  </div>
+  <br>
+    <div class="form-group">
+      <label for="titulo">Titulo:</label>
+      <input type="text" class="form-control" [(ngModel)]="seccion.nombreSeccion"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
+      <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+        <div *ngIf="titulo.errors.required">El nombre es requerido</div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="descripcion">Descripcion:</label>
+      <textarea class="form-control" [(ngModel)]="seccion.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
+      <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+        <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
+      </div>
+    </div>
+  
+    <div class="container botondiv">
+      <button  type="button" class="btn btn-success m-2 float-right" (click)="crearSeccion()">Crear Seccion</button>
+      <button type="button" class="btn btn-danger m-2 float-right" routerLink="/editarOA">Cancelar</button>
+    </div>
+  
 </div>
-<br>
-  <div class="form-group">
-    <label for="titulo">Titulo:</label>
-    <input type="text" class="form-control" [(ngModel)]="seccion.nombreSeccion"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
-    <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
-      <div *ngIf="titulo.errors.required">El nombre es requerido</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="descripcion">Descripcion:</label>
-    <textarea class="form-control" [(ngModel)]="seccion.descripcion" rows="5" id="desc" [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
-    <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
-      <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
-    </div>
-  </div>
-
-  <div class="lineamiento">
-    <button  type="button" class="btn btn-success m-2" (click)="crearSeccion()">Crear Seccion</button>
-    <button type="button" class="btn btn-danger m-2" routerLink="/editarOA">Cancelar</button>
-
-  </div>

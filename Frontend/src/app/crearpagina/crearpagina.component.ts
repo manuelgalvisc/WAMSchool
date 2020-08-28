@@ -15,6 +15,9 @@ import { ArchivoService } from '../services/archivo.service';
   templateUrl: './crearpagina.component.html',
   styleUrls: ['./crearpagina.component.css']
 })
+/**
+ * Componente para crear las paginas
+ */
 export class CrearpaginaComponent implements OnInit {
 
   pagina: Pagina;
@@ -36,15 +39,25 @@ export class CrearpaginaComponent implements OnInit {
     this.listaVideos = new Array<Enlace>();
   }
 
+  /**
+   * se encarga de cambiar el contenido cada vez que registra un cambio en el texto
+   * @param $event 
+   */
   cargaContenido($event) {
-    console.log($event);
+    //console.log($event);
     this.texto = $event;
   }
 
+  /**
+   * muestra el contenido 
+   */
   mostrarConte() {
     this.mostrarContenido = this.mostrarContenido === false ? true : false;
   }
 
+  /**
+   * muestra el modal donde se reproducen los videos  
+   */
   mostrarModal() {
     const modalRef = this.modalService.open(ModalenlacesvideosComponent);
     modalRef.result.then((r)=>{
@@ -52,6 +65,9 @@ export class CrearpaginaComponent implements OnInit {
     });
   }
 
+  /**
+   * crea la pagina y valida que tenga nombre 
+   */
   crearPagina() {
     if (this.pagina.nombrePagina.length > 0) {
       this.pagina.contenidoPagina = this.texto;
@@ -67,6 +83,10 @@ export class CrearpaginaComponent implements OnInit {
     }
   }
 
+  /**
+   * metodo encargado de guardar los archivos en el servidor
+   * @param idPagina 
+   */
   guardarArchivo(idPagina: number): void{
     if(this.archivoService.listaArchivos != null){
       for(let i = 0; i<this.archivoService.listaArchivos.length; i++){
@@ -83,14 +103,25 @@ export class CrearpaginaComponent implements OnInit {
 
   }
 
+  /**
+   * metodo que se encarga de abril el modal que crea los enlaces de youtube
+   * @param enlace 
+   */
   abrilModalYOUTUBE(enlace: Enlace){
     const modalRef = this.modalService.open(ComponenteyoutubeComponent);
     modalRef.componentInstance.enlace = enlace;
   }
 
+  /**
+   * metodo que se encarga de abrir el modal donde se carga los archivos
+   */
   abrilModalCargaArchivo(){
     const modalRef = this.modalService.open(ModalcargaarchivosComponent);
   }
+  /**
+   * metodo que se encarga de eliminar los enlaces
+   * @param identificador 
+   */
   eliminarEnlace(identificador : number){
     console.log(identificador);
     this.listaVideos.splice(identificador,1);

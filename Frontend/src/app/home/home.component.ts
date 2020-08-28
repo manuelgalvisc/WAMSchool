@@ -21,6 +21,9 @@ import { VisorService } from '../services/visor.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+/**
+ * Componente inicial donde se hace la consulta de los Objetos de apredizaje 
+ */
 export class HomeComponent implements OnInit {
 
   /// categorias
@@ -118,6 +121,7 @@ export class HomeComponent implements OnInit {
           }
         }
       );
+      //busqueda por categoria seleccionada
     }else if(this.busquedaPorCategorias){
       console.log(this.numeroPagina);
       this.consultasService.filtrarPorCategorias(this.categoriasFiltro,this.numeroPagina).subscribe(
@@ -134,6 +138,7 @@ export class HomeComponent implements OnInit {
           }
         }
       );
+      ///busqueda por texto 
     }else if(this.busquedaPorTexto){
       console.log(this.numeroPagina);
       this.consultasService.filtrarPorTexto(this.textConsulta,this.numeroPagina).subscribe(
@@ -153,6 +158,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * metodos para la paginacion 
+   */
   public ultimaPagina(): void {
     if (this.primeraPaginacion) {
       this.traerPaginacion(this.numeroPagina);
@@ -187,7 +195,12 @@ export class HomeComponent implements OnInit {
   mostrarTabla(): boolean {
     return this.listaObjetoAprendizajeDTO.length > 0;
   }
+///fin metodos paginacion
 
+/**
+ * 
+ * @param item metodos para la selecion de caracteristicas
+ */
   onItemSelect(item: Categoria) {
     this.categoriasFiltro.push(item);
   }
@@ -201,10 +214,12 @@ export class HomeComponent implements OnInit {
         this.categoriasFiltro.splice(i);
       }
     }
-
-
   }
+//fin metodos categorias
 
+/**
+ * metodo encargado de consultar por categorias de no ser la primera paginacion
+ */
   listarCategorias(){
     console.log(this.categoriasFiltro);
     //se desactiva la pag por defecto
@@ -237,6 +252,9 @@ export class HomeComponent implements OnInit {
   }
 
 
+  /**
+   * metodo encargado de buscar por texto 
+   */
   listarPorTexto(){
     this.busquedaPorTexto = true;
     this.busquedaPorCategorias = false;
@@ -266,6 +284,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * metodo encargado de llamar el modal donde se visualiza la info
+   * @param oaInput 
+   */
   mostrarModal(oaInput : ObjetoAprendizajeDTO) {
     var sec : Array<Seccion> = this.traerListaSecciones(oaInput.idOA);
     oaInput.secciones =  sec;
@@ -273,6 +295,10 @@ export class HomeComponent implements OnInit {
     modalRef.componentInstance.oa = oaInput;
   }
 
+  /**
+   * metodo encargado de cargar el editar objeto de aprendizje
+   * @param oa 
+   */
   editarOA(oa : ObjetoAprendizajeDTO){
     let sec : Array<Seccion> = this.traerListaSecciones(oa.idOA);
     oa.secciones = sec;
@@ -280,6 +306,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/editarOA']);
   }
 
+  /**
+   * metodo encargado de cargar la lista de secciones
+   * @param idOA 
+   */
   traerListaSecciones(idOA : number): Array<Seccion> {
     var listaSecciones : Array<SeccionDTO> = [];
     var listaSeccionesFinal : Array<Seccion> = [];
@@ -297,6 +327,10 @@ export class HomeComponent implements OnInit {
     return listaSeccionesFinal;
   }
 
+  /**
+   * convierte una seccion a dto
+   * @param dto 
+   */
   convertirSeccionDTOASeccion(dto : SeccionDTO):Seccion{
     let seccion :Seccion  = new Seccion();
       seccion.id = dto.idSeccion;
@@ -307,6 +341,10 @@ export class HomeComponent implements OnInit {
     return seccion;
   }
 
+  /**
+   * enviar al componente de visualizar
+   * @param oa 
+   */
   ejecutarOA(oa: ObjetoAprendizajeDTO) {
     let seccion: Array<Seccion> = this.traerListaSecciones(oa.idOA);
     oa.secciones = seccion;

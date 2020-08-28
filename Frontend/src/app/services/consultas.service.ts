@@ -16,6 +16,9 @@ export class ConsultasService {
   constructor(private http: HttpClient) { }
 
 
+  /**
+   * metodo encargado de traer todos los oa
+   */
   public listasOA(): Observable<any> {
 
     const url = 'http://localhost:9000/api/oa/listarOA';
@@ -23,6 +26,10 @@ export class ConsultasService {
     return this.http.get<any>(url);
   }
 
+  /**
+   * metodo encargado de traer los oa sn filtro paginados
+   * @param pagina 
+   */
   public listasOApag(pagina: number): Observable<any> {
 
     const url = 'http://localhost:9000/api/oa/listarOApag';
@@ -33,6 +40,11 @@ export class ConsultasService {
     return this.http.get<any>(url, { params });
   }
 
+  /**
+   * metodo encargado de traer los oa filtardos por categorias
+   * @param categoria 
+   * @param pagina 
+   */
   public filtrarPorCategorias(categoria: Categoria[], pagina: number): Observable<any> {
 
     const url = 'http://localhost:9000/api/oa/listarOAcategorias';
@@ -59,6 +71,11 @@ export class ConsultasService {
 
   }
 
+  /**
+   * 
+   * @param texto metodo encargado de traer los oa por el filtro de texto
+   * @param pagina 
+   */
   public filtrarPorTexto(texto: string, pagina: number): Observable<any> {
 
     const url = 'http://localhost:9000/api/oa/listarOAtexto';

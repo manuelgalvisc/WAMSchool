@@ -10,6 +10,9 @@ import { ArchivoService } from '../services/archivo.service';
   templateUrl: './modalcargaarchivos.component.html',
   styleUrls: ['./modalcargaarchivos.component.css']
 })
+/**
+ * Componente auxiliar, modal para la carga de archivos
+ */
 export class ModalcargaarchivosComponent implements OnInit {
 
 
@@ -29,6 +32,10 @@ export class ModalcargaarchivosComponent implements OnInit {
     this.advertenciaTamaño = false;
   }
 
+  /**
+   * Metodo para subir el archivo 
+   * @param event 
+   */
   public subirArchivo(event): void{
       this.Archivo = event.target.files[0];
       if(this.Archivo.size >= this.tamañoMaximo){

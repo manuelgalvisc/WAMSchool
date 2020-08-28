@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
   templateUrl: './seccion.component.html',
   styleUrls: ['./seccion.component.css']
 })
+/**
+ * componente encargado de crear las secciones 
+ */
 export class SeccionComponent implements OnInit {
 
   public seccion: Seccion = new Seccion();
@@ -24,6 +27,9 @@ export class SeccionComponent implements OnInit {
     this.seccion.nombreSeccion = '';
   }
 
+  /**
+   * metodo encargado de crear la seccion , se validan los campos 
+   */
   crearSeccion(): void{
     if (this.seccion.nombreSeccion.length === 0
       || this.seccion.descripcion.length === 0){

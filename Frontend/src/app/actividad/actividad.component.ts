@@ -8,8 +8,11 @@ import Swal from 'sweetalert2';
   templateUrl: './actividad.component.html',
   styleUrls: ['./actividad.component.css']
 })
+/**
+ * Componente encargado de soportar el item de crear actividad
+ */
 export class ActividadComponent implements OnInit {
-s
+
   listaActividades : Array<String>;
   mostrarAlerta : boolean;
   ocultarSelect : boolean;
@@ -30,6 +33,11 @@ s
   ngOnInit(): void {
   }
 
+  /**
+   * metodo que se encarga de enrutar al componente que va a crear la actividad, solicita la
+   * descripción de la actividad
+   * @param tipoActividad 
+   */
   seleccionActividad(tipoActividad : string){
     if(tipoActividad === this.listaActividades[0]){
       this.mostrarAlerta = true;
@@ -51,6 +59,9 @@ s
 
   }
 
+  /**
+   * Accion del boton cancelar
+   */
   desactivarBtnCancelar(){
 
     this.router.navigate(['/crearActividad']);

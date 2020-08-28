@@ -15,6 +15,9 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * metodo encargado de traer todas las categorias
+   */
   getCategorias(): Observable<any>{
     return this.http.get<any>(this.urlEndPoint).pipe(
       catchError( e =>{

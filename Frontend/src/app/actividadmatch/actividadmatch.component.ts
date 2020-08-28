@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
   templateUrl: './actividadmatch.component.html',
   styleUrls: ['./actividadmatch.component.css']
 })
+/**
+ * Componente que se encarga de crear la actividad de emparejamiento
+ */
 export class ActividadmatchComponent implements OnInit {
 
   parejas :ParejaItem[];
@@ -46,6 +49,9 @@ export class ActividadmatchComponent implements OnInit {
     this.introduccion = "";
   }
 
+  /**
+   * metodo que se encarga una pareja con dos cadenas
+   */
   AgregarPareja() {
     this.ngbModal.open(ModalemparejamientoComponent).result.then(
       (r)=>{
@@ -58,6 +64,10 @@ export class ActividadmatchComponent implements OnInit {
     );
   }
 
+  /**
+   * metodo crear, realiza las validaciones de que no se halla desagrupado las columnas y que halla
+   * una introducción y una pareja 
+   */
   crear(){
     if(this.parejas.length > 0 && this.vamps.length === this.vamps2.length && this.introduccion.length > 0){
       let actividad : ActividadEmparejamiento = new ActividadEmparejamiento();

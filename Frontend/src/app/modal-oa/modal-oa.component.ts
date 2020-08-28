@@ -8,6 +8,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './modal-oa.component.html',
   styleUrls: ['./modal-oa.component.css']
 })
+/**
+ * Modal encargado de mostrar la info del oa
+ */
 export class ModalOaComponent implements OnInit {
 
   @Input() oa : ObjetoAprendizajeDTO;
@@ -25,10 +28,16 @@ export class ModalOaComponent implements OnInit {
     return this.oa.estadoOA === 'ACTIVO';
   }
 
+  /**
+   * muestra las secciones si el oa tiene 
+   */
   mc(){
     this.mostrarCategorias = this.mostrarCategorias == true ? false : true; 
   }
 
+  /**
+   * mostrar secciones si el oa tiene 
+   */
   ms(){
     this.mostrarSecciones = this.mostrarSecciones == true ? false : true;
   }

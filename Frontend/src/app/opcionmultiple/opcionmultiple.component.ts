@@ -9,6 +9,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './opcionmultiple.component.html',
   styleUrls: ['./opcionmultiple.component.css']
 })
+/**
+ * Componente auxiliar Modal para crear la pregunta del tipo opcion multiple
+ * revisar padre cuestionario
+ */
 export class OpcionmultipleComponent implements OnInit {
 
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) { }
@@ -26,6 +30,10 @@ export class OpcionmultipleComponent implements OnInit {
     this.mssError = "";
   }
 
+  /**
+   * Agrega la opcion 
+   * @param num 
+   */
   add(num : number){
     if(num > 1){
       this.numeroOpciones = num;
@@ -43,6 +51,9 @@ export class OpcionmultipleComponent implements OnInit {
     }
   }
 
+  /**
+   * crea la pregunta 
+   */
   crear(){
     this.mssError = "";
     console.log(this.opcionMultiple);
@@ -51,6 +62,9 @@ export class OpcionmultipleComponent implements OnInit {
       }
   }
 
+  /**
+   * valida las opciones para la pregunta 
+   */
   validarOpciones() : boolean {
     for(let op of this.opcionMultiple.opciones){
       if(op.opcion.length < 1){
@@ -61,6 +75,9 @@ export class OpcionmultipleComponent implements OnInit {
     return true;
   }
 
+  /**
+   * valida que exista por lo menos una opcion verdadera
+   */
   existeVerdadero():boolean{
     let cont  = 0;
     for(let op of this.opcionMultiple.opciones){
@@ -80,11 +97,14 @@ export class OpcionmultipleComponent implements OnInit {
     this.opcionMultiple.opciones[numOpcion].valor = this.opcionMultiple.opciones[numOpcion].valor === true ? false : true;
   }
 
+  /**
+   * se valida que la pregunta se halla ingresado
+   */
   area():boolean{
     if(this.opcionMultiple.pregunta != null && this.opcionMultiple.pregunta.length > 1){
       return true;
     }
-    this.mssError = this.mssError.concat(this.mssError,"\n\r Debe diligenciar el cambo de la pregunta");
+    this.mssError = this.mssError.concat(this.mssError,"\n\r Debe diligenciar el campo de la pregunta");
     return false;
   }
 

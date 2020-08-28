@@ -9,6 +9,9 @@ import { Seccion } from '../model/seccion';
   templateUrl: './editar-seccion.component.html',
   styleUrls: ['./editar-seccion.component.css']
 })
+/**
+ * componente encargado de edita la seccion ya creada
+ */
 export class EditarSeccionComponent implements OnInit {
 
   public seccionDTO: SeccionDTO = new SeccionDTO();
