@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { VisorService } from '../services/visor.service';
 import { DataService } from '../services/data.service';
+import { EnlaceService } from '../services/enlace.service';
 
 import { Pagina } from '../model/pagina';
 import { Seccion } from '../model/seccion';
@@ -21,13 +22,19 @@ export class VisorComponent implements OnInit {
   actividadSeleccionada: Pagina;
   pdfSrc: string;
   listaArchivos: ArchivoDTO[];
+  contenidoBool: boolean = false;
+  tienePDF: boolean = false;
+  videoBool: boolean = false;
+  enlacesVideos: String[];
 
   constructor(private _visorService: VisorService,
-              private dataService: DataService) { }
+              private dataService: DataService,
+              private enlaceService: EnlaceService) { }
 
   ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
       this.visorService.oa = this.visorService.obtenerOA();
+      this.guardarSeccionesOA();
     }
     for(let i = 0; i < this.visorService.oa.categorias.length; i++) {
       this.categorias = this.categorias + this.visorService.oa.categorias[i].nombre;
@@ -38,19 +45,56 @@ export class VisorComponent implements OnInit {
     this.iniciado = false;
     this.listaArchivos = new Array<ArchivoDTO>();
     this.seccionesCompletas = new Array();
+    this.enlacesVideos = new Array();
+  }
+
+  guardarSeccionesOA() {
+    if(this.visorService.oa.secciones.length == 0) {
+      let idOA = [this.visorService.oa.idOA];
+      this.visorService.traerSecciones(idOA).subscribe(response => {
+        for (let i = 0; i < response.data.length; i++) {
+          this.visorService.oa.secciones.push({
+            id: response.data[i].idSeccion,
+            objetoAprendizaje: response.data[i].idOA,
+            posInOA: response.data[i].posInOA,
+            descripcion: response.data[i].descripcion,
+            nombreSeccion: response.data[i].nombreSeccion
+          });
+        }
+        this.visorService.guardarOA(this.visorService.oa);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   actividadesSecciones(): void {
-    for (let i of this.visorService.oa.secciones) {
-      let seccionAux: secciones = {
-        seccion: i,
-        paginas: this.dataService.traerListaPaginas(i.id)
-      };
-      this.seccionesCompletas.push(seccionAux);
+    if(this.seccionesCompletas.length==0) {
+      for (let i of this.visorService.oa.secciones) {
+        let seccionAux: secciones = {
+          seccion: i,
+          paginas: this.dataService.traerListaPaginas(i.id)
+        };
+        this.seccionesCompletas.push(seccionAux);
+      }
+      this.iniciado = true;
     }
-    this.iniciado = true;
   }
 
+  cargarVideos() {
+    this.videoBool = (this.videoBool == false ? true : false);
+    if(this.actividadSeleccionada != undefined) {
+      let idPagina = [this.actividadSeleccionada.id];
+      this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
+        for (let i = 0; i < response.data.length; i++) {
+          let url = "https://www.youtube.com/embed/";
+          this.enlacesVideos.push(url.concat(response.data[i].url));
+        }
+      });
+      console.log(this.enlacesVideos);
+
+    }
+  }
 
   seccionSeleccionada(item: Seccion) {
     this.seleccionado = (this.seleccionado === item ? null : item);

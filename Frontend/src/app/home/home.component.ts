@@ -22,7 +22,7 @@ import { VisorService } from '../services/visor.service';
   styleUrls: ['./home.component.css']
 })
 /**
- * Componente inicial donde se hace la consulta de los Objetos de apredizaje 
+ * Componente inicial donde se hace la consulta de los Objetos de apredizaje
  */
 export class HomeComponent implements OnInit {
 
@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
           }
         }
       );
-      ///busqueda por texto 
+      ///busqueda por texto
     }else if(this.busquedaPorTexto){
       console.log(this.numeroPagina);
       this.consultasService.filtrarPorTexto(this.textConsulta,this.numeroPagina).subscribe(
@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * metodos para la paginacion 
+   * metodos para la paginacion
    */
   public ultimaPagina(): void {
     if (this.primeraPaginacion) {
@@ -198,7 +198,7 @@ export class HomeComponent implements OnInit {
 ///fin metodos paginacion
 
 /**
- * 
+ *
  * @param item metodos para la selecion de caracteristicas
  */
   onItemSelect(item: Categoria) {
@@ -253,7 +253,7 @@ export class HomeComponent implements OnInit {
 
 
   /**
-   * metodo encargado de buscar por texto 
+   * metodo encargado de buscar por texto
    */
   listarPorTexto(){
     this.busquedaPorTexto = true;
@@ -286,7 +286,7 @@ export class HomeComponent implements OnInit {
 
   /**
    * metodo encargado de llamar el modal donde se visualiza la info
-   * @param oaInput 
+   * @param oaInput
    */
   mostrarModal(oaInput : ObjetoAprendizajeDTO) {
     var sec : Array<Seccion> = this.traerListaSecciones(oaInput.idOA);
@@ -297,7 +297,7 @@ export class HomeComponent implements OnInit {
 
   /**
    * metodo encargado de cargar el editar objeto de aprendizje
-   * @param oa 
+   * @param oa
    */
   editarOA(oa : ObjetoAprendizajeDTO){
     let sec : Array<Seccion> = this.traerListaSecciones(oa.idOA);
@@ -308,7 +308,7 @@ export class HomeComponent implements OnInit {
 
   /**
    * metodo encargado de cargar la lista de secciones
-   * @param idOA 
+   * @param idOA
    */
   traerListaSecciones(idOA : number): Array<Seccion> {
     var listaSecciones : Array<SeccionDTO> = [];
@@ -329,7 +329,7 @@ export class HomeComponent implements OnInit {
 
   /**
    * convierte una seccion a dto
-   * @param dto 
+   * @param dto
    */
   convertirSeccionDTOASeccion(dto : SeccionDTO):Seccion{
     let seccion :Seccion  = new Seccion();
@@ -343,10 +343,10 @@ export class HomeComponent implements OnInit {
 
   /**
    * enviar al componente de visualizar
-   * @param oa 
+   * @param oa
    */
   ejecutarOA(oa: ObjetoAprendizajeDTO) {
-    let seccion: Array<Seccion> = this.traerListaSecciones(oa.idOA);
+    let seccion: Array<Seccion> = new Array();
     oa.secciones = seccion;
     this.visorService.oa = oa;
     this.visorService.guardarOA(this.visorService.oa);

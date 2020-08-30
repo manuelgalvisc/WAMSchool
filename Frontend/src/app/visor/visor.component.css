@@ -2,41 +2,10 @@
   border-radius: 50%;
 }
 
-a:hover {
-  background-color: #292b2c;
-  opacity: 0.6;
-  color: white;
-  border-style: none;
-  cursor: pointer;
-}
-
-.pag:hover {
-  background-color: #5cb85c;
-  opacity: 0.6;
-  color: white;
-  border-style: none;
-}
-
-.fondo {
-  border-style: none;
-}
-
-.active {
-  background-color: #292b2c;
-  color: white;
-  border-style: none;
-}
-
-.activePag {
-  background-color: #5cb85c;
-  color: white;
-  border-style: none;
-}
-
-.pagina {
-  display: block;
-}
-
-.nopag {
-  display: none;
+#my_pdf_viewer {
+  height: 1000px;
+	width: 100%;
+	border: 1px solid #ddd;
+	background: #f1f1f1;
+	overflow-y: scroll;
 }

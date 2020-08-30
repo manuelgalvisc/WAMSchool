@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UserService } from './user.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, from } from 'rxjs';
 import { Enlace } from '../model/enlace';
-import { catchError } from 'rxjs/operators';
+import { catchError, concatMap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -48,17 +48,10 @@ export class EnlaceService {
 
   }
 
-  public listarEnlaces(idPagina: number): Observable<any>{
+  public listarEnlaces(idPagina: number[]): any{
     const url = 'http://localhost:9000/api/enlace/listarEnlaces';
-
-    let httpHeaders = new HttpHeaders();
-    let params0 = new HttpParams();
-    params0 = params0.append('idPagina', idPagina.toString());
-
-    return this.http.get<any>(url, {
-      headers: httpHeaders,
-      params: params0,
-    });
-
+    return from(idPagina).pipe(
+      concatMap(id => <Observable<any>> this.http.get(url, {params: new HttpParams().append('idPagina', id.toString())}))
+    );
   }
 }

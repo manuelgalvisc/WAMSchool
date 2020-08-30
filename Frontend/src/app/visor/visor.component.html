@@ -23,7 +23,7 @@
         <div class="card" *ngFor="let seccion of seccionesCompletas">
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
-              <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="seccionSeleccionada(seccion.seccion)">
                 {{seccion.seccion.nombreSeccion}}
               </button>
             </h2>
@@ -31,13 +31,51 @@
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionMenu">
             <div class="card-body">
               <div class="btn-group-vertical btn-block">
-                <button type="button" class="btn text-left" *ngFor="let pagina of seccion.paginas pag">
+                <button type="button" class="btn text-left" *ngFor="let pagina of seccion.paginas pag" (click)="actividadSel(pagina)">
                   {{pagina.nombrePagina}}
                 </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-2">
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="contenidoBool = (contenidoBool == false ? true : false);">Contenido</button>
+    <div class="card">
+      <div id="contenido" class="card-body"></div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="tienePDF = (tienePDF == false ? true : false);">PDF</button>
+    <div class="card" *ngIf="tienePDF">
+      <div id="contenido" class="card-body">
+        <div id="my_pdf_viewer">
+          <pdf-viewer
+            [src] = "pdfSrc"
+            [render-text] = "true"
+            stryle = "display: block;">
+          </pdf-viewer>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarVideos()">Videos</button>
+    <div id="video_viewer" *ngIf="videoBool">
+      <div id="carouselControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" *ngFor="let video of enlacesVideos">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" [src]="video | safe" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
     </div>
   </div>

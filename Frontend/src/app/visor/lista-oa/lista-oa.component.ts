@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
-@Component({
-  selector: 'app-lista-oa',
-  templateUrl: './lista-oa.component.html',
-  styleUrls: ['./lista-oa.component.css']
+@Pipe({
+  name: 'safe'
 })
-export class ListaOAComponent implements OnInit {
+export class ListaOAComponent implements PipeTransform {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private sanitizer: DomSanitizer) { }
+  
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-
 }
