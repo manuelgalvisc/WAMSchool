@@ -111,12 +111,18 @@ export class CrearpaginaComponent implements OnInit {
    * @param enlace 
    */
   guardarVideo(idPagina: number){
-    this.enlaceService.crearEnlace(this.enlaceService.enlace, idPagina ).subscribe(
-      json =>{
-        if(json.data != null){
-        }
+    if(this.enlaceService.listaEnlaces != null){
+      for(let i = 0; i<this.enlaceService.listaEnlaces.length; i++){
+        this.enlaceService.crearEnlace(this.enlaceService.listaEnlaces[i], idPagina ).subscribe(
+          json =>{
+            if(json.data != null){
+            }
+          }
+        )
       }
-    )
+
+    }
+
   }
 
 

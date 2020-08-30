@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class EnlaceService {
 
+  listaEnlaces: Array<Enlace> = new Array<Enlace>();
   constructor(private http: HttpClient,
               private userService: UserService) { }
-  enlace: Enlace;
+
   private httpOptions = new HttpHeaders({'Content-Type':  'application/json'});
 
   public crearEnlace(enlace: Enlace,idPagina: number): Observable<any>{
