@@ -26,6 +26,7 @@ export class VisorComponent implements OnInit {
   tienePDF: boolean = false;
   videoBool: boolean = false;
   enlacesVideos: String[];
+  videoInicial: String;
 
   constructor(private _visorService: VisorService,
               private dataService: DataService,
@@ -86,13 +87,12 @@ export class VisorComponent implements OnInit {
     if(this.actividadSeleccionada != undefined) {
       let idPagina = [this.actividadSeleccionada.id];
       this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
-        for (let i = 0; i < response.data.length; i++) {
-          let url = "https://www.youtube.com/embed/";
+        let url = "https://www.youtube.com/embed/";
+        this.videoInicial = url.concat(response.data[0].url);
+        for (let i = 1; i < response.data.length; i++) {
           this.enlacesVideos.push(url.concat(response.data[i].url));
         }
       });
-      console.log(this.enlacesVideos);
-
     }
   }
 

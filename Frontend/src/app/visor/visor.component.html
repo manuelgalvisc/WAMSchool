@@ -60,9 +60,14 @@
     </div>
     <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarVideos()">Videos</button>
     <div id="video_viewer" *ngIf="videoBool">
-      <div id="carouselControls" class="carousel slide" data-ride="carousel">
+      <div id="carouselControls" class="carousel slide" data-pause="hover">
         <div class="carousel-inner">
-          <div class="carousel-item active" *ngFor="let video of enlacesVideos">
+          <div class="carousel-item active">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" [src]="videoInicial | safe" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="carousel-item" *ngFor="let video of enlacesVideos">
             <div class="embed-responsive embed-responsive-16by9">
               <iframe class="embed-responsive-item" [src]="video | safe" allowfullscreen></iframe>
             </div>
