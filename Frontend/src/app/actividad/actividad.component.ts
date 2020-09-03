@@ -31,12 +31,14 @@ export class ActividadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mostrarBtnCancelar = false;
+    this.ocultarSelect = false;
   }
 
   /**
    * metodo que se encarga de enrutar al componente que va a crear la actividad, solicita la
    * descripción de la actividad
-   * @param tipoActividad 
+   * @param tipoActividad
    */
   seleccionActividad(tipoActividad : string){
     if(tipoActividad === this.listaActividades[0]){
