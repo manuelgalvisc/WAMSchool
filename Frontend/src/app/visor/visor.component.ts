@@ -1,3 +1,4 @@
+import { MostrarAhorcadoComponent } from './../mostrar-ahorcado/mostrar-ahorcado.component';
 import { AhorcadoComponent } from './../ahorcado/ahorcado.component';
 import { Component, OnInit } from '@angular/core';
 
@@ -40,8 +41,7 @@ export class VisorComponent implements OnInit {
               private dataService: DataService,
               private enlaceService: EnlaceService,
               private actividadesServices : ActividadService,
-              private ngbModal: NgbModal,
-              private modalService: NgbModal) { }
+              private ngbModal: NgbModal) { }
 
   ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
@@ -221,7 +221,9 @@ export class VisorComponent implements OnInit {
     }else if(tipoActividad === 2){
 
     }else if(tipoActividad === 3){
-      const modalRef = this.modalService.open(AhorcadoComponent);
+      this.ngbModal.open(MostrarAhorcadoComponent);
+      this.dataService.ahorcado = actividad;
+      this.dataService.modoEdicion = false;
     }
   }
 }
