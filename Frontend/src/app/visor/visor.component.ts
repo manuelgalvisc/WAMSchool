@@ -1,3 +1,4 @@
+import { AhorcadoComponent } from './../ahorcado/ahorcado.component';
 import { Component, OnInit } from '@angular/core';
 
 import { VisorService } from '../services/visor.service';
@@ -38,7 +39,8 @@ export class VisorComponent implements OnInit {
               private dataService: DataService,
               private enlaceService: EnlaceService,
               private actividadesServices : ActividadService,
-              private ngbModal: NgbModal) { }
+              private ngbModal: NgbModal,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
@@ -214,11 +216,11 @@ export class VisorComponent implements OnInit {
   llamarModalActividad(index : number){
     let tipoActividad = this.listaReferenciasActividades[index];
     if(tipoActividad === 1){
-      
+
     }else if(tipoActividad === 2){
 
     }else if(tipoActividad === 3){
-
+      const modalRef = this.modalService.open(AhorcadoComponent);
     }
   }
 }

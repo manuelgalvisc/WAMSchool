@@ -4,6 +4,7 @@ import { Ahorcado } from './../model/ahorcado';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DataService } from '../services/data.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ahorcado',
@@ -54,7 +55,9 @@ export class AhorcadoComponent {
     "y",
     "z"
   ];
-  constructor(private actividadService: ActividadService,
+  constructor(private modalService: NgbModal,
+              public activeModal: NgbActiveModal,
+              private actividadService: ActividadService,
               private dataService: DataService,
               private router: Router) {
     this.palabraOculta = "_ ".repeat(this.palabra.length);
