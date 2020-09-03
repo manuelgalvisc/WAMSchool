@@ -12,6 +12,7 @@ import { ActividadCuestionario } from '../model/actividadCuestionario';
 import { ActividadService } from '../services/actividad.service';
 import { ActividadEmparejamiento } from '../model/actividadEmparejamiento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VisualizarCuestionarioComponent } from '../visualizar-cuestionario/visualizar-cuestionario.component';
 
 @Component({
   selector: 'app-visor',
@@ -213,10 +214,10 @@ export class VisorComponent implements OnInit {
     return "defecto";
   }
 
-  llamarModalActividad(index : number){
+  llamarModalActividad(index : number,actividad : any){
     let tipoActividad = this.listaReferenciasActividades[index];
     if(tipoActividad === 1){
-
+      this.ngbModal.open(VisualizarCuestionarioComponent).componentInstance.actividad = actividad;
     }else if(tipoActividad === 2){
 
     }else if(tipoActividad === 3){
