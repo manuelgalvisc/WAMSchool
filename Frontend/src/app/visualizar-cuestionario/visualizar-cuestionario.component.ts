@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChildren, QueryList} from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Enunciado } from '../model/enunciado';
 import { OpcionMultiple } from '../model/opcionMultiple';
 import { PreguntaAbierta } from '../model/preguntaAbierta';
+import { Opcion } from '../model/opcion';
 
 @Component({
   selector: 'app-visualizar-cuestionario',
@@ -15,11 +16,18 @@ export class VisualizarCuestionarioComponent implements OnInit {
 
   titulo : string;
   listaEnunciados: Enunciado[];
+  listaTuplas : any[];
+  logPreguntas : string[];
+
   @Input() actividad : any;
+
+  @ViewChildren('resPA') respuestasPreguntasAbiertas : QueryList<ElementRef>;
+
   ngOnInit(): void {
-    this.listaEnunciados = this.actividad.enunciados;
-    this.llenarListasPreguntas();
+    this.listaTuplas = new Array();
+    this.listaEnunciados = this.convertirInputAInstacia();
     this.titulo = "Cuestionario";
+    this.logPreguntas = new Array();
   }
 
     /**
@@ -52,6 +60,8 @@ export class VisualizarCuestionarioComponent implements OnInit {
 
   convertirInputAInstacia():Enunciado[]{
     var enunciados : Enunciado[] = new Array();
+    let contE = 0;
+    let contO = 0;
     for (const iterator of this.actividad.enunciados) {
       let enun : Enunciado = new Enunciado();
       enun.id = iterator.id;
@@ -59,7 +69,55 @@ export class VisualizarCuestionarioComponent implements OnInit {
       enun.listaOpcionesMultiples = new Array();
       enun.listaPreguntasCompletar = new Array();
       enun.listaPreguntas = new Array();
+      for (const op of iterator.listaOpcionesMultiples) {
+        let opcionMultiple :OpcionMultiple = new OpcionMultiple();
+        opcionMultiple.id = op.id;
+        opcionMultiple.pregunta = op.pregunta;
+        opcionMultiple.opciones = new Array();
+        for (const p of op.opciones) {
+          let opcion : Opcion = new Opcion();
+          opcion.id = p.id;
+          opcion.opcion = p.opcion;
+          opcion.valor = p.valor;
+          opcionMultiple.opciones.push(opcion);
+        }
+        this.listaTuplas.push([contE,contO,opcionMultiple.opciones.length -1]);
+        enun.listaOpcionesMultiples.push(opcionMultiple);
+        enun.listaPreguntas.push(opcionMultiple);
+        contO++;
+      }
+
+      for (const pa of iterator.listaPreguntasCompletar) {
+        let pregunta : PreguntaAbierta = new PreguntaAbierta();
+        pregunta.id = pa.id;
+        pregunta.palabraARellenar = pa.palabraARellenar;
+        pregunta.texto = pa.texto;
+        enun.listaPreguntasCompletar.push(pregunta);
+        enun.listaPreguntas.push(pregunta);
+      }
+      enunciados.push(enun);
+      contE++;
     }
     return enunciados;
+  }
+
+  traerRespuestasPreguntasAbiertas():string[]{
+    let listaRespuestas :string [] = new Array();
+    for (const iterator of this.respuestasPreguntasAbiertas) {
+      listaRespuestas.push(iterator.nativeElement.value);
+    }
+    return listaRespuestas;
+  }
+
+  onChange(i:number, k: number, j:number){
+    for (const iterator of this.listaTuplas) {
+      if(iterator[1]===k && iterator[0] === i){
+        iterator[2]=j;
+      }
+    }
+  }
+
+  validarFormulario(){
+
   }
 }

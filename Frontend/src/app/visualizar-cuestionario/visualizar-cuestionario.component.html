@@ -24,14 +24,14 @@
                                             [ngClass]="{'celdaOscurita':!odd,'blanco':odd}">
                                             <p class="text-justify">{{sacarPalabraCompletar(k,i)}}</p>
                                             <label for="formGroupExampleInput">Ingrese la respuesta:</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput">
+                                            <input type="text" class="form-control" id="formGroupExampleInput" #resPA>
                                         </div>
                                         <div *ngIf="isOpcionMultiple(item)" class="form-group col-12"
                                             [ngClass]="{'celdaOscurita':!odd,'blanco':odd}">
                                             <p class="text-justify">{{item.pregunta}}</p>
                                             <div *ngFor="let opcion of item.opciones; let j=index" class="form-check">
                                                 <input class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="exampleRadios1" value="option1" checked>
+                                                    id="exampleRadios1" [value]= opcion.opcion checked #resOP (change)="onChange(i,k,j)">
                                                 <label class="form-check-label" for="exampleRadios1">
                                                     {{opcion.opcion}}
                                                 </label>
@@ -43,6 +43,11 @@
                         </ol>
                         <!--
                 -->
+                    </div>
+                    <div class="container mb-3">
+                        <div class="row justify-content-center">
+                            <button type="button" (click)="validarFormulario()" class="btn btn-primary btn-rounded">Validar</button>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-dark">

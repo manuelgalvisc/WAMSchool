@@ -61,6 +61,7 @@ import { ModalemparejamientoComponent } from './modalemparejamiento/modalemparej
 import { ListaOAComponent } from './visor/lista-oa/lista-oa.component';
 import { VisualizarCuestionarioComponent } from './visualizar-cuestionario/visualizar-cuestionario.component';
 import { MostrarAhorcadoComponent } from './mostrar-ahorcado/mostrar-ahorcado.component';
+import { ModalActividadMatchComponent } from './modal-actividad-match/modal-actividad-match.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -114,6 +115,7 @@ const routes: Routes =[
     ActividadmatchComponent,
     ModalemparejamientoComponent,
     ListaOAComponent,
+    ModalActividadMatchComponent,
     VisualizarCuestionarioComponent,
     MostrarAhorcadoComponent,
   ],

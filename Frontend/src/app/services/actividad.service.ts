@@ -151,10 +151,16 @@ export class ActividadService {
   public crearEmparejamiento(actividad: ActividadEmparejamiento,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearEmparejamiento';
 
+    let httpHeaders = new HttpHeaders();
+    let token = this.userService.token;
+    if(token != null) {
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    }
     let params0 = new HttpParams();
     params0 = params0.append('idSeccion',idSeccion.toString());
 
     return this.http.post<any>(url, actividad,{
+      headers: httpHeaders,
       params:params0,
     }).pipe(
       catchError( e => {

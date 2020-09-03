@@ -27,13 +27,5 @@
     color: darkred;
   }
 
-  .celdaOscurita{
-      background-color: #ECEDEB;
-  }
-
-  .blanco{
-      background-color: white;
-  }
-
   @keyframes fadeIn {0% {opacity:0} to {opacity:1}}
   @-webkit-keyframes fadeIn {0% {opacity:0} to {opacity:1}}
