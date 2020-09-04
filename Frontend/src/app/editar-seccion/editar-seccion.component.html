@@ -29,14 +29,13 @@
         class="fas fa-plus-square"></i></button>
     <div class="row">
       <div class="mx-auto overflow">
-        <div *ngIf="seccionDTO.paginas.length>0">
+        <div *ngIf="seccionDTO.paginas.length>0 || actividades.length !=0">
           <!--Table-->
           <table class="table table-striped w-auto ml-3 mr-3">
             <!--Table head-->
             <thead>
-              <tr>
+              <tr *ngIf="seccionDTO.paginas.length>0">
                 <th>#</th>
-                <th>idPagina</th>
                 <th>nombre</th>
                 <th></th>
                 <th></th>
@@ -49,19 +48,29 @@
               <tr *ngFor="let pagina of seccionDTO.paginas; index as i; let odd = odd" class="my-1"
                 [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
                 <th scope="row">{{i + 1}}</th>
-                <td>{{pagina.id}}</td>
                 <td>{{pagina.nombrePagina}}</td>
                 <td>
                   <button type="button" class="btn btn-default">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-default">
-                    <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-file-alt"></i>
                   </button>
                 </td>
               </tr>
+              <br>
+              <tr *ngIf="actividades.length !=0">
+                <th>#</th>
+                <th>Actividades</th>
+              </tr>
+              <br>
+              <tr *ngFor="let actividad of actividades; index as i; let odd = odd" class="my-1"
+              [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{actividad}}</td>
+              <td>
+                <button type="button" class="btn btn-default">
+                  <i class="fas fa-puzzle-piece"></i>
+                </button>
+              </td>
+            </tr>
             </tbody>
             <!--Table body-->
           </table>
