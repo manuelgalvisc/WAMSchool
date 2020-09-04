@@ -59,6 +59,7 @@ import { ActividadmatchComponent } from './actividadmatch/actividadmatch.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalemparejamientoComponent } from './modalemparejamiento/modalemparejamiento.component';
 import { ListaOAComponent } from './visor/lista-oa/lista-oa.component';
+import { ModalActividadMatchComponent } from './modal-actividad-match/modal-actividad-match.component';
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -112,6 +113,7 @@ const routes: Routes =[
     ActividadmatchComponent,
     ModalemparejamientoComponent,
     ListaOAComponent,
+    ModalActividadMatchComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,
