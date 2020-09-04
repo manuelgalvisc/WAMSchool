@@ -62,4 +62,8 @@ export class VisualizarCuestionarioComponent implements OnInit {
     }
     return enunciados;
   }
+
+  llenarListasPreguntas(){
+    
+  }
 }

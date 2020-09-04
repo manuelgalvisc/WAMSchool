@@ -7,14 +7,14 @@
     height: 100%;
     z-index: 1000;
   }
-  
+
   .animacion {
     animation-duration: 2s;
     animation-fill-mode: both;
     -webkit-animation-duration: 2s;
     -webkit-animation-fill-mode: both;
   }
-  
+
   .fadeIn {
     animation-name: fadeIn;
     -webkit-animation-name: fadeIn;
@@ -26,6 +26,14 @@
   .rojo{
     color: darkred;
   }
-  
+
+  .celdaOscurita{
+      background-color: #ECEDEB;
+  }
+
+  .blanco{
+      background-color: white;
+  }
+
   @keyframes fadeIn {0% {opacity:0} to {opacity:1}}
   @-webkit-keyframes fadeIn {0% {opacity:0} to {opacity:1}}
