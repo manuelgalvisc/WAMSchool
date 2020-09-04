@@ -86,7 +86,7 @@ export class VisualizarCuestionarioComponent implements OnInit {
         enun.listaPreguntas.push(opcionMultiple);
         contO++;
       }
-      
+
       for (const pa of iterator.listaPreguntasCompletar) {
         let pregunta : PreguntaAbierta = new PreguntaAbierta();
         pregunta.id = pa.id;

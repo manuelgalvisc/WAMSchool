@@ -14,6 +14,7 @@ import { ActividadService } from '../services/actividad.service';
 import { ActividadEmparejamiento } from '../model/actividadEmparejamiento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VisualizarCuestionarioComponent } from '../visualizar-cuestionario/visualizar-cuestionario.component';
+import { ModalActividadMatchComponent } from '../modal-actividad-match/modal-actividad-match.component';
 
 @Component({
   selector: 'app-visor',
@@ -229,7 +230,7 @@ export class VisorComponent implements OnInit {
     if(tipoActividad === 1){
       this.ngbModal.open(VisualizarCuestionarioComponent).componentInstance.actividad = actividad;
     }else if(tipoActividad === 2){
-
+      this.ngbModal.open(ModalActividadMatchComponent).componentInstance.actividad = actividad;
     }else if(tipoActividad === 3){
       this.ngbModal.open(MostrarAhorcadoComponent);
       this.dataService.ahorcado = actividad;
