@@ -17,7 +17,6 @@ export class DataService {
   objetoAprendizajeDTO: ObjetoAprendizajeDTO;
   Archivo: File;
   seccionDTO: SeccionDTO;
-
   constructor(private seccionService: SeccionService,
               private paginaService: PaginaService) {
 

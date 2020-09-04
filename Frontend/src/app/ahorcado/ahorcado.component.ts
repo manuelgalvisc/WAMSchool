@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ActividadService } from './../services/actividad.service';
 import { Ahorcado } from './../model/ahorcado';
 import { Component, OnInit } from '@angular/core';
@@ -10,11 +11,12 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./ahorcado.component.css']
 })
 /**
- * Componente encargado de realizar la actividad de ahorcado 
+ * Componente encargado de realizar la actividad de ahorcado
  */
 export class AhorcadoComponent {
 
   ahorcado: Ahorcado = new Ahorcado();
+  indicioPalabra = "";
   title = "Ahorcado";
   pattern = new RegExp('^[A-Z]+$', 'i');
   palabra = ""
@@ -53,13 +55,14 @@ export class AhorcadoComponent {
     "z"
   ];
   constructor(private actividadService: ActividadService,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private router: Router) {
     this.palabraOculta = "_ ".repeat(this.palabra.length);
   }
 
   /**
    * comprobamos que la letra ingresada se encuentre en la palabra
-   * @param letra 
+   * @param letra
    */
   comprobar(letra) {
     this.existeLetra(letra);
@@ -91,8 +94,8 @@ export class AhorcadoComponent {
   }
 
   /**
-   * se verifica qye la letra existe en la paalabra 
-   * @param letra 
+   * se verifica qye la letra existe en la paalabra
+   * @param letra
    */
   existeLetra(letra) {
     if (this.palabra.indexOf(letra) >= 0) {
@@ -104,19 +107,22 @@ export class AhorcadoComponent {
   }
 
   /**
-   * Se guarda la palabra  del ahorcado 
+   * Se guarda la palabra  del ahorcado
    */
   guardarPalabra(){
-    if(this.palabraGuardar.length !== 0){
+    console.log(this.dataService.listaActividades);
+    if(this.palabraGuardar.length !== 0 && this.indicioPalabra.length !== 0){
       if(this.pattern.test(this.palabraGuardar)){
         this.palabraGuardar = this.palabraGuardar.toLowerCase();
         this.palabra = this.palabraGuardar;
         this.palabraOculta = "_ ".repeat(this.palabra.length);
         this.ahorcado.palabraOculta = this.palabra.toLowerCase();
+        this.ahorcado.indicio = this.indicioPalabra;
         this.actividadService.crearAhorcado(this.ahorcado, this.dataService.seccionDTO.idSeccion).subscribe(
           json =>{
             if (json.data != null) {
               Swal.fire('Nuevo Ahorcado  creado con exito !!', 'success');
+              this.router.navigate(['/editarSeccion']);
             }
           }
         )

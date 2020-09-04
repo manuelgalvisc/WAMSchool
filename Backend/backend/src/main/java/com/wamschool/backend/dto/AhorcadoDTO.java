@@ -4,6 +4,19 @@ public class AhorcadoDTO {
 	private Long id;
 	private String palabraOculta;
 	private Long idSeccion;
+	private String indicio;
+	/**
+	 * @return the indicio
+	 */
+	public String getIndicio() {
+		return indicio;
+	}
+	/**
+	 * @param indicio the indicio to set
+	 */
+	public void setIndicio(String indicio) {
+		this.indicio = indicio;
+	}
 	/**
 	 * @return the id
 	 */

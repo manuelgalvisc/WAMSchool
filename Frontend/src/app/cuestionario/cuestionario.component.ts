@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ActividadService } from './../services/actividad.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -27,7 +28,7 @@ export class CuestionarioComponent implements OnInit {
   actividad: ActividadCuestionario;
   mssError:string;
   constructor(private modalService: NgbModal,private actividadService:ActividadService,
-    private dataservice:DataService) { }
+    private dataservice:DataService,private router: Router) { }
 
   ngOnInit(): void {
     this.listaEnunciados = new Array();
@@ -39,15 +40,15 @@ export class CuestionarioComponent implements OnInit {
 
   /**
    * se valida que es opcion multiple
-   * @param objeto 
+   * @param objeto
    */
   isOpcionMultiple(objeto: any): boolean {
     return objeto instanceof OpcionMultiple;
   }
 
   /**
-   * se valida que sea pregunta abierta 
-   * @param objeto 
+   * se valida que sea pregunta abierta
+   * @param objeto
    */
   isPreguntaAbierta(objeto: any): boolean {
     return objeto instanceof PreguntaAbierta;
@@ -64,7 +65,7 @@ export class CuestionarioComponent implements OnInit {
   }
 
   /**
-   * agregar la opcion multiple, mediante un modal y seleccinando un enunciado 
+   * agregar la opcion multiple, mediante un modal y seleccinando un enunciado
    */
   agregarOpcionMultiple() {
     const modalRef = this.modalService.open(ElegirEnunciadoComponent);
@@ -100,8 +101,8 @@ export class CuestionarioComponent implements OnInit {
 
   /**
    * saca la palabra que se va a completar del texto
-   * @param item 
-   * @param index 
+   * @param item
+   * @param index
    */
   sacarPalabraCompletar(item: number, index : number): string {
     let pregunta: string = this.listaEnunciados[index].listaPreguntas[item].texto;
@@ -111,9 +112,9 @@ export class CuestionarioComponent implements OnInit {
   }
 
   /**
-   * elimina una actividad del tipo pregunta abierta 
-   * @param index 
-   * @param index_2 
+   * elimina una actividad del tipo pregunta abierta
+   * @param index
+   * @param index_2
    */
   eliminarActividadPreguntaAbierta(index :number, index_2:number){
     let preguntaEliminada : any =this.listaEnunciados[index].listaPreguntas.splice(index_2,1);
@@ -130,8 +131,8 @@ export class CuestionarioComponent implements OnInit {
 
   /**
    * eliminar actividad del tipo opcion multiple
-   * @param index 
-   * @param index_2 
+   * @param index
+   * @param index_2
    */
   eliminarActividadopcionMultiple(index :number, index_2:number){
     let preguntaEliminada : any =this.listaEnunciados[index].listaPreguntas.splice(index_2,1);
@@ -148,14 +149,14 @@ export class CuestionarioComponent implements OnInit {
 
   /**
    * elimina el enunciado
-   * @param index 
+   * @param index
    */
   eliminarEnunciado(index : number){
     this.listaEnunciados.splice(index,1);
   }
 
   /**
-   * metodo crear, se encarga de validar que hallan enunciado creados correctamente 
+   * metodo crear, se encarga de validar que hallan enunciado creados correctamente
    */
   crear(){
     this.mssError = "";
@@ -166,6 +167,7 @@ export class CuestionarioComponent implements OnInit {
         this.actividadService.crearCuestionario(this.actividad,this.dataservice.seccionDTO.idSeccion).subscribe((json) => {
           if ( json.data != null){
             Swal.fire('Nueva actividad', `creada con exito !`, 'success');
+            this.router.navigate(['/editarSeccion']);
             console.log(json.data);
           }
         });

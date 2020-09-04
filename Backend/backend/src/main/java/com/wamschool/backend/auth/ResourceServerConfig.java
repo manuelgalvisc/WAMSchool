@@ -23,7 +23,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	//Configuración de las páginas públicas y privadas en el servidor.
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET , "/api/oa/listarOA", "/api/oa/listarOApag", "/api/oa/listarCategorias","/api/seccion/buscarSeccion", "/api/oa/listarOAtexto","/api/seccion/listarSeccionesOA","/api/pagina/listarPaginas","/api/actividad/listarAhorcados","/api/archivo/Archivos/{nombreArchivo:.+}", "/api/archivo/listarArchivos","/api/enlace/listarEnlaces").permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.GET , "/api/oa/listarOA", "/api/oa/listarOApag", "/api/oa/listarCategorias","/api/seccion/buscarSeccion", "/api/oa/listarOAtexto","/api/seccion/listarSeccionesOA","/api/pagina/listarPaginas","/api/actividad/listarAhorcados","/api/archivo/Archivos/{nombreArchivo:.+}", "/api/archivo/listarArchivos","/api/enlace/listarEnlaces","/api/actividad/buscarAhorcado").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/oa/listarOAcategorias","/api/pagina/crearPagina", "/login/registrarUsuario", "/login/signIn","/api/enlace/crearEnlace").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource());
