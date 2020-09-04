@@ -87,6 +87,38 @@ export class ActividadService {
     );
   }
 
+   /**
+   * 
+   * @param actividad Metodo encargado de crear las actividades de tipo Cuestionario
+   * @param idSeccion 
+   */
+  public consultarCuestionarioPorSeccion(idSeccion:number): Observable<any>{
+    const url = 'http://localhost:9000/api/actividad/consultarCuestionarios';
+
+    let httpHeaders = new HttpHeaders();
+    let token = this.userService.token;
+    if(token != null) {
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    }
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion',idSeccion.toString());
+
+    return this.http.get<any>(url,{
+      headers: httpHeaders,
+      params:params0,
+    }).pipe(
+      catchError( e => {
+        if (this.userService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+        console.error(e.error.mensaje);
+        Swal.fire('error al consultar las actividades', e.error.mensaje, 'error');
+        return throwError(e);
+      }
+      )
+    );
+  }
+
   /**
    * Metodo enacargado de crear las actividades detipo emparejamiento
    * @param actividad 
@@ -95,18 +127,10 @@ export class ActividadService {
   public crearEmparejamiento(actividad: ActividadEmparejamiento,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearEmparejamiento';
 
-    let httpHeaders = new HttpHeaders();
-    let token = this.userService.token;
-    if(token != null) {
-      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
-      httpHeaders = httpHeaders.append('Content-Type', 'application/json');
-    }
     let params0 = new HttpParams();
     params0 = params0.append('idSeccion',idSeccion.toString());
 
-    console.log(actividad);
     return this.http.post<any>(url, actividad,{
-      headers: httpHeaders,
       params:params0,
     }).pipe(
       catchError( e => {
@@ -120,4 +144,27 @@ export class ActividadService {
       )
     );
   }
+
+  public consultarActividadEmparejamientoPorSeccion(idSeccion:number): Observable<any>{
+    const url = 'http://localhost:9000/api/actividad/consultarEmparejamientos';
+
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion',idSeccion.toString());
+
+    return this.http.get<any>(url,{
+      params:params0,
+    }).pipe(
+      catchError( e => {
+        if (this.userService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+        console.error(e.error.mensaje);
+        Swal.fire('error al consultar las actividades', e.error.mensaje, 'error');
+        return throwError(e);
+      }
+      )
+    );
+  }
 }
+
+

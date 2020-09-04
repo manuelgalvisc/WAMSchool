@@ -7,6 +7,9 @@ import { EnlaceService } from '../services/enlace.service';
 import { Pagina } from '../model/pagina';
 import { Seccion } from '../model/seccion';
 import { ArchivoDTO } from '../DTOs/ArchivoDTO';
+import { ActividadCuestionario } from '../model/actividadCuestionario';
+import { ActividadService } from '../services/actividad.service';
+import { ActividadEmparejamiento } from '../model/actividadEmparejamiento';
 
 @Component({
   selector: 'app-visor',
@@ -27,10 +30,12 @@ export class VisorComponent implements OnInit {
   videoBool: boolean = false;
   enlacesVideos: String[];
   videoInicial: String;
+  listaReferenciasActividades : number[];
 
   constructor(private _visorService: VisorService,
               private dataService: DataService,
-              private enlaceService: EnlaceService) { }
+              private enlaceService: EnlaceService,
+              private actividadesServices : ActividadService) { }
 
   ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
@@ -47,6 +52,7 @@ export class VisorComponent implements OnInit {
     this.listaArchivos = new Array<ArchivoDTO>();
     this.seccionesCompletas = new Array();
     this.enlacesVideos = new Array();
+    this.listaReferenciasActividades = new Array();
   }
 
   guardarSeccionesOA() {
@@ -74,12 +80,37 @@ export class VisorComponent implements OnInit {
       for (let i of this.visorService.oa.secciones) {
         let seccionAux: secciones = {
           seccion: i,
-          paginas: this.dataService.traerListaPaginas(i.id)
+          paginas: this.dataService.traerListaPaginas(i.id),
+          actividades:  this.listarActividades(i.id),
         };
         this.seccionesCompletas.push(seccionAux);
       }
       this.iniciado = true;
     }
+  }
+
+
+  listarActividades(seccion : number):any[]{
+
+    var listaActividades : any[] = new Array();
+    this.listaReferenciasActividades = new Array();
+    this.actividadesServices.consultarCuestionarioPorSeccion(seccion).subscribe(
+      (res)=>{
+        for (const iterator of res.data) {
+          listaActividades.push(iterator);
+          this.listaReferenciasActividades.push(1);
+        }
+        this.actividadesServices.consultarActividadEmparejamientoPorSeccion(seccion).subscribe(
+          (res)=>{
+            for (const iterator of res.data) {
+              listaActividades.push(iterator);
+              this.listaReferenciasActividades.push(2);
+            }
+          }
+        );
+      }
+    );
+    return listaActividades;
   }
 
   cargarVideos() {
@@ -128,9 +159,20 @@ export class VisorComponent implements OnInit {
   get visorService(): VisorService {
     return this._visorService;
   }
+
+  nombreActividad(actividad : any):string{
+    if(actividad.introduccion != null){
+      return actividad.introduccion;
+    }else if(actividad.enunciado != null){
+      return actividad.enunciado;
+    }
+    return "defecto";
+  }
 }
 
 interface secciones {
   seccion: Seccion;
   paginas: Pagina[];
+  actividades:any[];
+
 }

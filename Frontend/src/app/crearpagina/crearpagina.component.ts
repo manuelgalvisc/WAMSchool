@@ -10,6 +10,7 @@ import { ComponenteyoutubeComponent } from '../componenteyoutube/componenteyoutu
 import { ModalcargaarchivosComponent } from '../modalcargaarchivos/modalcargaarchivos.component';
 import { DataService } from '../services/data.service';
 import { ArchivoService } from '../services/archivo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crearpagina',
@@ -30,7 +31,8 @@ export class CrearpaginaComponent implements OnInit {
               private modalService: NgbModal,
               public dataService: DataService,
               private archivoService: ArchivoService,
-              private enlaceService: EnlaceService) { }
+              private enlaceService: EnlaceService,
+              private route:Router) { }
 
   ngOnInit(): void {
     this.pagina = new Pagina();
@@ -80,6 +82,7 @@ export class CrearpaginaComponent implements OnInit {
             Swal.fire('Nueva pagina ', ` ${json.data.nombrePagina} creada con exito !`, 'success');
             this.guardarArchivo(json.data.idPagina);
             this.guardarVideo(json.data.idPagina);
+            this.route.navigate['/editarSeccion'];
           }
         }
       );

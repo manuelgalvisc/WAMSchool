@@ -37,6 +37,15 @@
               </div>
             </div>
           </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionMenu">
+            <div class="card-body">
+              <div class="btn-group-vertical btn-block">
+                <button type="button" class="btn text-left" *ngFor="let act of seccion.actividades">
+                  {{nombreActividad(act)}}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
