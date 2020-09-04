@@ -46,6 +46,11 @@
   </div>
 </div>
 <div class="container" *ngIf="modoEdicion">
+  <label for="titulo">Ingresa un indicio para la palabra</label>
+  <input type="text" class="form-control" [(ngModel)]="indicioPalabra"  id="indicio" name="indicio" [ngModelOptions]="{standalone: true}"required #indicio="ngModel" >
+  <div class="alert alert-danger" *ngIf="indicio.invalid && (indicio.dirty || indicio.touched)">
+    <div *ngIf="indicio.errors.required">ingresa un indicio por favor</div>
+  </div>
   <label for="titulo">Ingresa la palabra oculta</label>
   <input type="text" class="form-control" [(ngModel)]="palabraGuardar"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
   <button  type="button" class="btn btn-success m-2" (click)="guardarPalabra()">GUARDAR PALABRA</button>

@@ -28,6 +28,7 @@ export class VisorComponent implements OnInit {
   contenidoBool: boolean = false;
   tienePDF: boolean = false;
   videoBool: boolean = false;
+  auxArchivos: boolean = false;
   enlacesVideos: String[];
   videoInicial: String;
   listaReferenciasActividades : number[];
@@ -115,15 +116,19 @@ export class VisorComponent implements OnInit {
 
   cargarVideos() {
     this.videoBool = (this.videoBool == false ? true : false);
-    if(this.actividadSeleccionada != undefined) {
-      let idPagina = [this.actividadSeleccionada.id];
-      this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
-        let url = "https://www.youtube.com/embed/";
-        this.videoInicial = url.concat(response.data[0].url);
-        for (let i = 1; i < response.data.length; i++) {
-          this.enlacesVideos.push(url.concat(response.data[i].url));
-        }
-      });
+    if(this.seleccionado != undefined) {
+      if(this.actividadSeleccionada != undefined) {
+        let idPagina = [this.actividadSeleccionada.id];
+        this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
+          console.log(response);
+          let url = "https://www.youtube.com/embed/";
+          this.videoInicial = url.concat(response.data[0].url);
+          for (let i = 1; i < response.data.length; i++) {
+            this.enlacesVideos.push(url.concat(response.data[i].url));
+          }
+          console.log(this.enlaceService);
+        });
+      }
     }
   }
 
@@ -131,11 +136,38 @@ export class VisorComponent implements OnInit {
     this.seleccionado = (this.seleccionado === item ? null : item);
   }
 
+  //Cargar contenido
+  cargarContenido() {
+    let div: HTMLElement;
+    this.contenidoBool = (this.contenidoBool == false ? true : false);
+    if(this.selectPag != undefined) {
+      if(this.contenidoBool == true) {
+        if(this.actividadSeleccionada != undefined) {
+          div = document.getElementById("contenido");
+          div.innerHTML = this.actividadSeleccionada.contenidoPagina;
+        } else {
+          div = document.getElementById("contenido");
+          div.innerHTML = "<div>El usuario no ha subido contenido a esta página</div>";
+        }
+      } else {
+        document.getElementById("contenido").innerHTML = "";
+      }
+    }
+  }
+
+  cargarArchivos() {
+    this.tienePDF = (this.tienePDF == false ? true : false);
+    if(this.pdfSrc == undefined) {
+      this.auxArchivos = false;
+    } else {
+      this.auxArchivos = true;
+    }
+  }
+
   //Seleccion de actividad
   actividadSel(item: Pagina) {
     this.selectPag = (this.selectPag === item ? null : item)
     this.actividadSeleccionada = item;
-    document.getElementById("contenido").innerHTML = this.actividadSeleccionada.contenidoPagina;
     this.obtenerArchivos(item.id);
   }
 

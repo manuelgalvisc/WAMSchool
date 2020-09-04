@@ -1,8 +1,8 @@
 import { Ahorcado } from './../model/ahorcado';
 import { Injectable } from '@angular/core';
-import { of, Observable, throwError } from 'rxjs';
+import { of, Observable, throwError, from } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {map, catchError, switchAll} from 'rxjs/operators';
+import {map, catchError, switchAll, concatMap} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { UserService } from './user.service';
 import { ActividadCuestionario } from '../model/actividadCuestionario';
@@ -18,9 +18,9 @@ export class ActividadService {
               private userService: UserService) { }
 
   /**
-   * Metodo encargado de craer la actividad tipo ahorcado 
-   * @param ahorcado 
-   * @param idSeccion 
+   * Metodo encargado de craer la actividad tipo ahorcado
+   * @param ahorcado
+   * @param idSeccion
    */
    public crearAhorcado(ahorcado: Ahorcado, idSeccion: number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearAhorcado'
@@ -52,13 +52,37 @@ export class ActividadService {
       )
     );
 
+  }
+
+  public listarAhorcados(idSeccion:number):Observable<any>{
+    const url = 'http://localhost:9000/api/actividad/listarAhorcados';
+    let httpHeaders = new HttpHeaders();
+    let params0 = new HttpParams();
+    params0 = params0.append('idSeccion', idSeccion.toString());
+
+    return this.http.get<any>(url, {
+      headers: httpHeaders,
+      params: params0,
+    });
+
+  }
+  public buscarAhorcadoPorId(idAhorcado: number): Observable<any> {
+
+    const url = 'http://localhost:9000/api/actividad/buscarAhorcado';
+    let paramsO = new HttpParams();
+    paramsO = paramsO.append('idAhorcado', idAhorcado.toString());
+    const httpOptions = {
+      params: paramsO
+    };
+    return this.http.get<any>(url, httpOptions);
 
   }
 
+
   /**
-   * 
+   *
    * @param actividad Metodo encargado de crear las actividades de tipo Cuestionario
-   * @param idSeccion 
+   * @param idSeccion
    */
   public crearCuestionario(actividad: ActividadCuestionario,idSeccion:number): Observable<any>{
     const url = 'http://localhost:9000/api/actividad/crearCuestionario';

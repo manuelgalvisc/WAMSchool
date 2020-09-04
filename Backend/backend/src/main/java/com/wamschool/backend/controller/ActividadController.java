@@ -272,6 +272,44 @@ public class ActividadController {
 		response.put("mensaje", "Se presento un error listando los ahorcados");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
+	
+	/**
+	 * permite buscar una actividad tipo ahorcado por medio de su identificador
+	 * @param idAhorcado identificador unico de ahorcado
+	 * @return
+	 */
+	@GetMapping("/buscarAhorcado")
+	public ResponseEntity<?>buscarAhorcado(@RequestParam Long idAhorcado){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			Ahorcado ahorcadoEnviar;
+			if (idAhorcado != null) {
+				ahorcadoEnviar=ahorcadoServices.buscarAhorcado(idAhorcado);
+				if(ahorcadoEnviar !=null) {
+					response.put("data", transformarAhorcadoToDTO(ahorcadoEnviar));
+					response.put("mensaje", "Se encontro el ahorcado ");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				}else {
+					response.put("data", null);
+					response.put("mensaje", "no existe un ahorcado con este identificador");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+				}
+			}else {
+				response.put("data", null);
+				response.put("mensaje", "Se presento un error buscando el ahorcado idAhorcado nulo");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			}
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();		
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento buscando el ahorcado");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		
+	}
 
 	
 	
@@ -397,6 +435,7 @@ public class ActividadController {
 		ahorcadoDTO.setId(ahorcado.getId());
 		ahorcadoDTO.setPalabraOculta(ahorcado.getPalabraOculta());
 		ahorcadoDTO.setIdSeccion(ahorcado.getSeccion().getId());
+		ahorcadoDTO.setIndicio(ahorcado.getIndicio());
 
 		return ahorcadoDTO;
 	}

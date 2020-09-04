@@ -50,25 +50,22 @@
       </div>
     </div>
   </div>
+  <div class="card-body"></div>
   <div class="container mt-2">
-    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="contenidoBool = (contenidoBool == false ? true : false);">Contenido</button>
-    <div class="card">
-      <div id="contenido" class="card-body"></div>
-    </div>
-    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="tienePDF = (tienePDF == false ? true : false);">PDF</button>
-    <div class="card" *ngIf="tienePDF">
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="cargarContenido()">Contenido</button>
+    <div class="card-body" id="contenido"></div>
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarArchivos()">PDF</button>
+    <div class="card-body"></div>
+    <div class="card" *ngIf="tienePDF && auxArchivos">
       <div id="contenido" class="card-body">
         <div id="my_pdf_viewer">
-          <pdf-viewer
-            [src] = "pdfSrc"
-            [render-text] = "true"
-            stryle = "display: block;">
-          </pdf-viewer>
+          <pdf-viewer [src] = "pdfSrc" [render-text] = "true" stryle = "display: block;"></pdf-viewer>
         </div>
       </div>
     </div>
+    <div *ngIf="tienePDF && !auxArchivos">El usuario no ha subido archivos</div>
     <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarVideos()">Videos</button>
-    <div id="video_viewer" *ngIf="videoBool">
+    <div id="video_viewer" *ngIf="videoBool && actividadSeleccionada!=undefined">
       <div id="carouselControls" class="carousel slide" data-pause="hover">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -92,5 +89,6 @@
         </a>
       </div>
     </div>
+    <div *ngIf="videoBool && actividadSeleccionada==undefined">No hay videos disponibles</div>
   </div>
 </div>

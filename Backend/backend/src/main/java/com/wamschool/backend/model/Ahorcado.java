@@ -22,10 +22,27 @@ public class Ahorcado implements Serializable {
 	@Column(name="PALABRA_OCULTA")
 	private String palabraOculta;
 	
+	@Column(name="INDICIO_PALABRA",columnDefinition = "text")
+	private String indicio;
+	
 	@ManyToOne
 	@JoinColumn(name="SECCION_ID")
 	private Seccion seccion; 
 	
+	/**
+	 * @return the indicio
+	 */
+	public String getIndicio() {
+		return indicio;
+	}
+
+	/**
+	 * @param indicio the indicio to set
+	 */
+	public void setIndicio(String indicio) {
+		this.indicio = indicio;
+	}
+
 	/**
 	 * @return the id
 	 */

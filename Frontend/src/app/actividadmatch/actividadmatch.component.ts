@@ -1,8 +1,9 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { ParejaItem } from '../model/parejaItem';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalemparejamientoComponent} from '../modalemparejamiento/modalemparejamiento.component'; 
+import { ModalemparejamientoComponent} from '../modalemparejamiento/modalemparejamiento.component';
 import { ActividadService } from '../services/actividad.service';
 import { DataService } from '../services/data.service';
 import {ActividadEmparejamiento} from '../model/actividadEmparejamiento';
@@ -30,7 +31,7 @@ export class ActividadmatchComponent implements OnInit {
   mssError : string;
 
   constructor(private dragulaService: DragulaService, private ngbModal:NgbModal,
-    private actividadService:ActividadService,private dataService:DataService) {
+    private actividadService:ActividadService,private dataService:DataService,private router:Router) {
 
     this.dragulaService.createGroup("VAMPIRES", {
 
@@ -66,7 +67,7 @@ export class ActividadmatchComponent implements OnInit {
 
   /**
    * metodo crear, realiza las validaciones de que no se halla desagrupado las columnas y que halla
-   * una introducción y una pareja 
+   * una introducción y una pareja
    */
   crear(){
     if(this.parejas.length > 0 && this.vamps.length === this.vamps2.length && this.introduccion.length > 0){
@@ -76,6 +77,7 @@ export class ActividadmatchComponent implements OnInit {
       this.actividadService.crearEmparejamiento(actividad,this.dataService.seccionDTO.idSeccion).subscribe((json) => {
         if ( json.data != null){
           Swal.fire('Nueva actividad', `creada con exito !`, 'success');
+          this.router.navigate(['/editarSeccion']);
           console.log(json.data);
         }
       });
