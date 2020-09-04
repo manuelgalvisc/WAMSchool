@@ -116,19 +116,17 @@ export class VisorComponent implements OnInit {
 
   cargarVideos() {
     this.videoBool = (this.videoBool == false ? true : false);
-    if(this.seleccionado != undefined) {
-      if(this.actividadSeleccionada != undefined) {
-        let idPagina = [this.actividadSeleccionada.id];
-        this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
-          console.log(response);
-          let url = "https://www.youtube.com/embed/";
-          this.videoInicial = url.concat(response.data[0].url);
-          for (let i = 1; i < response.data.length; i++) {
-            this.enlacesVideos.push(url.concat(response.data[i].url));
-          }
-          console.log(this.enlaceService);
-        });
-      }
+    console.log(this.actividadSeleccionada);
+    if(this.actividadSeleccionada != undefined) {
+      let idPagina = [this.actividadSeleccionada.id];
+      this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
+        console.log(response);
+        let url = "https://www.youtube.com/embed/";
+        this.videoInicial = url.concat(response.data[0].url);
+        for (let i = 1; i < response.data.length; i++) {
+          this.enlacesVideos.push(url.concat(response.data[i].url));
+        }
+      });
     }
   }
 

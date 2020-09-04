@@ -48,9 +48,9 @@
   </div>
   <div class="card-body"></div>
   <div class="container mt-2">
-    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="cargarContenido()">Contenido</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="cargarContenido()" *ngIf="actividadSeleccionada != undefined">Contenido</button>
     <div class="card-body" id="contenido"></div>
-    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarArchivos()">PDF</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarArchivos()" *ngIf="actividadSeleccionada != undefined">PDF</button>
     <div class="card-body"></div>
     <div class="card" *ngIf="tienePDF && auxArchivos">
       <div id="contenido" class="card-body">
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div *ngIf="tienePDF && !auxArchivos">El usuario no ha subido archivos</div>
-    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarVideos()">Videos</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block mt-2" (click)="cargarVideos()" *ngIf="actividadSeleccionada != undefined">Videos</button>
     <div id="video_viewer" *ngIf="videoBool && actividadSeleccionada!=undefined">
       <div id="carouselControls" class="carousel slide" data-pause="hover">
         <div class="carousel-inner">
