@@ -110,7 +110,6 @@ export class AhorcadoComponent {
    * Se guarda la palabra  del ahorcado
    */
   guardarPalabra(){
-    console.log(this.dataService.listaActividades);
     if(this.palabraGuardar.length !== 0 && this.indicioPalabra.length !== 0){
       if(this.pattern.test(this.palabraGuardar)){
         this.palabraGuardar = this.palabraGuardar.toLowerCase();
