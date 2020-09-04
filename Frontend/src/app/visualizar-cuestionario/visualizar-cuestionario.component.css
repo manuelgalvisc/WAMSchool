@@ -20,6 +20,9 @@
     -webkit-animation-name: fadeIn;
   }
 
+  .scroll{
+    overflow-y:auto
+  }
   .verde{
     color: darkgreen;
   }

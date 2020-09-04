@@ -4,6 +4,7 @@ import { Enunciado } from '../model/enunciado';
 import { OpcionMultiple } from '../model/opcionMultiple';
 import { PreguntaAbierta } from '../model/preguntaAbierta';
 import { Opcion } from '../model/opcion';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-visualizar-cuestionario',
@@ -136,19 +137,29 @@ export class VisualizarCuestionarioComponent implements OnInit {
     for (const enun of this.listaEnunciados) {
       iteradorPregun = 1;
       for (const obj of enun.listaPreguntas) {
-        if(this.isPreguntaAbierta){
-          this.logPreguntas.push(''+iteradorEnun,".",'' +iteradorPregun,listaRespuestasPA[iteratorPreguntasAbiertas]
-          === obj.palabraARellenar ? 'CORRECTO' : 'INCORRECTO')
+        if(this.isPreguntaAbierta(obj)){
+          this.logPreguntas.push("<div class = 'row'>"+iteradorEnun+"."+iteradorPregun + " "+(listaRespuestasPA[iteratorPreguntasAbiertas]
+          === obj.palabraARellenar ? 'CORRECTO' : 'INCORRECTO') + "</div>")
           iteratorPreguntasAbiertas++;
-        }else if(this.isOpcionMultiple){
+        }else if(this.isOpcionMultiple(obj)){
           let tupla = this.listaTuplas[iteratorPreguntasOp];
-          this.logPreguntas.push(''+iteradorEnun,".",'' +iteradorPregun, this.obtenerIndiceValidos(obj) === tupla[2] 
-          ? 'CORRECTO' : 'INCORRECTO')
+          this.logPreguntas.push("<div class = 'row'>"+iteradorEnun+"."+iteradorPregun + " "+(this.obtenerIndiceValidos(obj) === tupla[2] 
+          ? 'CORRECTO' : 'INCORRECTO') + "</div>")
           iteratorPreguntasOp++;
         }
         iteradorPregun++;
       }
       iteradorEnun++;
     }
+    let res : string = "<div class = 'container scroll'>";
+    this.logPreguntas.forEach((x)=>{
+      res += x;
+    })
+    res += "</div>";
+     Swal.fire({
+      icon: 'info',
+      title: 'Resultados',
+      html: res,
+    });
   }
 }
