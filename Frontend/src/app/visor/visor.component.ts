@@ -227,11 +227,7 @@ export class VisorComponent implements OnInit {
   llamarModalActividad(index : number,actividad : any){
     let tipoActividad = this.listaReferenciasActividades[index];
     if(tipoActividad === 1){
-<<<<<<< HEAD
-
-=======
       this.ngbModal.open(VisualizarCuestionarioComponent).componentInstance.actividad = actividad;
->>>>>>> origin/Revisión
     }else if(tipoActividad === 2){
 
     }else if(tipoActividad === 3){

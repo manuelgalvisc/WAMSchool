@@ -27,7 +27,7 @@ export class VisualizarCuestionarioComponent implements OnInit {
     this.listaTuplas = new Array();
     this.listaEnunciados = this.convertirInputAInstacia();
     this.titulo = "Cuestionario";
-    this.logPreguntas = new Array();
+
   }
 
     /**
@@ -117,7 +117,38 @@ export class VisualizarCuestionarioComponent implements OnInit {
     }
   }
   
-  validarFormulario(){
+  obtenerIndiceValidos(preguta:OpcionMultiple):number{
+    for (let index = 0; index < preguta.opciones.length; index++) {
+      if(preguta.opciones[index].valor){
+        return index;
+     }
+    }
+    
+  }
 
+  validarFormulario(){
+    let iteradorEnun = 1;
+    let iteradorPregun = 0;
+    let iteratorPreguntasAbiertas = 0;
+    let iteratorPreguntasOp = 0;
+    let listaRespuestasPA  = this.traerRespuestasPreguntasAbiertas();
+    this.logPreguntas = new Array();
+    for (const enun of this.listaEnunciados) {
+      iteradorPregun = 1;
+      for (const obj of enun.listaPreguntas) {
+        if(this.isPreguntaAbierta){
+          this.logPreguntas.push(''+iteradorEnun,".",'' +iteradorPregun,listaRespuestasPA[iteratorPreguntasAbiertas]
+          === obj.palabraARellenar ? 'CORRECTO' : 'INCORRECTO')
+          iteratorPreguntasAbiertas++;
+        }else if(this.isOpcionMultiple){
+          let tupla = this.listaTuplas[iteratorPreguntasOp];
+          this.logPreguntas.push(''+iteradorEnun,".",'' +iteradorPregun, this.obtenerIndiceValidos(obj) === tupla[2] 
+          ? 'CORRECTO' : 'INCORRECTO')
+          iteratorPreguntasOp++;
+        }
+        iteradorPregun++;
+      }
+      iteradorEnun++;
+    }
   }
 }
