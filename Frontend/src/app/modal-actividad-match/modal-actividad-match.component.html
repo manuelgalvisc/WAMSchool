@@ -1,18 +1,39 @@
-<div class="card">
-  <div class="card-header text-light bg-dark">
-    <h1>Empareja las palabras</h1>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">{{actividad.enunciado}}</h5>
-    <div class="row">
-        <div class="container break col">
-            <div class="elementosIniciales p-3 mb-2 bg-success text-white" *ngFor="let elemento of elementosIniciales">{{elemento}}</div>
+<div class="abrir-modal animation fadein">
+  <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-center">
+          <button (click)="cerrarmodal()" type="button" class="close text-light"
+            data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-header text-light bg-dark">
+              <h1>Empareja las palabras</h1>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{actividad.enunciado}}</h5>
+              <div class="row">
+                <div class="container break col">
+                  <div class="elementosIniciales p-3 mb-2 bg-success text-white"
+                    *ngFor="let elemento of elementosIniciales">{{elemento}}</div>
+                </div>
 
-        <div class="container break col" dragula="Emparejamiento" [(dragulaModel)]="elementosAleatorios">
-            <div class="elementosAleatorios p-3 mb-2 bg-success text-white" *ngFor="let elemento of elementosAleatorios">{{elemento}}</div>
+                <div class="container break col" dragula="Emparejamiento" [(dragulaModel)]="elementosAleatorios">
+                  <div class="elementosAleatorios p-3 mb-2 bg-success text-white"
+                    *ngFor="let elemento of elementosAleatorios">{{elemento}}</div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-lg btn-block alineado p-3 mt-2"
+                (click)="comprobar()">Comprobar</button>
+            </div>
+          </div>
         </div>
+        <div class="modal-footer bg-dark">
+        </div>
+      </div>
     </div>
-    <button class="btn btn-primary btn-lg btn-block alineado p-3 mt-2" (click)="comprobar()">Comprobar</button>
   </div>
 </div>

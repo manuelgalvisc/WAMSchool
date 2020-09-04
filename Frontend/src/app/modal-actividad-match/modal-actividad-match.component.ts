@@ -18,6 +18,7 @@ export class ModalActividadMatchComponent implements OnInit {
   constructor(private modalService: NgbModal,
               public activeModal: NgbActiveModal,
               private dragulaService: DragulaService,) {
+    
     this.dragulaService.createGroup("VAMPIRES", {
 
     });
@@ -25,6 +26,11 @@ export class ModalActividadMatchComponent implements OnInit {
     this.dragulaService.dropModel("VAMPIRES").subscribe(args => {
       console.log(args);
     });
+  }
+
+  cerrarmodal(){
+    this.dragulaService.destroy("VAMPIRES");
+    this.activeModal.dismiss();
   }
 
   ngOnInit(): void {
