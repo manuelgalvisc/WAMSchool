@@ -174,5 +174,4 @@ interface secciones {
   seccion: Seccion;
   paginas: Pagina[];
   actividades:any[];
-
 }
