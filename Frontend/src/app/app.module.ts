@@ -59,7 +59,12 @@ import { ActividadmatchComponent } from './actividadmatch/actividadmatch.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalemparejamientoComponent } from './modalemparejamiento/modalemparejamiento.component';
 import { ListaOAComponent } from './visor/lista-oa/lista-oa.component';
+<<<<<<< HEAD
+import { ModalActividadMatchComponent } from './modal-actividad-match/modal-actividad-match.component';
+=======
 import { VisualizarCuestionarioComponent } from './visualizar-cuestionario/visualizar-cuestionario.component';
+import { MostrarAhorcadoComponent } from './mostrar-ahorcado/mostrar-ahorcado.component';
+>>>>>>> origin/Revisión
 
 const routes: Routes =[
   {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -113,7 +118,12 @@ const routes: Routes =[
     ActividadmatchComponent,
     ModalemparejamientoComponent,
     ListaOAComponent,
+<<<<<<< HEAD
+    ModalActividadMatchComponent,
+=======
     VisualizarCuestionarioComponent,
+    MostrarAhorcadoComponent,
+>>>>>>> origin/Revisión
   ],
   imports: [
     NgMultiSelectDropDownModule,

@@ -1,3 +1,5 @@
+import { MostrarAhorcadoComponent } from './../mostrar-ahorcado/mostrar-ahorcado.component';
+import { AhorcadoComponent } from './../ahorcado/ahorcado.component';
 import { Component, OnInit } from '@angular/core';
 
 import { VisorService } from '../services/visor.service';
@@ -29,7 +31,8 @@ export class VisorComponent implements OnInit {
   listaArchivos: ArchivoDTO[];
   contenidoBool: boolean = false;
   tienePDF: boolean = false;
-  videoBool: boolean = false;
+  videoBool: boolean = true;
+  auxVideos: boolean = false;
   auxArchivos: boolean = false;
   enlacesVideos: String[];
   videoInicial: String;
@@ -126,17 +129,23 @@ export class VisorComponent implements OnInit {
   }
 
   cargarVideos() {
-    this.videoBool = (this.videoBool == false ? true : false);
-    console.log(this.actividadSeleccionada);
     if(this.actividadSeleccionada != undefined) {
+      this.auxVideos = (this.auxVideos == false ? true : false);
       let idPagina = [this.actividadSeleccionada.id];
       this.enlaceService.listarEnlaces(idPagina).subscribe((response: { data: string | any[]; }) => {
-        console.log(response);
-        let url = "https://www.youtube.com/embed/";
-        this.videoInicial = url.concat(response.data[0].url);
-        for (let i = 1; i < response.data.length; i++) {
-          this.enlacesVideos.push(url.concat(response.data[i].url));
+        if(response.data != null) {
+          this.videoBool = true;
+          let url = "https://www.youtube.com/embed/";
+          this.videoInicial = url.concat(response.data[0].url);
+          for (let i = 1; i < response.data.length; i++) {
+            this.enlacesVideos.push(url.concat(response.data[i].url));
+          }
+        } else {
+          this.videoBool = false;
+          console.log("No hay Videos");
         }
+      }, (error: any) => {
+        console.log(error);
       });
     }
   }
@@ -176,6 +185,10 @@ export class VisorComponent implements OnInit {
   //Seleccion de actividad
   actividadSel(item: Pagina) {
     this.selectPag = (this.selectPag === item ? null : item)
+    this.tienePDF = false;
+    this.videoBool = false;
+    this.contenidoBool = false;
+    this.auxVideos = false;
     this.actividadSeleccionada = item;
     this.obtenerArchivos(item.id);
   }
@@ -190,7 +203,6 @@ export class VisorComponent implements OnInit {
             let archivo: ArchivoDTO = new ArchivoDTO();
             archivo.nombre = y.nombre;
             this.listaArchivos.push(archivo);
-            console.log(archivo.nombre);
             this.pdfSrc = "http://localhost:9000/api/archivo/Archivos/"+archivo.nombre;
           });
         }
@@ -215,11 +227,17 @@ export class VisorComponent implements OnInit {
   llamarModalActividad(index : number,actividad : any){
     let tipoActividad = this.listaReferenciasActividades[index];
     if(tipoActividad === 1){
+<<<<<<< HEAD
+
+=======
       this.ngbModal.open(VisualizarCuestionarioComponent).componentInstance.actividad = actividad;
+>>>>>>> origin/Revisión
     }else if(tipoActividad === 2){
 
     }else if(tipoActividad === 3){
-
+      this.ngbModal.open(MostrarAhorcadoComponent);
+      this.dataService.ahorcado = actividad;
+      this.dataService.modoEdicion = false;
     }
   }
 }
