@@ -35,8 +35,8 @@
                   {{pagina.nombrePagina}}<i class="fas fa-file-alt float-right"></i>
                 </button>
               </div>
-              <div class="btn-group-vertical btn-block" *ngFor="let act of seccion.actividades">
-                <button type="button" class="btn text-justify" >
+              <div class="btn-group-vertical btn-block" *ngFor="let act of seccion.actividades; let index = i">
+                <button type="button" class="btn text-justify" (click)="llamarModalActividad(i)">
                   {{nombreActividad(act)}}<i class="fas fa-puzzle-piece float-right"></i>
                 </button>
               </div>

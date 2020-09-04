@@ -10,6 +10,7 @@ import { ArchivoDTO } from '../DTOs/ArchivoDTO';
 import { ActividadCuestionario } from '../model/actividadCuestionario';
 import { ActividadService } from '../services/actividad.service';
 import { ActividadEmparejamiento } from '../model/actividadEmparejamiento';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-visor',
@@ -36,7 +37,8 @@ export class VisorComponent implements OnInit {
   constructor(private _visorService: VisorService,
               private dataService: DataService,
               private enlaceService: EnlaceService,
-              private actividadesServices : ActividadService) { }
+              private actividadesServices : ActividadService,
+              private ngbModal: NgbModal) { }
 
   ngOnInit() {
     if(this.visorService.obtenerOA() != null) {
@@ -107,6 +109,14 @@ export class VisorComponent implements OnInit {
               listaActividades.push(iterator);
               this.listaReferenciasActividades.push(2);
             }
+            this.actividadesServices.listarAhorcados(seccion).subscribe(
+              (res)=>{
+                for (const iterator of res.data) {
+                  listaActividades.push(iterator);
+                  this.listaReferenciasActividades.push(3);
+                }
+              }
+            );
           }
         );
       }
@@ -195,8 +205,21 @@ export class VisorComponent implements OnInit {
       return actividad.introduccion;
     }else if(actividad.enunciado != null){
       return actividad.enunciado;
+    }else if(actividad.indicio != null){
+      return actividad.indicio;
     }
     return "defecto";
+  }
+
+  llamarModalActividad(index : number){
+    let tipoActividad = this.listaReferenciasActividades[index];
+    if(tipoActividad === 1){
+      
+    }else if(tipoActividad === 2){
+
+    }else if(tipoActividad === 3){
+
+    }
   }
 }
 
