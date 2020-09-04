@@ -18,6 +18,11 @@ public class EnunciadoServicesImpl implements EnunciadoServices {
 		
 		return enunRepo.save(enunciado);
 	}
+
+	@Override
+	public Enunciado consultarPorID(Long enunciado) {
+		return enunRepo.getOne(enunciado);
+	}
 	
 	
 }

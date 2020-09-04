@@ -1,5 +1,7 @@
 package com.wamschool.backend.servicesImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,11 @@ public class ActividadEmparejamientoServicesImpl implements ActividadEmparejamie
 	public ActividadEmparejamiento crearActividadEmparejamiento(ActividadEmparejamiento actividadEmparejamiento) {
 		
 		return repoACT.save(actividadEmparejamiento);
+	}
+
+	@Override
+	public List<ActividadEmparejamiento> consultarPorSeccion(Long idSeccion) {
+		return repoACT.findBySeccionId(idSeccion);
 	}
 
 	

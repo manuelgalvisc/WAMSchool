@@ -32,7 +32,7 @@ public class Pagina implements Serializable,Cloneable {
 	@Column(name="NOMBRE_PAGINA")
 	private String nombrePagina;
 	
-	@Column(name="CONTENIDO_PAGINA")
+	@Column(name="CONTENIDO_PAGINA",columnDefinition = "text")
 	private String contenidoPagina;
 	
 	@ManyToOne

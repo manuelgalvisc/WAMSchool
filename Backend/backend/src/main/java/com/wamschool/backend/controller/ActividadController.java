@@ -103,6 +103,7 @@ public class ActividadController {
 						for (Enunciado enunciado : actividad.getEnunciados()) {
 							Enunciado enunciadoFinal = new Enunciado();
 							enunciadoFinal.setEnunciado(enunciado.getEnunciado());
+							enunciadoFinal.setActividadCuestionario(actividadFinal);
 							enunservice.crear(enunciadoFinal);
 							/// OPCION MULTIPLE
 							if (enunciado.getListaOpcionesMultiples() != null
@@ -165,8 +166,32 @@ public class ActividadController {
 		response.put("mensaje", "Se presento un error creando la Actividad Cuestionario");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
-
 	
+
+	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
+	@GetMapping("/consultarCuestionarios")
+	public ResponseEntity<?> consultarActividadCuestionarioPorSeccion(@RequestParam Long idSeccion) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			List<ActividadCuestionarioDTO> actividades = new ArrayList<ActividadCuestionarioDTO>();
+			service.actividadesPorSeccion(idSeccion).forEach((act)->{
+				actividades.add(convertirCuestionarioADTO(act));
+			});;
+			response.put("data",actividades);
+			response.put("mensaje", "La consulta se desarrollo satisfactoriamente");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		} catch (DataAccessException ex) {
+			response.put("data", null);
+			response.put("mensaje", "Se presento un error consultando la Actividad Cuestionario");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error consultando la Actividad Cuestionario");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
 
 	/**
 	 * Metodo que permite crear un ahorcado en la base de datos 
@@ -256,7 +281,7 @@ public class ActividadController {
 	 * @param idSeccion nos mapea la seccion a la cual pertenece la actividad
 	 * @return
 	 */
-	//@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
 	@PostMapping("/crearEmparejamiento")
 	public ResponseEntity<?> crearEmparejamiento(@RequestBody ActividadEmparejamiento actividad, @RequestParam Long idSeccion) {
@@ -310,6 +335,32 @@ public class ActividadController {
 		response.put("mensaje", "Se presento un error creando la actividad emparejamiento");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	}
+	
+	@Transactional(rollbackFor = {DataAccessException.class,Exception.class})
+	@GetMapping("/consultarEmparejamientos")
+	public ResponseEntity<?> consultarEmparejamientosPorId(@RequestParam Long idSeccion) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			List<ActividadEmparejamientoDTO> actividades = new ArrayList<ActividadEmparejamientoDTO>();
+			emparejamientoServices.consultarPorSeccion(idSeccion).forEach((act)->{
+				actividades.add(transformarEmparejamientoADTO(act));
+			});
+			response.put("data",actividades);
+			response.put("mensaje", "La consulta se desarrollo satisfactoriamente");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		} catch (DataAccessException ex) {
+			response.put("data", null);
+			response.put("mensaje", "Se presento un error consultando la Actividad Emparejamiento");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		response.put("data", null);
+		response.put("mensaje", "Se presento un error consultando la Actividad Emparejamiento");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	}
+
 	
 	/**
 	 * Este metodo permite transformar una entidad del tipo ActividadEmparejamiento a ActividadEmparejamientoDTO para poder enviarla 

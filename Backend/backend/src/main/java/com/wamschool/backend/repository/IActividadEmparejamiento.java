@@ -1,5 +1,7 @@
 package com.wamschool.backend.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.wamschool.backend.model.ActividadEmparejamiento;
@@ -11,4 +13,5 @@ import com.wamschool.backend.model.ActividadEmparejamiento;
  */
 public interface IActividadEmparejamiento extends JpaRepository<ActividadEmparejamiento,Long> {
 
+	List<ActividadEmparejamiento> findBySeccionId(Long idSeccion);
 }

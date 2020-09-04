@@ -1,5 +1,7 @@
 package com.wamschool.backend.services;
 
+import java.util.List;
+
 import com.wamschool.backend.model.ActividadEmparejamiento;
 import com.wamschool.backend.model.ParejaItem;
 
@@ -14,5 +16,5 @@ public interface ActividadEmparejamientoServices {
 	
 	ActividadEmparejamiento crearActividadEmparejamiento(ActividadEmparejamiento actividadEmparejamiento);
 	
-
+	List<ActividadEmparejamiento> consultarPorSeccion(Long idSeccion);
 }
