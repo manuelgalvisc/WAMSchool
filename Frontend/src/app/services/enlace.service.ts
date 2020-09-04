@@ -51,6 +51,8 @@ export class EnlaceService {
 
   public listarEnlaces(idPagina: number[]): any{
     const url = 'http://localhost:9000/api/enlace/listarEnlaces';
+    console.log(idPagina);
+
     return from(idPagina).pipe(
       concatMap(id => <Observable<any>> this.http.get(url, {params: new HttpParams().append('idPagina', id.toString())}))
     );
