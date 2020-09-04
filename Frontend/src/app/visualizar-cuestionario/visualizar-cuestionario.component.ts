@@ -86,7 +86,7 @@ export class VisualizarCuestionarioComponent implements OnInit {
         enun.listaPreguntas.push(opcionMultiple);
         contO++;
       }
-      
+
       for (const pa of iterator.listaPreguntasCompletar) {
         let pregunta : PreguntaAbierta = new PreguntaAbierta();
         pregunta.id = pa.id;
@@ -101,10 +101,6 @@ export class VisualizarCuestionarioComponent implements OnInit {
     return enunciados;
   }
 
-<<<<<<< HEAD
-  llenarListasPreguntas(){
-    
-=======
   traerRespuestasPreguntasAbiertas():string[]{
     let listaRespuestas :string [] = new Array();
     for (const iterator of this.respuestasPreguntasAbiertas) {
@@ -120,9 +116,8 @@ export class VisualizarCuestionarioComponent implements OnInit {
       }
     }
   }
-  
+
   validarFormulario(){
 
->>>>>>> origin/Revisión
   }
 }
