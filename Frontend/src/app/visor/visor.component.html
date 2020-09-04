@@ -30,18 +30,14 @@
           </div>
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionMenu">
             <div class="card-body">
-              <div class="btn-group-vertical btn-block">
-                <button type="button" class="btn text-left" *ngFor="let pagina of seccion.paginas pag" (click)="actividadSel(pagina)">
-                  {{pagina.nombrePagina}}
+              <div class="btn-group-vertical btn-block" *ngFor="let pagina of seccion.paginas pag">
+                <button type="button" class="btn text-justify "  (click)="actividadSel(pagina)">
+                  {{pagina.nombrePagina}}<i class="fas fa-file-alt float-right"></i>
                 </button>
               </div>
-            </div>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionMenu">
-            <div class="card-body">
-              <div class="btn-group-vertical btn-block">
-                <button type="button" class="btn text-left" *ngFor="let act of seccion.actividades">
-                  {{nombreActividad(act)}}
+              <div class="btn-group-vertical btn-block" *ngFor="let act of seccion.actividades">
+                <button type="button" class="btn text-justify" >
+                  {{nombreActividad(act)}}<i class="fas fa-puzzle-piece float-right"></i>
                 </button>
               </div>
             </div>
