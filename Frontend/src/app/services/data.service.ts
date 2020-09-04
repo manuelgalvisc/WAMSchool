@@ -1,3 +1,4 @@
+import { Ahorcado } from './../model/ahorcado';
 import { Enlace } from './../model/enlace';
 import { PaginaService } from './pagina.service';
 import { SeccionDTO } from './../DTOs/SeccionDTO';
@@ -17,6 +18,8 @@ export class DataService {
   objetoAprendizajeDTO: ObjetoAprendizajeDTO;
   Archivo: File;
   seccionDTO: SeccionDTO;
+  ahorcado: Ahorcado;
+  modoEdicion = true;
   constructor(private seccionService: SeccionService,
               private paginaService: PaginaService) {
 

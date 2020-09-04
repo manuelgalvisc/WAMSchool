@@ -7,14 +7,11 @@ import { DataService } from '../services/data.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-ahorcado',
-  templateUrl: './ahorcado.component.html',
-  styleUrls: ['./ahorcado.component.css']
+  selector: 'app-mostrar-ahorcado',
+  templateUrl: './mostrar-ahorcado.component.html',
+  styleUrls: ['./mostrar-ahorcado.component.css']
 })
-/**
- * Componente encargado de realizar la actividad de ahorcado
- */
-export class AhorcadoComponent {
+export class MostrarAhorcadoComponent implements OnInit {
 
   ahorcado: Ahorcado = new Ahorcado();
   indicioPalabra = "";
@@ -55,13 +52,18 @@ export class AhorcadoComponent {
     "y",
     "z"
   ];
-  constructor(private actividadService: ActividadService,
-              public dataService: DataService,
-              private router: Router) {
+  constructor(public activeModal: NgbActiveModal,
+              public dataService: DataService) {
     this.palabraOculta = "_ ".repeat(this.palabra.length);
   }
 
-
+  ngOnInit() {
+    if(this.dataService.modoEdicion === false){
+      this.palabra = this.dataService.ahorcado.palabraOculta;
+      this.indicioPalabra = this.dataService.ahorcado.indicio;
+      this.palabraOculta = "_ ".repeat(this.palabra.length);
+    }
+  }
 
   /**
    * comprobamos que la letra ingresada se encuentre en la palabra
@@ -109,29 +111,6 @@ export class AhorcadoComponent {
 
   }
 
-  /**
-   * Se guarda la palabra  del ahorcado
-   */
-  guardarPalabra(){
-    if(this.palabraGuardar.length !== 0 && this.indicioPalabra.length !== 0){
-      if(this.pattern.test(this.palabraGuardar)){
-        this.palabraGuardar = this.palabraGuardar.toLowerCase();
-        this.palabra = this.palabraGuardar;
-        this.palabraOculta = "_ ".repeat(this.palabra.length);
-        this.ahorcado.palabraOculta = this.palabra.toLowerCase();
-        this.ahorcado.indicio = this.indicioPalabra;
-        this.actividadService.crearAhorcado(this.ahorcado, this.dataService.seccionDTO.idSeccion).subscribe(
-          json =>{
-            if (json.data != null) {
-              Swal.fire('Nuevo Ahorcado  creado con exito !!', 'success');
-              this.router.navigate(['/editarSeccion']);
-            }
-          }
-        )
-      }else{
-        Swal.fire('la palabra contiene caracteres extraños', 'error');
 
-      }
-  }
-  }
+
 }

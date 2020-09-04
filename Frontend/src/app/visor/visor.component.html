@@ -36,7 +36,7 @@
                 </button>
               </div>
               <div class="btn-group-vertical btn-block" *ngFor="let act of seccion.actividades; let i = index">
-                <button type="button" class="btn text-justify" (click)="llamarModalActividad(i)">
+                <button type="button" class="btn text-justify" (click)="llamarModalActividad(i,act)">
                   {{nombreActividad(act)}}<i class="fas fa-puzzle-piece float-right"></i>
                 </button>
               </div>
