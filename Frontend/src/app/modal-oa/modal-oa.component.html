@@ -1,0 +1,46 @@
+<div class="abrir-modal animation fadein">
+  <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-center">
+          <h5 class="modal-title text-light">{{ titulo }}</h5>
+          <button (click)="activeModal.dismiss('Cross click')" type="button" class="close text-light"
+            data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-group">
+                  <li class="list-group-item"><span class="font-weight-bold">Nombre propietario:</span>
+                    {{oa.nombreCompletoPropietario}}</li>
+                  <li class="list-group-item"><span class="font-weight-bold">Email propietario:</span>
+                    {{oa.emailPropiertario}}</li>
+                  <li class="list-group-item"><span class="font-weight-bold">Titulo OA:</span> {{oa.tituloOA}}</li>
+                  <li class="list-group-item text-justify"><span class="font-weight-bold">Descripción:</span>
+                    {{oa.descripcion}}</li>
+                  <li class="list-group-item"><span class="font-weight-bold">Fecha actualización:</span>
+                    {{oa.fechaActualizacion | date}}</li>
+                  <li class="list-group-item"><span class="font-weight-bold">Estado:</span> {{oa.estadoOA}}</li>
+                  <button type="button" class="btn btn-secondary btn-lg btn-block" (click) = "mc()"><span class="font-weight-bold">Categorias:</span></button>
+                  <div *ngIf="mostrarCategorias">
+                    <li *ngFor="let se of oa.categorias; i as index" class="list-group-item">{{se.nombre}}</li>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-lg btn-block" (click) = "ms()"><span class="font-weight-bold">Secciones:</span></button>
+                  <div *ngIf="mostrarSecciones">
+                    <li *ngIf="seccionesUndefined()"  class="list-group-item">No hay secciones creadas en este OA</li>
+                    <li *ngFor="let se of oa.secciones; i as index" class="list-group-item">{{se.nombreSeccion}}</li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-dark">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

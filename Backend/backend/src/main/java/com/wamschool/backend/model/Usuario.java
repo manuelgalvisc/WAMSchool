@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.UniqueConstraint;
@@ -26,7 +27,7 @@ public class Usuario implements Serializable,Cloneable{
 	private static final long serialVersionUID = -1152198757387441037L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "U_ID")
 	private Long id;
 	
@@ -39,7 +40,9 @@ public class Usuario implements Serializable,Cloneable{
 	@Column(name = "U_EMAIL", unique = true)
 	private String email;
 	
-	@Column(name = "U_PASSWORD")
+	private Boolean enabled;
+	
+	@Column(name = "U_PASSWORD", length = 60)
 	private String password;
 	
 	@Column(name = "U_FECHANACIMIENTO")
@@ -51,6 +54,9 @@ public class Usuario implements Serializable,Cloneable{
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
 
+	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ObjetoAprendizaje> objetosAprendizaje;
+	
 	public Long getId() {
 		return id;
 	}
@@ -108,10 +114,19 @@ public class Usuario implements Serializable,Cloneable{
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	
-	
-    
-	
-	
+	public List<ObjetoAprendizaje> getObjetosAprendizaje() {
+		return objetosAprendizaje;
+	}
 
+	public void setObjetosAprendizaje(List<ObjetoAprendizaje> objetosAprendizaje) {
+		this.objetosAprendizaje = objetosAprendizaje;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 }

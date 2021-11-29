@@ -1,28 +1,44 @@
-<form action="">
+<div class="container mb-3">
+  <div class="container">
+    <div class="form-group centrarTexto">
+      <h2 style="color: cadetblue;">CREAR OBJETO DE APRENDIZAJE</h2>
+    </div>
+    <br>
+    <form class="form-group">
 
+      <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" class="form-control" [(ngModel)]="objetoAprendizaje.tituloOA" id="titulo" name="titulo"
+          [ngModelOptions]="{standalone: true}" required #titulo="ngModel">
+        <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+          <div *ngIf="titulo.errors.required">El titulo es requerido</div>
+        </div>
+      </div>
 
-<div class="form-group">
-  <label for="usr">Nombre:</label>
-  <input type="text" class="form-control" id="nameOA" name="nameOA">
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea class="form-control" [(ngModel)]="objetoAprendizaje.descripcion" rows="5" id="desc"
+          [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
+        <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+          <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <ng-multiselect-dropdown [placeholder]="'Selecciona una categoria'" [data]="categorias"
+          [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+          (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <div class="alert alert-danger" *ngIf="iscategoriasseleccionadas">
+          <div> Debe ingresar una categoria </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="container botondiv">
+    <button *ngIf="!editarOA" type="button" class="btn btn-success m-2 float-right " (click)="crearOA()">Crear OA</button>
+    <button type="button" class="btn btn-danger m-2 float-right" routerLink="/home">Cancelar</button>
+  </div>
+
 </div>
-
-<div class="form-group">
-  <label for="comment">Descripcion:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
-</div>
-
-<div class="form-group">
-  <label for="comment">Elige una categoria</label>
-  <select class="browser-default custom-select">
-    <option selected>Seleccione</option>
-    <option value="1">Ingenieria</option>
-    <option value="2">Geologia</option>
-    <option value="3">Biologia</option>
-  </select>
-</div>
-
-
-<button type="button" class="btn btn-success" (click)="crearOA()">Crear OA</button>
-<button type="button" class="btn btn-danger">Cancelar</button>
-
-</form>

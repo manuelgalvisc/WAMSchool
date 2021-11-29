@@ -1,0 +1,61 @@
+<div class="abrir-modal animation fadein">
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-center">
+                    <h5 class="modal-title text-light">{{ titulo }}</h5>
+                    <button (click)="ngActive.dismiss('Cross click')" type="button" class="close text-light"
+                        data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mt-3">
+                        <p class="text-justify">Introduccion: {{actividad.introduccion}}</p>
+                    </div>
+                    <div class="container mt-1">
+                        <ol>
+                            <li *ngFor="let enunciado of listaEnunciados; let i=index" class="border-top">
+                                <div class="container">
+                                    <p class="text-justify">{{enunciado.enunciado}}</p>
+                                    <div *ngFor="let item of enunciado.listaPreguntas; let k=index;let odd = odd"
+                                        class="row">
+                                        <div *ngIf="isPreguntaAbierta(item)" class="form-group col-12"
+                                            [ngClass]="{'celdaOscurita':!odd,'blanco':odd}">
+                                            <p class="text-justify">{{sacarPalabraCompletar(k,i)}}</p>
+                                            <label for="formGroupExampleInput">Ingrese la respuesta:</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput" #resPA>
+                                        </div>
+                                        <div *ngIf="isOpcionMultiple(item)" class="form-group col-12"
+                                            [ngClass]="{'celdaOscurita':!odd,'blanco':odd}">
+                                            <p class="text-justify">{{item.pregunta}}</p>
+                                                <div *ngFor="let opcion of item.opciones; let j=index"
+                                                    class="form-check">
+                                                    <input class="form-check-input" type="radio" [name] = k-i
+                                                        id="exampleRadios1" [value]=opcion.opcion checked 
+                                                        (change)="onChange(i,k,j)">
+                                                    <label class="form-check-label" for="exampleRadios1">
+                                                        {{opcion.opcion}}
+                                                    </label>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                        <!--
+                -->
+                    </div>
+                    <div class="container mb-3">
+                        <div class="row justify-content-center">
+                            <button type="button" (click)="validarFormulario()"
+                                class="btn btn-primary btn-rounded">Validar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

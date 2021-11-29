@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="form-group centrarTexto">
+    <h5 style="color: cadetblue">OBJETO DE APRENDIZAJE: {{dataService.objetoAprendizajeDTO.tituloOA}} </h5>
+    <h3 style="color: brown;">EDITAR SECCIÓN</h3>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="titulo">Titulo:</label>
+    <input type="text" class="form-control" [(ngModel)]="seccionDTO.nombreSeccion" id="titulo" name="titulo"
+      [ngModelOptions]="{standalone: true}" required #titulo="ngModel">
+    <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+      <div *ngIf="titulo.errors.required">El nombre es requerido</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="descripcion">Descripcion:</label>
+    <textarea class="form-control" [(ngModel)]="seccionDTO.descripcion" rows="5" id="desc"
+      [ngModelOptions]="{standalone: true}" required #descripcion="ngModel"></textarea>
+    <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+      <div *ngIf="descripcion.errors.required"> Debe ingresar una descripcion </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-info active form-group" routerLink="/crearPagina">Pagina Contenido <i
+        class="fas fa-plus-square"></i></button>
+    <button class="btn btn-info active form-group botonAA" routerLink="/crearActividad">Agregar Actividad <i
+        class="fas fa-plus-square"></i></button>
+    <div class="row">
+      <div class="mx-auto overflow">
+        <div *ngIf="seccionDTO.paginas.length>0 || actividades.length !=0">
+          <!--Table-->
+          <table class="table table-striped w-auto ml-3 mr-3">
+            <!--Table head-->
+            <thead>
+              <tr *ngIf="seccionDTO.paginas.length>0">
+                <th>#</th>
+                <th>nombre</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <!--Table head-->
+
+            <!--Table body-->
+            <tbody class="py-3">
+              <tr *ngFor="let pagina of seccionDTO.paginas; index as i; let odd = odd" class="my-1"
+                [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{pagina.nombrePagina}}</td>
+                <td>
+                  <button type="button" class="btn btn-default">
+                    <i class="fas fa-file-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <br>
+              <tr *ngIf="actividades.length !=0">
+                <th>#</th>
+                <th>Actividades</th>
+              </tr>
+              <br>
+              <tr *ngFor="let actividad of actividades; index as i; let odd = odd" class="my-1"
+              [ngClass]="{'celdaOscurita':!odd,'bg-light':odd}">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{actividad}}</td>
+              <td>
+                <button type="button" class="btn btn-default">
+                  <i class="fas fa-puzzle-piece"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+            <!--Table body-->
+          </table>
+          <!--Table-->
+        </div>
+        <div *ngIf="seccionDTO.paginas.length==0">
+          <span class="font-weight-bold">Esta seccion no tiene paginas creadas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container botondiv">
+    <button type="button" class="btn btn-success m-2 float-right">Actualizar</button>
+    <button type="button" class="btn btn-danger m-2 float-right" routerLink="/editarOA">Cancelar</button>
+  </div>
+
+</div>

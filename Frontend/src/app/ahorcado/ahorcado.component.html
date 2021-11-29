@@ -1,0 +1,60 @@
+<meta charset="utf-8" />
+<div class="row">
+  <div class="col text-center">
+    <h1 class="text-primary">Juego del Ahorcado</h1>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col text-center">
+    <img
+      src="assets/img/{{intentos}}.png"
+      class="ahorcado-img"
+      alt="Perdiste!!! Estás Ahorcado!!!"
+      title="Perdiste!!! Estás Ahorcado!!!"
+    />
+    <h3>Intentos: <small>{{intentos}} / 9 </small></h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col text-center">
+    <h1>{{palabraOculta}}</h1>
+  </div>
+</div>
+
+<div class="row" *ngIf="!gano && !perdio">
+  <div class="col text-center">
+    <button
+      (click)="comprobar(letra)"
+      *ngFor="let letra of letras"
+      class="btn btn-primary"
+    >
+      {{letra.toUpperCase()}}
+    </button>
+  </div>
+</div>
+<div class="row" *ngIf="gano">
+  <div class="col text-center">
+    <h1 class="text-success">Felicidades! Ganaste!!! :D</h1>
+  </div>
+</div>
+<div class="row" *ngIf="perdio">
+  <div class="col text-center">
+    <h3 class="text-danger">Lo siento :( Perdiste!</h3>
+    <h4 class="text-success">La palabra correcta era: {{palabra}}</h4>
+  </div>
+</div>
+<div class="container" *ngIf="dataService.modoEdicion">
+  <label for="titulo">Ingresa un indicio para la palabra</label>
+  <input type="text" class="form-control" [(ngModel)]="indicioPalabra"  id="indicio" name="indicio" [ngModelOptions]="{standalone: true}"required #indicio="ngModel" >
+  <div class="alert alert-danger" *ngIf="indicio.invalid && (indicio.dirty || indicio.touched)">
+    <div *ngIf="indicio.errors.required">ingresa un indicio por favor</div>
+  </div>
+  <label for="titulo">Ingresa la palabra oculta</label>
+  <input type="text" class="form-control" [(ngModel)]="palabraGuardar"  id="titulo" name="titulo" [ngModelOptions]="{standalone: true}"required #titulo="ngModel" >
+  <button  type="button" class="btn btn-success m-2" (click)="guardarPalabra()">GUARDAR PALABRA</button>
+  <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+    <div *ngIf="titulo.errors.required">la palabra es requerida</div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="abrir-modal animation fadein">
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-center">
+            <h5 class="modal-title text-light">{{ titulo }}</h5>
+            <button (click)="activeModal.dismiss('Cross click')" type="button" class="close text-light"
+              data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="form-row">
+                <div class="col-12">
+                  <label for="nombre">Nombre Video</label>
+                  <input type="text" class="form-control" [(ngModel)]="enlace.nombre" id="nombre" name="nombre" required #nombre="ngModel">
+                  <div>
+                    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                      <div *ngIf="nombre.errors.required">El nombre es requerido</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-12">
+                  <label for="url">ID URL Video(enlace YouTube)</label>
+                  <input type="text" class="form-control" [(ngModel)]="enlace.url" id="url" name="url" required #url="ngModel">
+                  <div>
+                    <div class="alert alert-danger" *ngIf="url.invalid && (url.dirty || url.touched)">
+                      <div *ngIf="url.errors.required">El ID del video es requerido o es invalido el ingresado</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-12">
+                  <div class="mx-auto">
+                    <button class= "btn btn-primary" (click)="agregarEnlace()">Agregar Enlace</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer bg-dark">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

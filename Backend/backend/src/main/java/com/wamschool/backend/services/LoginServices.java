@@ -12,4 +12,8 @@ public interface LoginServices {
 	public Usuario registrarUsuario(Usuario user);
 	
 	public Role extraerRole(String name);
+	
+	public Boolean containsEmailUser(String email);
+	
+	public Usuario findByEmail(String email);
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +22,12 @@ import com.wamschool.backend.model.Roles;
 import com.wamschool.backend.model.Usuario;
 import com.wamschool.backend.services.LoginServices;
 
+
+/** 
+ * Esta clase permite manejar los servicios relacionados con actividad
+ * @author WamSchool
+ * @version 1.0
+*/
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/login")
@@ -27,7 +35,15 @@ public class LoginController {
 	
 	@Autowired
 	LoginServices servicio;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
+	/**
+	 * Metodo que permite crear un rol en la base de datos
+	 * @param tipo el rol puede ser el tipo usuario o admin
+	 */
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/crearRole")
 	public void crearRoles(Long tipo) {
 		
@@ -40,64 +56,53 @@ public class LoginController {
 		servicio.agregarRole(role);;
 	}
 	
-	@PostMapping("/signIn")
-	public ResponseEntity<?> signIn(@RequestBody Usuario usuario){
-		
-		Map<String, Object> response = new HashMap<>();
-		try {
-			if(usuario != null && usuario.getEmail() != null && usuario.getPassword() != null) {
-				Usuario user = servicio.autenticarUsuario(usuario.getEmail());
-				if(user != null) {
-					response.put("data","token");
-					response.put("mensaje","Se ha autenticado el usuario");
-					return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
-				}
-			}
-
-		}catch(DataAccessException ex) {
-			response.put("data",null);
-			response.put("mensaje","El usuario no se encuentra registrado");
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		//creamos el json token 
-		response.put("data",null);
-		response.put("mensaje","No se ha podido autenticar el usuario o no existe");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
-	}
-	
+	/**
+	 * Metodo que permite registrar un usuaario en la base de datos 
+	 * @param usuario usuario que se desea crear 
+	 * @return
+	 */
 	@PostMapping("/registrarUsuario")
 	public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
 		
 		Map<String, Object> response = new HashMap<>();
 		try {			
-			Usuario user = servicio.registrarUsuario(usuario);
-			if(user != null) {
-				
-				//le agregamos el rol de usuario
-				Role role = servicio.extraerRole(Roles.ROLE_USER.toString());
-				if(role != null) {
-					List<Role> roles = new ArrayList<Role>();
-					roles.add(role);
-					usuario.setRoles(roles);
-					user.setRoles(roles);	
-					servicio.registrarUsuario(user);
+			if(usuario != null && usuario.getEmail() != null) {
+				if(!servicio.containsEmailUser(usuario.getEmail())) {
+					usuario.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
+					usuario.setEnabled(true);
+					Usuario user = servicio.registrarUsuario(usuario);
+					if(user != null) {
+						//le agregamos el rol de usuario
+						Role role = servicio.extraerRole(Roles.ROLE_USER.toString());
+						if(role != null) {
+							List<Role> roles = new ArrayList<Role>();
+							roles.add(role);
+							usuario.setRoles(roles);
+							user.setRoles(roles);	
+							servicio.registrarUsuario(user);
+							//creamos el json token 
+							response.put("data","token");
+							response.put("mensaje","Se ha registrado el usuario Exitosamente!");
+							return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+						}
+					}
+				}else {
+					//el email ya se encuentra registrado en la DB 
+					response.put("data",null);
+					response.put("mensaje","El email ya se encuentra registrado");
+					return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 				}
-			}else {
-				//el email ya se encuentra registrado en la DB 
-				response.put("data",null);
-				response.put("mensaje","El email ya se encuentra registrado");
-				return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+				
 			}
+					
 		}catch(DataAccessException e) {
 			response.put("data",null);
 			response.put("mensaje","Error en la DB");
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		//creamos el json token 
-		response.put("data","token");
-		response.put("mensaje","Se ha registrado el usuario Exitosamente!");
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			response.put("data","token");
+			response.put("mensaje","Problemas con los datos enviados");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CONFLICT);
 	}
 	
 }

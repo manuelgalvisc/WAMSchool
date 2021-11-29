@@ -2,7 +2,12 @@ package com.wamschool.backend.services;
 
 import com.wamschool.backend.model.Categoria;
 import com.wamschool.backend.model.ObjetoAprendizaje;
+import com.wamschool.backend.model.Seccion;
+
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ObjetoAprendizajeServices {
 
@@ -16,9 +21,15 @@ public interface ObjetoAprendizajeServices {
 	
 	public List<ObjetoAprendizaje> listarTodosOA();
 	
-	public List<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias);
+	public Page<ObjetoAprendizaje> listarOAPorCategorias(List<Categoria> categorias,Pageable pageable);
 	
-	public List<ObjetoAprendizaje> listarPorAproximacionText(String text);
+	public Page<ObjetoAprendizaje> listarPorAproximacionText(String text,Pageable pageable);
 	
 	public Categoria extraerCategoria(String nombre);
+	
+	public List<Categoria> listarCategorias();
+	
+	public Page<ObjetoAprendizaje> paginaListaOA(Pageable pageable);
+	
+	
 }

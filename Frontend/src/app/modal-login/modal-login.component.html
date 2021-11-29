@@ -12,7 +12,7 @@
           <div class="container">
             <div class="row p-3 mb-2">
               <div class="col-sm">
-                <input type="email" class="form-control" [(ngModel)]="user.email" placeholder="Correo" name="email" required email #email="ngModel">
+                <input type="email" class="form-control" [(ngModel)]="user.email" placeholder="Correo" name="email" autofocus required email #email="ngModel">
                 <div>
                   <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                     <div *ngIf="email.errors.required">El email es requerido</div>
@@ -24,22 +24,21 @@
             <div class="row p-3 mb-2">
               <div class="col-sm">
                 <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="Contraseña" name="password" required #password="ngModel">
-                <div class="alert alert-danger" *ngIf="password.dirty || password.touched">
+                <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
                   <div *ngIf="password.errors.required">El password es requerido</div>
                 </div>
               </div>
             </div>
-            <div class="row p-3 mb-2">
-              <div class="col-sm" style="text-align: center;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal m-3">Ingresar</button>
-                <button (click)="cerrarModal()" type="button" class="btn btn-danger m-3" data-dismiss="modal">Cerrar</button>
+            <div class="row p-3">
+              <div class="mx-auto" style="text-align: center;">
+                <button type="button" class="btn btn-success m-3" data-dismiss="modal" (click)="login()">Ingresar</button>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer bg-dark">
           <p class="text-light">No tienes cuenta registrate</p>
-          <button type="button" class="btn btn-light m-3" data-dismiss="modal">Registrarse</button>
+          <button type="button" (click)="cerrarModal()" class="btn btn-light m-3" routerLink="/registrar_usuario" data-dismiss="modal">Registrarse</button>
         </div>
       </div>
     </div>

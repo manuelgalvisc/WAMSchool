@@ -19,7 +19,7 @@ public class Categoria implements Serializable, Cloneable{
 	private static final long serialVersionUID = 8123229834156676271L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CAT_ID")
 	private Long id;
 	

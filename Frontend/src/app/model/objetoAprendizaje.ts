@@ -1,4 +1,6 @@
 import { Categoria } from './categoria';
+import { User } from './user';
+import { Seccion } from './seccion';
 
 export class ObjetoAprendizaje {
   id: number;
@@ -6,8 +8,9 @@ export class ObjetoAprendizaje {
   descripcion: string;
   fechaCreacion: string;
   fechaActualizacion: string;
-  propietario: string;
-  estado: boolean;
-  categoria: Categoria;
+  propietario: User;
+  estadoOA: string;
+  categorias: Categoria[];
   visitas: number;
+  secciones: Seccion[];
 }

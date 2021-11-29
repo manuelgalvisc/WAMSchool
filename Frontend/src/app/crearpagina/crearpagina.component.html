@@ -1,0 +1,69 @@
+
+<div class="container">
+  <div class="container centrarTexto">
+    <h5 style="color: cadetblue">SECCION: {{dataService.seccionDTO.nombreSeccion}} </h5>
+    <h3 style="color: brown;">CREAR PAGINA</h3>
+  </div>
+  <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="titulo">Titulo:</label>
+                <input type="text" class="form-control" [(ngModel)]="pagina.nombrePagina" id="titulo" name="titulo"
+                    [ngModelOptions]="{standalone: true}" required #titulo="ngModel">
+                <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+                    <div *ngIf="titulo.errors.required">El nombre es requerido</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <app-editor-texto (editorTexto)="cargaContenido($event)"></app-editor-texto>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6">
+            <button type="button" class="btn btn-danger btn-lg btn-block" (click)="mostrarModal()"><i class="fab fa-youtube"></i> Enlazar You Tube</button>
+            <div *ngIf = "listaVideos.length === 0" class="text-center">
+                No hay videos agregados para esta pagina
+            </div>
+            <div *ngIf = "listaVideos.length > 0">
+                Videos Enlazados:
+                <ul class="list-group">
+                    <li *ngFor="let se of listaVideos; let c =  index;" class="list-group-item ">{{se.nombre + ' | Url = ' + se.url}}
+                        <button class="btn float-right" (click)="abrilModalYOUTUBE(se)"><i class="fas fa-file-video"></i></button>
+                        <button class="btn float-right" (click)="eliminarEnlace(c)"><i class="fas fa-trash-alt"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="abrilModalCargaArchivo()"><i class="far fa-file-pdf"></i> Enlazar Documentos</button>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+    <div class="row  mt-2">
+        <div class="col-6">
+            <button type="button" (click) = "mostrarConte()" class="btn btn-primary btn-lg btn-block">Visualizar Contenido</button>
+        </div>
+        <div class="col-6">
+            <button type="button" (click) = "crearPagina()" class="btn btn-primary btn-lg btn-block">Crear Página</button>
+        </div>
+    </div>
+    <div *ngIf = "mostrarContenido" class="row">
+        <div class="col-12 border border-success">
+            <quill-view-html [content]="texto" theme="snow" class="mb-5"> </quill-view-html>
+        </div>
+    </div>
+    <div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
